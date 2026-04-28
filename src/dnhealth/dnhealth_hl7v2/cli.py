@@ -16,7 +16,7 @@ from pathlib import Path
 
 from dnhealth.errors import HL7v2ParseError
 from dnhealth.util.io import read_stdin, read_text_file, write_json_file, write_stdout
-from dnhealth.dnhealth_hl7v2.jsoncodec import message_to_json
+from dnhealth.dnhealth_hl7v2.jsoncodec import json_to_message, message_to_json
 from dnhealth.dnhealth_hl7v2.parser import parse_hl7v2
 from dnhealth.dnhealth_hl7v2.serializer import serialize_hl7v2
 from dnhealth.dnhealth_hl7v2.ack import generate_ack
@@ -103,6 +103,26 @@ def cmd_json(args):
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
 
+    except Exception as e:
+        print(f"Unexpected error: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+def cmd_from_json(args):
+    """JSON-to-ER7 conversion command."""
+    try:
+        if args.input == "-" or args.input is None:
+            text = read_stdin()
+        else:
+            text = read_text_file(args.input)
+
+        message = json_to_message(text)
+        output_text = serialize_hl7v2(message, normalize=args.normalize)
+
+        if args.output:
+            Path(args.output).write_text(output_text, encoding="utf-8")
+        else:
+            write_stdout(output_text)
     except Exception as e:
         print(f"Unexpected error: {e}", file=sys.stderr)
         sys.exit(1)
@@ -660,11 +680,18 @@ def main():
     pretty_parser.add_argument("-o", "--output", help="Output file (default: stdout)")
 
     # JSON command
-    json_parser = subparsers.add_parser("json", help="Convert HL7 v2 message to JSON")
+    json_parser = subparsers.add_parser("json", aliases=["to-json"], help="Convert HL7 v2 message to JSON")
     json_parser.add_argument("input", nargs="?", help="Input file (use '-' or omit for stdin)")
     json_parser.add_argument("-o", "--output", help="Output file (default: stdout)")
     json_parser.add_argument("--indent", type=int, default=2, help="JSON indentation (default: 2)")
     json_parser.add_argument("--compact", action="store_true", help="Output compact JSON (no pretty-print)")
+
+    # From JSON command
+    from_json_parser = subparsers.add_parser("from-json", help="Convert JSON to HL7 v2 ER7")
+    from_json_parser.add_argument("input", nargs="?", help="Input file (use '-' or omit for stdin)")
+    from_json_parser.add_argument("-o", "--output", help="Output file (default: stdout)")
+    from_json_parser.add_argument("--normalize", action="store_true", default=True, help="Normalize output format (default: True)")
+    from_json_parser.add_argument("--no-normalize", dest="normalize", action="store_false", help="Do not normalize output format")
 
     # Validate command
     validate_parser = subparsers.add_parser("validate", help="Validate HL7 v2 message")
@@ -758,8 +785,10 @@ def main():
     if args.command == "pretty":
         cmd_pretty(args)
 
-    elif args.command == "json":
+    elif args.command in {"json", "to-json"}:
         cmd_json(args)
+    elif args.command == "from-json":
+        cmd_from_json(args)
     elif args.command == "validate":
         cmd_validate(args)
     elif args.command == "roundtrip":

@@ -264,7 +264,7 @@ def serialize_hl7v2(message: Message, max_line_length: int = 32767, normalize: b
     # Join with \r (HL7 v2 standard line ending)
     result = "\r".join(lines) + "\r"
     
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] HL7v2 message serialization completed successfully")
     
     return result
-
