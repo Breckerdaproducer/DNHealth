@@ -14,13 +14,13 @@ Always includes timestamps in log messages.
 import logging
 import sys
 from datetime import datetime
-from typing import Optional
+from typing import Optional, TextIO
 
 
 def setup_logging(
     level: int = logging.INFO,
     format_string: Optional[str] = None,
-    stream: Optional[sys.stdout] = None,
+    stream: Optional[TextIO] = None,
 ) -> logging.Logger:
     """
     Set up logging for DNHealth library.
@@ -93,4 +93,3 @@ def get_current_time() -> str:
         Current time as string in format 'YYYY-MM-DD HH:MM:SS'
     """
     return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
