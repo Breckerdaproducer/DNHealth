@@ -13,7 +13,7 @@ name = "dnhealth"
 version = "0.1.0"
 description = "Production-grade Python library for HL7v2, HL7v3, FHIR R4, and FHIR R5 healthcare integration standards"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 license = {text = "Dual-licensed under the DNAi Free License v1.1 and the DNAi Commercial License v1.1. See LICENSE and LICENSE-COMMERCIAL files in the project root for details."}
 authors = [
     {name = "DNHealth Contributors"},
@@ -25,8 +25,6 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: Other/Proprietary License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
