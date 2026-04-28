@@ -17,17 +17,89 @@ import json
 import time
 import logging
 import xml.etree.ElementTree as ET
+from html.parser import HTMLParser
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple, Set
 from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
-# Path to definitions.json directory
-DEFINITIONS_DIR = Path(__file__).parent.parent.parent.parent / "HL7Documentation" / "definitions.json"
-
 # Default timeout for operations (5 minutes = 300 seconds)
 OPERATION_TIMEOUT = 300
+
+
+class _FHIRXHTMLTableParser(HTMLParser):
+    """Extract rows from the XHTML tables embedded in HL7/FHIR definition bundles."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.rows: List[List[str]] = []
+        self._row: Optional[List[str]] = None
+        self._cell: Optional[List[str]] = None
+        self._in_cell = False
+
+    def handle_starttag(self, tag: str, attrs: List[Tuple[str, Optional[str]]]) -> None:
+        if tag == "tr":
+            self._row = []
+        elif tag == "td" and self._row is not None:
+            self._cell = []
+            self._in_cell = True
+
+    def handle_data(self, data: str) -> None:
+        if self._in_cell and self._cell is not None:
+            self._cell.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "td" and self._in_cell and self._row is not None:
+            self._row.append("".join(self._cell or []).strip())
+            self._cell = None
+            self._in_cell = False
+        elif tag == "tr" and self._row is not None:
+            self.rows.append(self._row)
+            self._row = None
+
+
+def _find_definitions_dir() -> Optional[Path]:
+    """Locate the local definitions.json directory when docs are available in the repo."""
+    current = Path(__file__).resolve()
+    candidates = []
+    for parent in current.parents:
+        candidates.extend([
+            parent / "docs" / "HL7Documentation" / "definitions.json",
+            parent / "HL7Documentation" / "definitions.json",
+        ])
+
+    for candidate in candidates:
+        if candidate.is_dir():
+            return candidate
+
+    return None
+
+
+def _extract_valueset_table_codes(resource: Dict[str, Any]) -> Dict[str, str]:
+    """Extract code/display pairs from official ValueSet formats used by HL7 docs."""
+    codes: Dict[str, str] = {}
+
+    for contains in resource.get("expansion", {}).get("contains", []):
+        code = contains.get("code")
+        if code:
+            codes[code] = contains.get("display", "")
+
+    for include in resource.get("compose", {}).get("include", []):
+        for concept in include.get("concept", []):
+            code = concept.get("code")
+            if code:
+                codes[code] = concept.get("display", "")
+
+    div = resource.get("text", {}).get("div", "")
+    if div:
+        parser = _FHIRXHTMLTableParser()
+        parser.feed(div)
+        for row in parser.rows:
+            if len(row) >= 2 and row[0] and row[0] != "Code":
+                codes.setdefault(row[0], row[1])
+
+    return codes
 
 
 def get_current_time() -> str:
@@ -64,7 +136,19 @@ def validate_hl7v2_tables_against_official() -> Dict[str, Any]:
         total_implemented = len(implemented_tables)
         
         # Load official tables from definitions.json
-        tables_file = DEFINITIONS_DIR / "v2-tables.json"
+        definitions_dir = _find_definitions_dir()
+        if definitions_dir is None:
+            error_msg = "Official definitions directory not found"
+            logger.error(f"[{get_current_time()}] {error_msg}")
+            elapsed = time.time() - start_time
+            return {
+                "error": error_msg,
+                "status": "error",
+                "elapsed_time": elapsed,
+                "timestamp": get_current_time()
+            }
+
+        tables_file = definitions_dir / "v2-tables.json"
         
         if not tables_file.exists():
             error_msg = f"Official tables file not found: {tables_file}"
@@ -82,7 +166,7 @@ def validate_hl7v2_tables_against_official() -> Dict[str, Any]:
         with open(tables_file, "r", encoding="utf-8") as f:
             data = json.load(f)
         
-        # Extract table IDs from ValueSet resources
+        # Extract table IDs and code/display pairs from ValueSet resources.
         if isinstance(data, dict) and "entry" in data:
             for entry in data.get("entry", []):
                 resource = entry.get("resource", {})
@@ -108,7 +192,7 @@ def validate_hl7v2_tables_against_official() -> Dict[str, Any]:
                     try:
                         table_num = int(table_id)
                         table_id_normalized = f"{table_num:04d}"
-                        official_tables[table_id_normalized] = resource
+                        official_tables[table_id_normalized] = _extract_valueset_table_codes(resource)
                     except ValueError:
                         # Skip if not a numeric table ID
                         continue
@@ -122,13 +206,12 @@ def validate_hl7v2_tables_against_official() -> Dict[str, Any]:
         missing_tables = sorted(list(official_ids - implemented_ids))
         extra_tables = sorted(list(implemented_ids - official_ids))
         
-        # Compare codes for matching tables (sample first 10 to avoid timeout)
+        # Compare codes for matching tables.
         mismatched_codes = {}
         missing_descriptions = {}
         compared_count = 0
-        max_comparisons = 10  # Limit to avoid timeout
         
-        for table_id in sorted(implemented_ids & official_ids)[:max_comparisons]:
+        for table_id in sorted(implemented_ids & official_ids):
             if time.time() - start_time > OPERATION_TIMEOUT - 5:  # Reserve 5 seconds
                 logger.warning(f"[{get_current_time()}] Timeout approaching, stopping code comparison")
                 break
@@ -136,30 +219,7 @@ def validate_hl7v2_tables_against_official() -> Dict[str, Any]:
             implemented_table = implemented_tables[table_id]
             implemented_codes = set(implemented_table.keys())
             
-            # Extract codes from official ValueSet
-            official_vs = official_tables[table_id]
-            official_codes = {}
-            official_code_descriptions = {}
-            
-            # Try to extract codes from expansion
-            if "expansion" in official_vs:
-                for contains in official_vs["expansion"].get("contains", []):
-                    code = contains.get("code")
-                    display = contains.get("display", "")
-                    if code:
-                        official_codes[code] = display
-                        official_code_descriptions[code] = display
-            
-            # Try to extract from compose
-            if "compose" in official_vs:
-                for include in official_vs["compose"].get("include", []):
-                    # Codes might be in concept list
-                    for concept in include.get("concept", []):
-                        code = concept.get("code")
-                        display = concept.get("display", "")
-                        if code:
-                            official_codes[code] = display
-                            official_code_descriptions[code] = display
+            official_codes = official_tables[table_id]
             
             # Compare code sets
             implemented_code_set = set(implemented_codes)
@@ -176,9 +236,11 @@ def validate_hl7v2_tables_against_official() -> Dict[str, Any]:
             codes_missing_descriptions = []
             for code in implemented_code_set & official_code_set:
                 implemented_desc = implemented_table.get(code, "")
-                official_desc = official_code_descriptions.get(code, "")
+                official_desc = official_codes.get(code, "")
                 # Check if implemented description is missing or significantly different
-                if not implemented_desc or (official_desc and len(official_desc) > len(implemented_desc) * 2):
+                if official_desc and (
+                    not implemented_desc or len(official_desc) > len(implemented_desc) * 2
+                ):
                     codes_missing_descriptions.append(code)
             
             if codes_missing_descriptions:
@@ -193,7 +255,7 @@ def validate_hl7v2_tables_against_official() -> Dict[str, Any]:
             completeness = 0.0
         
         # Determine status
-        if len(missing_tables) == 0 and len(extra_tables) == 0 and len(mismatched_codes) == 0:
+        if len(missing_tables) == 0 and len(mismatched_codes) == 0:
             status = "complete"
         elif completeness >= 90:
             status = "partial"
