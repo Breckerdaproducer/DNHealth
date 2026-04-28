@@ -26694,6 +26694,13 @@ STANDARD_TABLES: Dict[str, Dict[str, str]] = {
     "2.7-0360": TABLE_2_7_0360,
 }
 
+try:
+    from dnhealth.dnhealth_hl7v2.official_tables import OFFICIAL_HL7V2_TABLES
+
+    STANDARD_TABLES.update(OFFICIAL_HL7V2_TABLES)
+except ImportError:
+    logger.debug("Official HL7 v2 table overlay is not available")
+
 
 def get_table(table_id: str) -> Optional[Dict[str, str]]:
     """
@@ -27104,4 +27111,3 @@ def compare_tables_with_official_definitions(
             "elapsed_time": elapsed,
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
-
