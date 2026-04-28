@@ -15,6 +15,33 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 
+class HL7Table(dict):
+    """Dictionary-compatible HL7 table with a descriptive label."""
+
+    def __init__(self, table_id: str, codes: Dict[str, str]):
+        super().__init__(codes)
+        self.table_id = table_id
+        self.description = f"HL7 v2 table {table_id}"
+
+
+class TableValidationResult(tuple):
+    """Tuple-compatible validation result with boolean semantics."""
+
+    def __new__(cls, is_valid: bool, error_message: Optional[str]):
+        return super().__new__(cls, (is_valid, error_message))
+
+    @property
+    def is_valid(self) -> bool:
+        return self[0]
+
+    @property
+    def error_message(self) -> Optional[str]:
+        return self[1]
+
+    def __bool__(self) -> bool:
+        return self.is_valid
+
+
 # Standard HL7 v2.x Tables
 # Table 0001 - Administrative Sex
 TABLE_0001_ADMINISTRATIVE_SEX: Dict[str, str] = {
@@ -26702,7 +26729,7 @@ except ImportError:
     logger.debug("Official HL7 v2 table overlay is not available")
 
 
-def get_table(table_id: str) -> Optional[Dict[str, str]]:
+def get_table(table_id: str) -> Optional[HL7Table]:
     """
     Get standard table by ID.
     
@@ -26710,9 +26737,12 @@ def get_table(table_id: str) -> Optional[Dict[str, str]]:
         table_id: Table identifier (e.g., "0001", "0002", "0008")
         
     Returns:
-        Dictionary mapping codes to descriptions, or None if table not found
+        Dictionary-compatible table mapping codes to descriptions, or None if table not found
     """
-    return STANDARD_TABLES.get(table_id)
+    table = STANDARD_TABLES.get(table_id)
+    if table is None:
+        return None
+    return table if isinstance(table, HL7Table) else HL7Table(table_id, table)
 
 
 def get_table_codes(table_id: str) -> List[str]:
@@ -26744,7 +26774,7 @@ def get_table_description(table_id: str, code: str) -> Optional[str]:
     return table.get(code) if table else None
 
 
-def validate_table_code(table_id: str, code: str) -> tuple[bool, Optional[str]]:
+def validate_table_code(table_id: str, code: str) -> TableValidationResult:
     """
     Validate a code against a standard table.
     
@@ -26753,18 +26783,18 @@ def validate_table_code(table_id: str, code: str) -> tuple[bool, Optional[str]]:
         code: Code to validate
         
     Returns:
-        Tuple of (is_valid, error_message)
+        Tuple-compatible result of (is_valid, error_message)
         - is_valid: True if code is valid, False otherwise
         - error_message: None if valid, error description if invalid
     """
     table = get_table(table_id)
     if table is None:
-        return False, f"Table {table_id} not found"
+        return TableValidationResult(False, f"Table {table_id} not found")
     
     if code in table:
-        return True, None
+        return TableValidationResult(True, None)
     
-    return False, f"Code '{code}' is not valid for table {table_id}"
+    return TableValidationResult(False, f"Code '{code}' is not valid for table {table_id}")
 
 
 def add_table(table_id: str, codes: Dict[str, str]):

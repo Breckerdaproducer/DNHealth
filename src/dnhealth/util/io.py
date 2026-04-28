@@ -18,6 +18,10 @@ from typing import Any, Dict, Optional, Union
 logger = logging.getLogger(__name__)
 
 
+def _current_time() -> str:
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+
 def read_text_file(file_path: Union[str, Path]) -> str:
     """
     Read a text file and return its contents.
@@ -36,7 +40,7 @@ def read_text_file(file_path: Union[str, Path]) -> str:
         raise IOError(f"File not found: {file_path}")
     result = path.read_text(encoding="utf-8")
     
-    logger.debug(f"[{current_time}] Text file read operation completed: {file_path}")
+    logger.debug(f"[{_current_time()}] Text file read operation completed: {file_path}")
     
     return result
 
@@ -56,7 +60,7 @@ def write_text_file(file_path: Union[str, Path], content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
     
-    logger.debug(f"[{current_time}] Text file write operation completed: {file_path}")
+    logger.debug(f"[{_current_time()}] Text file write operation completed: {file_path}")
 
 
 def read_json_file(file_path: Union[str, Path]) -> Dict[str, Any]:
@@ -79,7 +83,7 @@ def read_json_file(file_path: Union[str, Path]) -> Dict[str, Any]:
     text = path.read_text(encoding="utf-8")
     result = json.loads(text)
     
-    logger.debug(f"[{current_time}] JSON file read operation completed: {file_path}")
+    logger.debug(f"[{_current_time()}] JSON file read operation completed: {file_path}")
     
     return result
 
@@ -104,7 +108,7 @@ def write_json_file(
     json_str = json.dumps(data, indent=indent, ensure_ascii=False)
     path.write_text(json_str, encoding="utf-8")
     
-    logger.debug(f"[{current_time}] JSON file write operation completed: {file_path}")
+    logger.debug(f"[{_current_time()}] JSON file write operation completed: {file_path}")
 
 
 def read_xml_file(file_path: Union[str, Path]) -> str:
@@ -146,7 +150,7 @@ def read_stdin() -> str:
     """
     result = sys.stdin.read()
     
-    logger.debug(f"[{current_time}] Stdin read operation completed")
+    logger.debug(f"[{_current_time()}] Stdin read operation completed")
     
     return result
 
@@ -161,4 +165,4 @@ def write_stdout(content: str) -> None:
     sys.stdout.write(content)
     sys.stdout.flush()
     
-    logger.debug(f"[{current_time}] Stdout write operation completed")
+    logger.debug(f"[{_current_time()}] Stdout write operation completed")
