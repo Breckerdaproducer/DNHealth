@@ -90,7 +90,7 @@ class ObservationCodeCoding:
     userSelected: Optional[bool] = None  # Indicates that this coding was chosen by a user directly - e.g. off a pick list of available item...
 
 @dataclass
-class ObservationValue[x]:
+class ObservationValueX:
     """
     ObservationValue[x] nested class.
     """
