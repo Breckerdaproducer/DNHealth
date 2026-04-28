@@ -22,9 +22,6 @@ logger = logging.getLogger(__name__)
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 def validate_msh_segment(segment: Segment) -> Tuple[bool, List[str]]:
     """
     Validate MSH (Message Header) segment.
@@ -126,9 +123,6 @@ def validate_msh_segment(segment: Segment) -> Tuple[bool, List[str]]:
     else:
         logger.error(f"[{current_time}] MSH segment validation failed with {len(errors)} error(s)")
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     return is_valid, errors
 
@@ -200,9 +194,6 @@ def validate_msa_segment(segment: Segment) -> Tuple[bool, List[str]]:
     
     is_valid = len(errors) == 0
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     if is_valid:
         logger.info(f"[{current_time}] MSA segment validation passed")
     else:
@@ -292,9 +283,6 @@ def validate_evn_segment(segment: Segment) -> Tuple[bool, List[str]]:
             # TS format: YYYYMMDDHHMMSS[.SSSS][+/-ZZZZ]
             if len(dt_value) < 8:  # Minimum YYYYMMDD
 
-                    # Log completion timestamp at end of operation
-                    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    logger.info(f"Current Time at End of Operations: {current_time}")
                 errors.append(f"EVN-6 (Event Occurred) format appears invalid (minimum length 8, got {len(dt_value)})")
                 logger.warning(f"[{current_time}] EVN segment validation warning: EVN-6 format may be invalid at the end of the operations")
     
@@ -352,9 +340,6 @@ def validate_pid_segment(segment: Segment) -> Tuple[bool, List[str]]:
     if len(segment.fields) >= 8:
         pid_8 = segment.field(8)
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         if pid_8 and pid_8.value():
             sex_code = pid_8.value()
             valid_codes = ["M", "F", "O", "U"]  # Table 0001: M=Male, F=Female, O=Other, U=Unknown
@@ -416,9 +401,6 @@ def validate_pd1_segment(segment: Segment) -> Tuple[bool, List[str]]:
                 errors.append(f"PD1-9 (Separate Bill) must be one of {valid_codes} (Table 0136), got {separate_bill}")
                 logger.warning(f"[{current_time}] PD1 segment validation warning: invalid separate bill code")
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     # Validate PD1-12 (Protection Indicator) if present - should be from Table 0136
     if len(segment.fields) >= 12:
@@ -471,9 +453,6 @@ def validate_pv1_segment(segment: Segment) -> Tuple[bool, List[str]]:
     # Check PV1-2 (Patient Class) - required
     if len(segment.fields) < 2:
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         errors.append("PV1 segment missing required field PV1-2 (Patient Class)")
         logger.error(f"[{current_time}] PV1 segment validation failed: missing PV1-2")
     else:
@@ -653,9 +632,6 @@ def validate_obr_segment(segment: Segment) -> Tuple[bool, List[str]]:
     
     # Validate OBR-8 (Observation End Date/Time) format if present
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     if len(segment.fields) >= 8:
         obr_8 = segment.field(8)
         if obr_8 and obr_8.value():
@@ -732,9 +708,6 @@ def validate_orc_segment(segment: Segment) -> Tuple[bool, List[str]]:
             # XX (Order Changed, unsolicited)
             order_control = orc_1.value()
 
-                # Log completion timestamp at end of operation
-                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                logger.info(f"Current Time at End of Operations: {current_time}")
             # Basic validation - should not be empty (already checked above)
             # Note: We don't strictly validate against table codes here as they can be extended
     
@@ -772,9 +745,6 @@ def validate_nte_segment(segment: Segment) -> Tuple[bool, List[str]]:
     Validate NTE (Notes and Comments) segment.
     
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     According to HL7 v2.x specification, NTE has all optional fields:
     - NTE-1 (Set ID - NTE) - optional
     - NTE-2 (Source of Comment) - optional, from Table 0105
@@ -824,9 +794,6 @@ def validate_al1_segment(segment: Segment) -> Tuple[bool, List[str]]:
     - AL1-6 (Identification Date) - optional, DT format
     
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     An empty AL1 segment is valid.
     
     Args:
@@ -887,9 +854,6 @@ def validate_dg1_segment(segment: Segment) -> Tuple[bool, List[str]]:
         
     Returns:
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         Tuple of (is_valid, list_of_errors)
     """
     errors = []
@@ -939,9 +903,6 @@ def validate_pr1_segment(segment: Segment) -> Tuple[bool, List[str]]:
     Validate PR1 (Procedures) segment.
     
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     According to HL7 v2.x specification, PR1 has all optional fields:
     - PR1-1 (Set ID - PR1) - optional
     - PR1-2 (Procedure Coding Method) - optional, from Table 0089
@@ -1015,9 +976,6 @@ def validate_ub1_segment(segment: Segment) -> Tuple[bool, List[str]]:
         errors.append(f"UB1 segment validation: expected segment name UB1, got {segment.name}")
         logger.error(f"[{current_time}] UB1 segment validation failed: wrong segment name")
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         return False, errors
     
     # All fields are optional, so empty segment is valid
@@ -1052,9 +1010,6 @@ def validate_ub2_segment(segment: Segment) -> Tuple[bool, List[str]]:
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.info(f"[{current_time}] Starting UB2 segment validation")
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     # Check segment name
     if segment.name != "UB2":
@@ -1115,9 +1070,6 @@ def validate_rol_segment(segment: Segment) -> Tuple[bool, List[str]]:
     """
     Validate ROL (Role) segment.
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     According to HL7 v2.x specification, ROL has all optional fields:
     - ROL-1 (Role Instance ID) - optional
@@ -1158,9 +1110,6 @@ def validate_rol_segment(segment: Segment) -> Tuple[bool, List[str]]:
     
     # Validate ROL-6 (Role End Date/Time) format if present
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     if len(segment.fields) >= 6:
         rol_6 = segment.field(6)
         if rol_6 and rol_6.value():
@@ -1196,9 +1145,6 @@ def validate_ctd_segment(segment: Segment) -> Tuple[bool, List[str]]:
     - CTD-7 (Contact Identifiers) - optional, unlimited repetitions
     
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     An empty CTD segment is valid.
     
     Args:
@@ -1234,9 +1180,6 @@ def validate_rmi_segment(segment: Segment) -> Tuple[bool, List[str]]:
     Validate RMI (Risk Management Incident) segment.
     
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     According to HL7 v2.x specification, RMI is used for risk management incident information.
     All fields are typically optional as this segment contains incident information
     that may vary by implementation.
@@ -1272,9 +1215,6 @@ def validate_rmi_segment(segment: Segment) -> Tuple[bool, List[str]]:
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 def validate_db1_segment(segment: Segment) -> Tuple[bool, List[str]]:
     """
     Validate DB1 (Disability) segment.
@@ -1311,9 +1251,6 @@ def validate_db1_segment(segment: Segment) -> Tuple[bool, List[str]]:
         logger.error(f"[{current_time}] DB1 segment validation failed with {len(errors)} error(s) at the end of the operations")
     
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return is_valid, errors
 
 
@@ -1350,9 +1287,6 @@ def validate_ais_segment(segment: Segment) -> Tuple[bool, List[str]]:
     if is_valid:
         logger.info(f"[{current_time}] AIS segment validation passed")
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     else:
         logger.error(f"[{current_time}] AIS segment validation failed with {len(errors)} error(s)")
     
@@ -1389,9 +1323,6 @@ def validate_aig_segment(segment: Segment) -> Tuple[bool, List[str]]:
     # All fields are optional, so empty segment is valid
     # No required field validation needed
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     is_valid = len(errors) == 0
     if is_valid:
@@ -1432,9 +1363,6 @@ def validate_ail_segment(segment: Segment) -> Tuple[bool, List[str]]:
     # All fields are optional, so empty segment is valid
     # No required field validation needed
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     is_valid = len(errors) == 0
     if is_valid:
@@ -1499,9 +1427,6 @@ def validate_sch_segment(segment: Segment) -> Tuple[bool, List[str]]:
     
     An empty SCH segment is valid.
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     Args:
         segment: HL7 v2 segment to validate
@@ -1567,9 +1492,6 @@ def validate_rxd_segment(segment: Segment) -> Tuple[bool, List[str]]:
         rxd_1 = segment.field(1)
         if not rxd_1 or not rxd_1.value():
 
-                # Log completion timestamp at end of operation
-                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                logger.info(f"Current Time at End of Operations: {current_time}")
             errors.append("RXD segment missing required field RXD-1 (Dispense Sub-ID Counter)")
             logger.error(f"[{current_time}] RXD segment validation failed: RXD-1 is empty")
     
@@ -1703,9 +1625,6 @@ def validate_rxg_segment(segment: Segment) -> Tuple[bool, List[str]]:
         errors.append("RXG segment missing required field RXG-1 (Give Sub-ID Counter)")
         logger.error(f"[{current_time}] RXG segment validation failed: missing RXG-1")
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     else:
         rxg_1 = segment.field(1)
         if not rxg_1 or not rxg_1.value():
@@ -1830,9 +1749,6 @@ def validate_rxr_segment(segment: Segment) -> Tuple[bool, List[str]]:
     Returns:
         Tuple of (is_valid, list_of_errors)
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     """
     errors = []
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -1869,9 +1785,6 @@ def validate_txa_segment(segment: Segment) -> Tuple[bool, List[str]]:
     
     According to HL7 v2.x specification, TXA segment fields are all optional.
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     This segment is used to provide header information for transcribed documents.
     
     Note: TXA segment definition is not explicitly found in profiles.py,
@@ -1908,9 +1821,6 @@ def validate_txa_segment(segment: Segment) -> Tuple[bool, List[str]]:
 
 def validate_cdm_segment(segment: Segment) -> Tuple[bool, List[str]]:
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     """
     Validate CDM (Charge Description Master) segment.
     
@@ -1947,9 +1857,6 @@ def validate_cdm_segment(segment: Segment) -> Tuple[bool, List[str]]:
         logger.error(f"[{current_time}] CDM segment validation failed with {len(errors)} error(s) at the end of the operations")
     
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return is_valid, errors
 
 
@@ -2024,9 +1931,6 @@ def validate_css_segment(segment: Segment) -> Tuple[bool, List[str]]:
     
     is_valid = len(errors) == 0
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     if is_valid:
         logger.info(f"[{current_time}] CSS segment validation passed at the end of the operations")
     else:
@@ -2063,9 +1967,6 @@ def validate_cti_segment(segment: Segment) -> Tuple[bool, List[str]]:
         return False, errors
     
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     # All fields are optional, so empty segment is valid
     # No required field validation needed
     
@@ -2102,9 +2003,6 @@ def validate_drg_segment(segment: Segment) -> Tuple[bool, List[str]]:
     # Check segment name
     if segment.name != "DRG":
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         errors.append(f"DRG segment validation: expected segment name DRG, got {segment.name}")
         logger.error(f"[{current_time}] DRG segment validation failed: wrong segment name at the end of the operations")
         return False, errors
@@ -2141,9 +2039,6 @@ def validate_dsc_segment(segment: Segment) -> Tuple[bool, List[str]]:
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.info(f"[{current_time}] Starting DSC segment validation")
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     # Check segment name
     if segment.name != "DSC":
@@ -2180,9 +2075,6 @@ def validate_dsp_segment(segment: Segment) -> Tuple[bool, List[str]]:
     Returns:
         Tuple of (is_valid, list_of_errors)
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     """
     errors = []
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -2219,9 +2111,6 @@ def validate_ecd_segment(segment: Segment) -> Tuple[bool, List[str]]:
     
     Args:
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         segment: HL7 v2 segment to validate
         
     Returns:
@@ -2258,9 +2147,6 @@ def validate_ecr_segment(segment: Segment) -> Tuple[bool, List[str]]:
     
     Note: ECR segment definition is not explicitly found in profiles.py,
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     so validation is limited to segment name checking. All fields (ECR-1 through ECR-N)
     are treated as optional. An empty ECR segment is valid.
     
@@ -2297,9 +2183,6 @@ def validate_edu_segment(segment: Segment) -> Tuple[bool, List[str]]:
     Validate EDU (Educational Detail) segment.
     
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     According to HL7 v2.x specification, EDU segment fields are all optional.
     This segment is used to provide educational detail information.
     
@@ -2336,9 +2219,6 @@ def validate_edu_segment(segment: Segment) -> Tuple[bool, List[str]]:
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 def validate_eql_segment(segment: Segment) -> Tuple[bool, List[str]]:
     """
     Validate EQL (Embedded Query Language) segment.

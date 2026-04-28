@@ -53,9 +53,6 @@ def parse_canonical(canonical_str: str) -> Tuple[Optional[str], Optional[str], O
     else:
         # No version specified
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
         return canonical_str.strip(), None, fragment
 
 
@@ -129,9 +126,6 @@ def validate_canonical_format(canonical_str: str) -> Tuple[bool, Optional[str]]:
             return False, f"Canonical fragment must be a valid identifier, got: {fragment}"
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -204,9 +198,6 @@ def get_canonical_fragment(canonical_str: str) -> Optional[str]:
     """
     _, _, fragment = parse_canonical(canonical_str)
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return fragment
 
 
@@ -261,9 +252,6 @@ def resolve_canonical_reference(
                     return resource
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return None
 
 
@@ -289,12 +277,7 @@ def resolve_canonical_references(
             canonical_str, resources, resource_type
         )
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Canonical references resolution completed")
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return results

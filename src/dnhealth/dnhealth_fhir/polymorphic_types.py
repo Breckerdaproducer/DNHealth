@@ -111,16 +111,12 @@ def validate_value_x_fields(instance: Any) -> List[str]:
             f"Only one value[x] field should be set."
         )
     
-    # Log completion timestamp at end of operation
     completion_time = datetime.now()
     elapsed = (completion_time - start_time).total_seconds()
     current_time = completion_time.strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Value[x] fields validation completed in {elapsed:.3f} seconds ({len(errors)} errors)")
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return errors
 
 
@@ -156,9 +152,6 @@ def parse_value_x_from_json(
             return field_name, data[json_field_name]
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return None, None
 
 
@@ -193,9 +186,6 @@ def serialize_value_x_to_json(
             result[json_field_name] = value
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 def parse_value_x_from_xml(
     element,
@@ -245,9 +235,6 @@ def parse_value_x_from_xml(
                 return field_name, child
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return None, None
 
 
@@ -290,9 +277,6 @@ def serialize_value_x_to_xml(
             child.text = str(value) if value is not None else None
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 def validate_nested_value_x_fields(instance: Any, path: str = "") -> List[str]:
     """
@@ -338,7 +322,6 @@ def validate_nested_value_x_fields(instance: Any, path: str = "") -> List[str]:
                 nested_errors = validate_nested_value_x_fields(field_value, field_path)
                 errors.extend(nested_errors)
     
-    # Log completion timestamp at end of operation (only at top level)
     if not path:
         completion_time = datetime.now()
         elapsed = (completion_time - start_time).total_seconds()
@@ -346,7 +329,4 @@ def validate_nested_value_x_fields(instance: Any, path: str = "") -> List[str]:
         logger.debug(f"[{current_time}] Nested value[x] fields validation completed in {elapsed:.3f} seconds ({len(errors)} errors)")
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return errors

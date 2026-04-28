@@ -86,4 +86,3 @@ class CompartmentDefinition(CanonicalResource):
             raise ValueError("CompartmentDefinition.search is required but was not provided")
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")

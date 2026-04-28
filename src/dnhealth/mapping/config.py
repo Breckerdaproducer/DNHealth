@@ -45,17 +45,12 @@ def load_mapping_config(config_path: str) -> Dict[str, Any]:
             config = json.load(f)
         
         logger.info(f"[{current_time}] Mapping configuration loaded successfully")
-        # Log completion timestamp at end of operation
-        completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {completion_time}")
         return config
     except json.JSONDecodeError as e:
         completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.error(f"Current Time at End of Operations: {completion_time}")
         raise ValueError(f"Invalid JSON in configuration file: {e}")
     except Exception as e:
         completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.error(f"Current Time at End of Operations: {completion_time}")
         raise ValueError(f"Error loading configuration file: {e}")
 
 
@@ -81,12 +76,8 @@ def save_mapping_config(config: Dict[str, Any], config_path: str) -> None:
             json.dump(config, f, indent=2, ensure_ascii=False)
         
         logger.info(f"[{current_time}] Mapping configuration saved successfully")
-        # Log completion timestamp at end of operation
-        completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {completion_time}")
     except Exception as e:
         completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.error(f"Current Time at End of Operations: {completion_time}")
         raise ValueError(f"Error saving configuration file: {e}")
 
 
@@ -134,9 +125,6 @@ def create_mapping_config(
     }
     
     logger.info(f"[{current_time}] Mapping configuration created successfully")
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     return config
 
 
@@ -177,7 +165,4 @@ def validate_mapping_config(config: Dict[str, Any]) -> List[str]:
         if not isinstance(config["custom_rules"], list):
             errors.append("custom_rules must be a list")
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.debug(f"Current Time at End of Operations: {completion_time}")
     return errors

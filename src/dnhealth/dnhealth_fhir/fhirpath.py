@@ -46,9 +46,6 @@ def parse_constraint(constraint_data: Dict[str, Any]) -> FHIRPathConstraint:
         FHIRPathConstraint object
     """
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return FHIRPathConstraint(
         key=constraint_data.get("key", ""),
         severity=constraint_data.get("severity", "error"),

@@ -93,9 +93,6 @@ class TransmissionParty:
             name_elem.text = self.name
         
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -126,8 +123,8 @@ class TransmissionWrapper:
     creation_time: TS  # Required
     interaction_id: II  # Required
     sender: TransmissionParty  # Required
-    receiver: List[TransmissionParty] = field(default_factory=list)  # Required, at least one
     control_act_wrapper: ControlActWrapper  # Required
+    receiver: List[TransmissionParty] = field(default_factory=list)  # Required, at least one
     version_code: Optional[CS] = None  # Optional
     processing_mode_code: Optional[CS] = None  # Optional
     processing_code: Optional[CS] = None  # Optional
@@ -419,9 +416,6 @@ class TransmissionWrapper:
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 # ============================================================================
 # Helper Functions
 # ============================================================================

@@ -75,8 +75,6 @@ def parse_array_extensions(
                 # Skip invalid extensions
                 pass
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Array extensions parsing completed: {len(extensions)} extensions found for field '{field_name}'")
     
     return extensions if extensions else None
@@ -212,8 +210,6 @@ def validate_array_extensions(
             for error in nested_errors:
                 errors.append(f"Array extension at index {i} for field '{field_name}': {error}")
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Array extensions validation completed: {len(errors)} errors found for field '{field_name}'")
     
     return errors
@@ -250,8 +246,6 @@ def parse_array_extension(extension_data: List[Dict[str, Any]]) -> List[Extensio
         except Exception as e:
             raise ValueError(f"Failed to parse extension at index {i}: {e}")
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Array extension parsing completed successfully: {len(extensions)} extensions parsed")
     
     return extensions
@@ -295,8 +289,6 @@ def serialize_array_extensions_list(
                 xml_parts.append(ext_xml)
         result = "".join(xml_parts)
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Array extension serialization completed successfully: {len(extensions)} extensions serialized")
     
     return result

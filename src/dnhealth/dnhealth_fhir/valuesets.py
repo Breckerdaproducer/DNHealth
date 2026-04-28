@@ -151,7 +151,6 @@ def validate_coding_against_value_set(coding: Coding, value_set_url: str) -> Lis
     if coding.code not in value_set:
         errors.append(f"Code '{coding.code}' is not in value set '{value_set_url}'")
     
-    # Log completion timestamp at end of operation
     completion_time = datetime.now()
     elapsed = (completion_time - start_time).total_seconds()
     current_time = completion_time.strftime("%Y-%m-%d %H:%M:%S")
@@ -200,16 +199,12 @@ def validate_codeable_concept_against_value_set(concept: CodeableConcept, value_
         if codes:
             errors.append(f"None of the codes {codes} are in value set '{value_set_url}'")
     
-    # Log completion timestamp at end of operation
     completion_time = datetime.now()
     elapsed = (completion_time - start_time).total_seconds()
     current_time = completion_time.strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] CodeableConcept validation completed in {elapsed:.3f} seconds ({len(errors)} errors)")
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return errors
 
 

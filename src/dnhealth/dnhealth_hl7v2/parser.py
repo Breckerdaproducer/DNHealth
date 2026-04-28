@@ -149,9 +149,6 @@ def parse_subcomponents(    text: str, subcomponent_separator: str, escape_char:
     parts.append(unescape_value(current, escape_char))
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return [Subcomponent(part) for part in parts]
 
 
@@ -197,9 +194,6 @@ def parse_components(
 
     parts.append(current)
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return [
         Component(parse_subcomponents(part, subcomponent_separator, escape_char))
@@ -258,9 +252,6 @@ def parse_field(
     parts.append(current)
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return [
         Field(
             parse_components(part, component_separator, subcomponent_separator, escape_char),
@@ -343,9 +334,6 @@ def parse_segment(
     # Track original field count for preserving formatting
     original_field_count = len(field_repetitions_list)
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return Segment(segment_name, field_repetitions=field_repetitions_list, original_field_count=original_field_count)
 
@@ -486,9 +474,6 @@ def parse_hl7v2(text: str, tolerant: bool = False) -> Message:
     if not segments:
         raise HL7v2ParseError("No valid segments found")
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
     return Message(segments=segments, encoding_chars=encoding_chars, version=version)
 

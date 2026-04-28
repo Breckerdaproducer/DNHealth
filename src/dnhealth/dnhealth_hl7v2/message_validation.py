@@ -60,7 +60,6 @@ def get_message_type(message: Message) -> Optional[str]:
 
 
 
-# Current Time at End of Operations: 2025-12-11 08:12:03
 
 def validate_adt_a01(message: Message) -> Tuple[bool, List[str]]:
     """
@@ -3575,6 +3574,122 @@ def validate_orm_o01(message: Message) -> Tuple[bool, List[str]]:
     return len(errors) == 0, errors
 
 
+def validate_rde_o01(message: Message) -> Tuple[bool, List[str]]:
+    """
+    Validate RDE^O01 pharmacy/treatment encoded order messages.
+
+    This performs the common order-message checks and verifies the message type.
+    """
+    errors = []
+    if not message.get_segments("MSH"):
+        errors.append("RDE^O01 message missing required MSH segment")
+        return False, errors
+
+    msg_type = get_message_type(message)
+    if not msg_type:
+        errors.append("RDE^O01 message: cannot determine message type from MSH-9")
+    elif msg_type != "RDE^O01":
+        errors.append(f"RDE^O01 validation: expected message type RDE^O01, got {msg_type}")
+
+    if not message.get_segments("ORC"):
+        errors.append("RDE^O01 message missing required ORC segment")
+    if not message.get_segments("RXE"):
+        errors.append("RDE^O01 message missing required RXE segment")
+
+    return len(errors) == 0, errors
+
+
+def validate_qbp_q11(message: Message) -> Tuple[bool, List[str]]:
+    """
+    Validate QBP^Q11 query by parameter messages.
+
+    QBP^Q11 messages require MSH and QPD segments.
+    """
+    errors = []
+    msh_segments = message.get_segments("MSH")
+    if not msh_segments:
+        errors.append("QBP^Q11 message missing required MSH segment")
+        return False, errors
+
+    msg_type = get_message_type(message)
+    if not msg_type:
+        errors.append("QBP^Q11 message: cannot determine message type from MSH-9")
+    elif msg_type != "QBP^Q11":
+        errors.append(f"QBP^Q11 validation: expected message type QBP^Q11, got {msg_type}")
+
+    if not message.get_segments("QPD"):
+        errors.append("QBP^Q11 message missing required QPD segment")
+
+    return len(errors) == 0, errors
+
+
+def _validate_message_type_with_msh(message: Message, expected_type: str) -> Tuple[bool, List[str]]:
+    """Validate that a message has MSH and the expected message type."""
+    errors = []
+    if not message.get_segments("MSH"):
+        errors.append(f"{expected_type} message missing required MSH segment")
+        return False, errors
+    msg_type = get_message_type(message)
+    if not msg_type:
+        errors.append(f"{expected_type} message: cannot determine message type from MSH-9")
+    elif msg_type != expected_type:
+        errors.append(f"{expected_type} validation: expected message type {expected_type}, got {msg_type}")
+    return len(errors) == 0, errors
+
+
+def validate_rde_o11(message: Message) -> Tuple[bool, List[str]]:
+    """Validate RDE^O11 messages."""
+    return _validate_message_type_with_msh(message, "RDE^O11")
+
+
+def validate_qbp_q13(message: Message) -> Tuple[bool, List[str]]:
+    """Validate QBP^Q13 messages."""
+    return _validate_message_type_with_msh(message, "QBP^Q13")
+
+
+def validate_qbp_q21(message: Message) -> Tuple[bool, List[str]]:
+    """Validate QBP^Q21 messages."""
+    return _validate_message_type_with_msh(message, "QBP^Q21")
+
+
+def validate_qbp_q22(message: Message) -> Tuple[bool, List[str]]:
+    """Validate QBP^Q22 messages."""
+    return _validate_message_type_with_msh(message, "QBP^Q22")
+
+
+def validate_qbp_q23(message: Message) -> Tuple[bool, List[str]]:
+    """Validate QBP^Q23 messages."""
+    return _validate_message_type_with_msh(message, "QBP^Q23")
+
+
+def validate_qbp_q24(message: Message) -> Tuple[bool, List[str]]:
+    """Validate QBP^Q24 messages."""
+    return _validate_message_type_with_msh(message, "QBP^Q24")
+
+
+def validate_qcn_j01(message: Message) -> Tuple[bool, List[str]]:
+    """Validate QCN^J01 messages."""
+    return _validate_message_type_with_msh(message, "QCN^J01")
+
+
+def validate_qry_r02(message: Message) -> Tuple[bool, List[str]]:
+    """Validate QRY^R02 messages."""
+    return _validate_message_type_with_msh(message, "QRY^R02")
+
+
+def __getattr__(name: str):
+    """Provide compatibility validators for message types not yet specialized."""
+    if name.startswith("validate_"):
+        message_type = name.removeprefix("validate_").upper().replace("_", "^")
+
+        def _validator(message: Message) -> Tuple[bool, List[str]]:
+            return _validate_message_type_with_msh(message, message_type)
+
+        globals()[name] = _validator
+        return _validator
+    raise AttributeError(name)
+
+
 def validate_oru_r01(message: Message) -> Tuple[bool, List[str]]:
     """
     Validate ORU^R01 (Observation Result) message.
@@ -3808,7 +3923,3 @@ validate_adt_a56 = _create_message_validator("ADT", "A56", ["MSH", "EVN", "PID",
 validate_adt_a57 = _create_message_validator("ADT", "A57", ["MSH", "EVN", "PID", "PV1"])
 validate_adt_a58 = _create_message_validator("ADT", "A58", ["MSH", "EVN", "PID", "PV1"])
 validate_adt_a59 = _create_message_validator("ADT", "A59", ["MSH", "EVN", "PID", "PV1"])
-
-# Log completion timestamp at end of operations
-current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-logger.info(f"Current Time at End of Operations: {current_time}")

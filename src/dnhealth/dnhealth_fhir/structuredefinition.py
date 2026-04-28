@@ -276,9 +276,6 @@ class StructureDefinition(FHIRResource):
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 def parse_structure_definition_json(json_data: Dict[str, Any]) -> StructureDefinition:
     """
     Parse a StructureDefinition from JSON data.
@@ -300,12 +297,10 @@ def parse_structure_definition_json(json_data: Dict[str, Any]) -> StructureDefin
     json_str = json.dumps(json_data)
     result = parse_fhir_json(json_str, StructureDefinition)
     
-    # Log completion timestamp at end of operation
     completion_time = datetime.now()
     elapsed = (completion_time - start_time).total_seconds()
     current_time = completion_time.strftime("%Y-%m-%d %H:%M:%S")
     logger.info(f"[{current_time}] StructureDefinition JSON parsing completed in {elapsed:.3f} seconds")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return result
 
@@ -339,12 +334,10 @@ def get_element_definitions(structure_def: StructureDefinition) -> List[ElementD
                 element = _parse_element_definition(elem_data)
                 elements.append(element)
     
-    # Log completion timestamp at end of operation
     completion_time = datetime.now()
     elapsed = (completion_time - start_time).total_seconds()
     current_time = completion_time.strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Element definitions extraction completed in {elapsed:.3f} seconds ({len(elements)} elements)")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return elements
 
@@ -387,11 +380,7 @@ def _parse_element_definition(elem_data: Dict[str, Any]) -> ElementDefinition:
         element.constraint = elem_data["constraint"] if isinstance(elem_data["constraint"], list) else [elem_data["constraint"]]
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return element
 
@@ -412,9 +401,6 @@ def get_element_by_path(structure_def: StructureDefinition, path: str) -> Option
         if element.path == path:
             return element
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return None
 
 
@@ -435,9 +421,6 @@ def get_required_fields(structure_def: StructureDefinition) -> Set[str]:
         if element.path and element.min is not None and element.min > 0:
             required.add(element.path)
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return required
 

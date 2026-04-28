@@ -97,9 +97,6 @@ def merge_messages(
     )
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return merged_message
 
 
@@ -151,9 +148,6 @@ def merge_messages_by_segment_type(
         version=base_message.version,
     )
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return merged_message
 

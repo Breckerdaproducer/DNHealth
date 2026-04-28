@@ -21,6 +21,22 @@ from datetime import datetime
 
 
 logger = logging.getLogger(__name__)
+
+
+class BundleType:
+    """Common FHIR Bundle type constants."""
+
+    DOCUMENT = "document"
+    MESSAGE = "message"
+    TRANSACTION = "transaction"
+    TRANSACTION_RESPONSE = "transaction-response"
+    BATCH = "batch"
+    BATCH_RESPONSE = "batch-response"
+    HISTORY = "history"
+    SEARCHSET = "searchset"
+    COLLECTION = "collection"
+
+
 @dataclass
 class Bundle(FHIRResource):
     """
@@ -50,11 +66,6 @@ class Bundle(FHIRResource):
         super().__post_init__()
         if not self.type:
             raise ValueError("Bundle.type is required and cannot be empty")
-
-
-
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
 @dataclass
 class BundleLink:
     """
@@ -126,4 +137,3 @@ class BundleEntryResponse:
 
 
 # Note: Signature type is imported from dnhealth.dnhealth_fhir.types
-

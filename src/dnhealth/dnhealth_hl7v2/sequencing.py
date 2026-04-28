@@ -139,9 +139,6 @@ class SequenceNumberManager:
             f"completed in {elapsed:.3f}s (sequence: {sequence})"
         )
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         
         return True, None
 
@@ -236,9 +233,6 @@ def validate_message_sequence(
     
     elapsed = time.time() - start_time
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     logger.info(
         f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Message sequence validation "
         f"completed in {elapsed:.3f}s (valid: {is_valid}, errors: {len(errors)})"

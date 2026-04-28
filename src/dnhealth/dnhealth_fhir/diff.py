@@ -40,7 +40,6 @@ class ResourceDiff:
         })
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     def add_structural_difference(self, description: str):
         """Add a structural difference."""
@@ -49,12 +48,8 @@ class ResourceDiff:
 
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 def _get_all_fields(resource: FHIRResource, prefix: str = "") -> Dict[str, Any]:
     """
     Get all fields from a resource recursively.
@@ -123,7 +118,6 @@ def _normalize_value(value: Any) -> Any:
         return result
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     return value
 
@@ -188,7 +182,6 @@ def compare_resources(resource1: FHIRResource, resource2: FHIRResource) -> Resou
     logger.info(
         f"Resource comparison completed at {completion_time} ({elapsed:.4f}s elapsed): "
 
-            # Log completion timestamp at end of operation
         f"Identical={diff.identical}, "
         f"{len(diff.structural_differences)} structural differences, "
         f"{len(diff.field_differences)} field differences"

@@ -42,12 +42,6 @@ class MessageDiff:
         })
 
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
     def add_field_difference(        self, segment_name: str, field_index: int, message1_value: str, message2_value: str
     ):

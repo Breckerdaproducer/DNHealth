@@ -90,9 +90,6 @@ class EncodingCharacters:
                 continuation_character=continuation_char,
             )
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
 
@@ -149,9 +146,6 @@ class Component:
         Get the value of the first subcomponent (convenience method).
 
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         Returns:
             Value of first subcomponent
         """
@@ -168,9 +162,6 @@ class Component:
         if not isinstance(other, Component):
             return False
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return self.subcomponents == other.subcomponents
 
     def component(self, index: int) -> Subcomponent:
@@ -211,9 +202,6 @@ class Field:
         self.components = components
         self.is_null = is_null  # True if field is '""' (double quotes = null in HL7v2)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
 
     def value(self) -> str:
         """
@@ -303,9 +291,6 @@ class Segment:
         Raises:
             IndexError: If index or repetition is out of range
 
-            # Log completion timestamp
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         """
         if index < 1:
             raise IndexError(f"Field index must be >= 1, got: {index}")
@@ -350,9 +335,6 @@ class Segment:
         if not isinstance(other, Segment):
             return False
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return self.name == other.name and self._field_repetitions == other._field_repetitions
 
 
@@ -375,9 +357,6 @@ class SegmentGroup:
         self.segments = segments if segments is not None else []
         self.group_id = group_id
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
 
     def get_segments(self, name: str) -> List[Segment]:
         """
@@ -400,9 +379,6 @@ class SegmentGroup:
         """
         self.segments.append(segment)
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
 
     def __repr__(self) -> str:
         """String representation."""
@@ -433,9 +409,6 @@ class Message:
     ):
         """
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
         Initialize message.
 
         Args:
@@ -461,9 +434,6 @@ class Message:
         """
         result = [seg for seg in self.segments if seg.name == name]
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
 
@@ -475,9 +445,6 @@ class Message:
             name: Segment name (3 characters)
 
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         Returns:
             List of matching segments from all groups
         """
@@ -485,9 +452,6 @@ class Message:
         for group in self.groups:
             result.extend(group.get_segments(name))
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
 
@@ -514,9 +478,6 @@ class Message:
         """
         self.groups.append(group)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
 
     def flatten_segments(self) -> List[Segment]:
         """

@@ -203,8 +203,6 @@ def verify_data_type_specification_compliance(
     else:
         logger.warning(f"[{completion_time}] Specification compliance verification found {len(error_issues)} errors for {type_name}")
     
-    # Log completion timestamp at end of operation
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     
     return {
         "is_compliant": is_compliant,
@@ -411,9 +409,6 @@ def generate_data_type_compliance_report(
             f.write(report)
         logger.info(f"Compliance report written to: {output_file}")
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     return report
 
@@ -493,9 +488,6 @@ def verify_message_id_format(message_id) -> Dict[str, Any]:
     else:
         logger.warning(f"[{completion_time}] Message ID format verification found {len(issues)} issues")
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return {
         "is_compliant": is_compliant,
@@ -583,9 +575,6 @@ def verify_timestamp_format(timestamp) -> Dict[str, Any]:
     if is_compliant:
         logger.info(f"[{completion_time}] Timestamp format verification passed")
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     else:
         logger.warning(f"[{completion_time}] Timestamp format verification found {len(issues)} issues")
     

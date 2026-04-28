@@ -28,6 +28,7 @@ venv/
 env/
 ENV/
 .venv
+.venv*/
 
 # IDE
 .vscode/
@@ -36,9 +37,6 @@ ENV/
 *.swo
 *~
 .DS_Store
-
-# GitHub
-.github/
 
 # Testing
 .pytest_cache/
@@ -50,8 +48,6 @@ coverage.xml
 .hypothesis/
 *.cover
 *.log
-
-# Tests folder
 tests/
 .test/
 
@@ -62,7 +58,7 @@ tests/
 .cache/
 .dnai/
 
-# Documentation
+# Documentation payloads
 docs/
 wiki/
 
@@ -70,4 +66,3 @@ wiki/
 *.tmp
 *.bak
 *.swp
-

@@ -223,9 +223,6 @@ class MessageTransformer:
             )
 
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return transformed_message
 
     def add_field_mapping(
@@ -247,9 +244,6 @@ class MessageTransformer:
         def transform_func(msg: Any) -> Any:
             """Apply field mapping transformation."""
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
             return self._apply_field_mapping(msg, field_mapping)
 
         if condition is None:
@@ -315,9 +309,6 @@ class MessageTransformer:
         def transform_func(msg: Any) -> Any:
             """Apply version conversion."""
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
             return self._apply_version_conversion(msg, target_version)
 
         if condition is None:
@@ -419,9 +410,6 @@ class MessageTransformer:
                 # Set value at target XPath
                 self._set_xpath_value(message, target_path, source_value)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return message
 
     def _apply_fhir_field_mapping(
@@ -455,9 +443,6 @@ class MessageTransformer:
             self._set_field_value(message, field_path, transformed_value, msg_type)
 
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return message
 
     def _apply_version_conversion(self, message: Any, target_version: str) -> Any:
@@ -505,16 +490,12 @@ class MessageTransformer:
                 f"[{completion_time}] Version conversion failed: unsupported message type '{msg_type}' "
                 f"(elapsed: {elapsed:.3f}s)"
             )
-            # Log completion timestamp at end of operation
-            logger.info(f"Current Time at End of Operations: {completion_time}")
             raise ValueError(f"Unsupported message type: {msg_type}")
         
         elapsed = (datetime.now() - start_time).total_seconds()
         completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.info(
             f"[{completion_time}] Version conversion completed in {elapsed:.3f}s")
-        # Log completion timestamp at end of operation
-        logger.info(f"Current Time at End of Operations: {completion_time}")
 
     def _parse_hl7v2_path(self, path: str) -> tuple[str, int, Optional[int]]:
         """
@@ -528,9 +509,6 @@ class MessageTransformer:
         field = int(parts[1]) - 1 if len(parts) > 1 else 0
         component = int(parts[2]) - 1 if len(parts) > 2 else None
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return segment, field, component
 
     def _get_xpath_value(self, message: Any, xpath: str) -> Any:
@@ -572,11 +550,9 @@ class MessageTransformer:
             else:
                 result = None
             
-            # Log completion timestamp at end of operation
             elapsed = (datetime.now() - start_time).total_seconds()
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             logger.debug(f"[{current_time}] XPath value retrieval completed in {elapsed:.3f}s")
-            logger.info(f"Current Time at End of Operations: {current_time}")
             
             return result
         except Exception as e:
@@ -584,7 +560,6 @@ class MessageTransformer:
             logger.warning(
                 f"[{current_time}] Error getting XPath value '{xpath}': {str(e)}"
             )
-            logger.info(f"Current Time at End of Operations: {current_time}")
             return None
 
     def _set_xpath_value(self, message: Any, xpath: str, value: Any) -> None:
@@ -616,7 +591,6 @@ class MessageTransformer:
                 logger.warning(
                     f"[{current_time}] XPath '{xpath}' did not match any elements, cannot set value"
                 )
-                logger.info(f"Current Time at End of Operations: {current_time}")
                 return
             
             # Set value on all matching nodes
@@ -627,21 +601,18 @@ class MessageTransformer:
                 if node.text and not node.mixed_content:
                     node.mixed_content = []
             
-            # Log completion timestamp at end of operation
             elapsed = (datetime.now() - start_time).total_seconds()
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             logger.debug(
                 f"[{current_time}] XPath value setting completed in {elapsed:.3f}s "
                 f"(set value on {len(nodes)} node(s))"
             )
-            logger.info(f"Current Time at End of Operations: {current_time}")
             
         except Exception as e:
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             logger.error(
                 f"[{current_time}] Error setting XPath value '{xpath}': {str(e)}"
             )
-            logger.info(f"Current Time at End of Operations: {current_time}")
             raise
 
     def _get_field_value(self, message: Any, field_path: str, msg_type: str) -> Any:
@@ -754,9 +725,6 @@ class MessageTransformer:
             "history_size": len(self.transformation_history),
         }
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return stats
 
@@ -844,9 +812,6 @@ class MessageTransformer:
                 f"completed for {segment_name}-{field_index} (elapsed: {elapsed_time:.3f}s)"
             )
             
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
             return message
             
         except Exception as e:
@@ -916,9 +881,6 @@ class MessageTransformer:
                 f"completed for {segment_name}[{segment_index}] (elapsed: {elapsed_time:.3f}s)"
             )
             
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
             return message
             
         except Exception as e:

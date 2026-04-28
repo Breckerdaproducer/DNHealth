@@ -129,9 +129,6 @@ class ValidationRule:
                 f"with rule '{self.name}': {str(e)}"
             )
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return [
             ValidationResult(
                 rule_name=self.name,
@@ -232,9 +229,6 @@ class ValidationPipeline:
                 f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Validation rule '{name}' not found"
             )
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return removed
 
@@ -326,9 +320,6 @@ class ValidationPipeline:
         )
 
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return is_valid, results
 
     def add_required_field_validation(
@@ -365,9 +356,6 @@ class ValidationPipeline:
                     )
 
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
             return results
 
         if condition is None:
@@ -382,9 +370,6 @@ class ValidationPipeline:
             description=f"Required field validation: {len(field_paths)} fields",
         )
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
 
     def add_data_type_validation(
         self,
@@ -424,9 +409,6 @@ class ValidationPipeline:
                         )
 
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
             return results
 
         if condition is None:
@@ -441,9 +423,6 @@ class ValidationPipeline:
             description=f"Data type validation: {len(field_type_mapping)} fields",
         )
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
 
     def add_value_set_validation(
         self,
@@ -483,9 +462,6 @@ class ValidationPipeline:
                         )
 
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
             return results
 
         if condition is None:
@@ -619,9 +595,6 @@ class ValidationPipeline:
             "history_size": len(self.validation_history),
         }
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return stats
 

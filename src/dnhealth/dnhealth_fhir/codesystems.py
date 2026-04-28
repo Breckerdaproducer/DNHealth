@@ -130,7 +130,6 @@ def is_code_in_code_system(code: str, system_url: str) -> bool:
         return True
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     return code in code_system
 
@@ -168,12 +167,8 @@ def validate_coding_code_system(coding: Coding) -> List[str]:
         )
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return errors
 
 
@@ -198,13 +193,8 @@ def validate_codeable_concept_code_systems(concept: CodeableConcept) -> List[str
         for error in coding_errors:
             errors.append(f"Coding[{i}]: {error}")
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] CodeableConcept code system validation completed")
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return errors
 

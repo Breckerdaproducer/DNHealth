@@ -173,9 +173,6 @@ class ValueSet(FHIRResource):
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 def parse_valueset_json(json_data: Dict[str, Any]) -> ValueSet:
     """
     Parse a ValueSet from JSON data.
@@ -193,8 +190,6 @@ def parse_valueset_json(json_data: Dict[str, Any]) -> ValueSet:
     json_str = json.dumps(json_data)
     result = parse_fhir_json(json_str, ValueSet)
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] ValueSet JSON parsing completed")
     
     return result
@@ -224,10 +219,7 @@ def get_codes_from_valueset(valueset: ValueSet) -> Set[str]:
         _extract_codes_from_expansion(valueset.expansion, codes)
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] ValueSet code extraction completed ({len(codes)} codes extracted)")
     
     return codes
@@ -254,9 +246,6 @@ def _extract_codes_from_expansion(expansion: ValueSetExpansion, codes: Set[str])
                     _extract_codes_from_expansion_nested(nested.contains, codes)
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 def _extract_codes_from_expansion_nested(contains_list: List[ValueSetExpansionContains], codes: Set[str]) -> None:
     """

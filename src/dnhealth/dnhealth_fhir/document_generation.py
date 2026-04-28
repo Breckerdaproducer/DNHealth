@@ -168,7 +168,6 @@ class DocumentGenerator:
         )
         
 
-            # Log completion timestamp at end of operation
         return related_resources
 
     def create_composition(
@@ -249,7 +248,6 @@ class DocumentGenerator:
         
         elapsed = time.time() - start_time
 
-            # Log completion timestamp at end of operation
         logger.info(
             f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Composition creation "
             f"completed in {elapsed:.3f}s"

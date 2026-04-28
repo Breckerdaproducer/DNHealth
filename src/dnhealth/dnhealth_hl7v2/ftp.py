@@ -108,9 +108,6 @@ def create_fhs_segment(
             fields.append(Field([], is_null=True))
     
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return Segment("FHS", fields=fields)
 
 
@@ -153,9 +150,6 @@ def create_fts_segment(
     else:
         fields.append(Field([], is_null=True))
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return Segment("FTS", fields=fields)
 
@@ -740,9 +734,6 @@ def build_ftp_message(
     fts = create_fts_segment(file_batch_count=len(batches), file_comment=file_comment)
     segments.append(fts)
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return Message(segments=segments, encoding_chars=encoding_chars, version=batches[0].version)
 

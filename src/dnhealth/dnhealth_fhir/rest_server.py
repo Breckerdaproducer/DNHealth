@@ -43,7 +43,6 @@ logger = get_logger(__name__)
 try:
     from flask import Flask, request, Response, jsonify
 
-logger = logging.getLogger(__name__)
     FLASK_AVAILABLE = True
 except ImportError:
     FLASK_AVAILABLE = False
@@ -251,7 +250,6 @@ class FHIRRestServer:
         @self.app.errorhandler(404)
         def not_found(error):
 
-            # Log completion timestamp at end of operation
             return self._create_error_response(
                 404,
                 "not-found",
@@ -261,7 +259,6 @@ class FHIRRestServer:
         @self.app.errorhandler(400)
         def bad_request(error):
 
-            # Log completion timestamp at end of operation
             return self._create_error_response(
                 400,
                 "invalid",
@@ -271,7 +268,6 @@ class FHIRRestServer:
         @self.app.errorhandler(500)
         def internal_error(error):
 
-            # Log completion timestamp at end of operation
             return self._create_error_response(
                 500,
                 "exception",
@@ -307,9 +303,6 @@ class FHIRRestServer:
             return None
         
         try:
-
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
             return json.loads(request.data.decode('utf-8'))
         except json.JSONDecodeError as e:
             raise ValueError(f"Invalid JSON: {e}")
@@ -1934,9 +1927,6 @@ def create_app(storage: Optional[ResourceStorage] = None, base_path: str = "/fhi
         Flask application instance
     """
     server = FHIRRestServer(storage=storage, base_path=base_path)
-
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return server.app
 
 
@@ -2106,8 +2096,6 @@ def verify_rest_api_specification_compliance(server: Optional[FHIRRestServer] = 
     non_compliant_count = len(non_compliant_endpoints)
     compliance_percentage = (compliant_count / total_endpoints * 100) if total_endpoints > 0 else 0
     
-    # Log completion timestamp
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     elapsed_time = (datetime.now() - start_time).total_seconds()
     logger.info(f"[{completion_time}] FHIR REST API specification compliance verification completed in {elapsed_time:.2f} seconds")
     logger.info(f"[{completion_time}] Total endpoints: {total_endpoints}, Compliant: {compliant_count}, Non-compliant: {non_compliant_count}, Compliance: {compliance_percentage:.1f}%")

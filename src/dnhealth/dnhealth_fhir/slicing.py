@@ -75,9 +75,6 @@ def parse_slicing_definition(element: ElementDefinition) -> Optional[SlicingDefi
         slicing_def.rules = element.slicing.get("rules")
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return slicing_def
 
 
@@ -101,9 +98,6 @@ def get_sliced_elements(elements: List[ElementDefinition]) -> Dict[str, List[Ele
             sliced[base_path].append(element)
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return sliced
 
 
@@ -197,16 +191,12 @@ def validate_slicing(
         # This is a simplified check - full implementation would validate order constraints
         pass
     
-    # Log completion timestamp at end of operation
     completion_time = datetime.now()
     elapsed = (completion_time - start_time).total_seconds()
     current_time = completion_time.strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Slicing validation completed in {elapsed:.3f} seconds ({len(errors)} errors)")
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return errors
 
 
@@ -236,7 +226,6 @@ def apply_slicing_discriminator(
     
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return slices
 
 

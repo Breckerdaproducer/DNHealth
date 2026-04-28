@@ -67,9 +67,6 @@ class ANY:
         elif self.value is not None:
             elem.text = str(self.value)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     def to_xml(self, element_name: str = "any") -> str:
@@ -84,9 +81,6 @@ class ANY:
         """
         elem = self.to_xml_element(element_name)
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return ET.tostring(elem, encoding="unicode")
     
     @classmethod
@@ -140,9 +134,6 @@ class BL:
             elem.set("value", "true" if self.value else "false")
         
 
-            # Log completion timestamp
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     def to_xml(self, element_name: str = "bl") -> str:
@@ -157,9 +148,6 @@ class BL:
         """
         elem = self.to_xml_element(element_name)
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return ET.tostring(elem, encoding="unicode")
     
     @classmethod
@@ -217,9 +205,6 @@ class BN:
         
         elem.set("value", "true" if self.value else "false")
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return elem
     
@@ -241,9 +226,6 @@ class BN:
         """
         Deserialize from XML Element.
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
         
         Args:
             xml_element: XML Element to parse
@@ -257,9 +239,6 @@ class BN:
         else:
             raise ValueError("BN cannot be None")
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return cls(value=value)
 
 
@@ -278,9 +257,6 @@ class BAG:
         self.items.append(item)
     
     def __repr__(self) -> str:
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return f"BAG({len(self.items)} items)"
     
     def to_xml_element(self, element_name: str = "bag", parent: Optional[ET.Element] = None) -> ET.Element:
@@ -307,9 +283,6 @@ class BAG:
                 item_elem.text = str(item)
         
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     def to_xml(self, element_name: str = "bag") -> str:
@@ -324,9 +297,6 @@ class BAG:
         """
         elem = self.to_xml_element(element_name)
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return ET.tostring(elem, encoding="unicode")
     
     @classmethod
@@ -346,9 +316,6 @@ class BAG:
             if item_elem.text:
                 items.append(item_elem.text)
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return cls(items=items)
 
 
@@ -383,9 +350,6 @@ class LIST:
         Returns:
             XML Element
 
-            # Log completion timestamp
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         """
         if parent is None:
             elem = ET.Element(element_name)
@@ -400,9 +364,6 @@ class LIST:
                 item_elem.text = str(item)
         
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     def to_xml(self, element_name: str = "list") -> str:
@@ -417,9 +378,6 @@ class LIST:
         """
         elem = self.to_xml_element(element_name)
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return ET.tostring(elem, encoding="unicode")
     
     @classmethod
@@ -438,9 +396,6 @@ class LIST:
             if item_elem.text:
                 items.append(item_elem.text)
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return cls(items=items)
 
 
@@ -516,9 +471,6 @@ class SET:
             if item_elem.text:
                 items.append(item_elem.text)
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return cls(items=items)
 
 
@@ -607,9 +559,6 @@ class CD:
         # Serialize qualifiers
         for qual in self.qualifier:
 
-            # Log completion timestamp
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
             qual.to_xml_element(element_name="qualifier", parent=elem)
         
         # Serialize translations
@@ -617,9 +566,6 @@ class CD:
             trans.to_xml_element(element_name="translation", parent=elem)
         
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     def to_xml(self, element_name: str = "cd") -> str:
@@ -644,9 +590,6 @@ class CD:
             xml_element: XML Element to parse
             
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
         Returns:
             CD instance
         """
@@ -654,9 +597,6 @@ class CD:
         code_system = xml_element.get("codeSystem")
         code_system_name = xml_element.get("codeSystemName")
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         code_system_version = xml_element.get("codeSystemVersion")
         display_name = xml_element.get("displayName")
         
@@ -717,9 +657,6 @@ class CE:
         """Deserialize from XML Element."""
         original_text_elem = xml_element.find("originalText")
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return cls(
             code=xml_element.get("code"),
             code_system=xml_element.get("codeSystem"),
@@ -780,9 +717,6 @@ class CV:
         else:
             elem = ET.SubElement(parent, element_name)
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         _serialize_coded_type_to_xml(elem, self.code, self.code_system, self.code_system_name,
                                      self.code_system_version, self.display_name, self.original_text)
         return elem
@@ -796,9 +730,6 @@ class CV:
         """Deserialize from XML Element."""
         original_text_elem = xml_element.find("originalText")
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return cls(
             code=xml_element.get("code"),
             code_system=xml_element.get("codeSystem"),
@@ -867,9 +798,6 @@ class ED:
             data = base64.b64decode(data_elem.text)
         text_elem = xml_element.find("text")
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return cls(
             media_type=xml_element.get("mediaType"),
@@ -912,9 +840,6 @@ class EIVL:
     def to_xml(self, element_name: str = "eivl") -> str:
         """Serialize to XML string."""
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return ET.tostring(self.to_xml_element(element_name), encoding="unicode")
     
     @classmethod
@@ -925,9 +850,6 @@ class EIVL:
         offset_elem = xml_element.find("offset")
         offset = IVL.from_xml(offset_elem) if offset_elem is not None else None
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         width_elem = xml_element.find("width")
         width = IVL.from_xml(width_elem) if width_elem is not None else None
         return cls(event=event, offset=offset, width=width)
@@ -1021,9 +943,6 @@ class ENXP:
             text=xml_element.text
         )
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
 
@@ -1046,9 +965,6 @@ class GTS:
         if self.value:
             elem.set("value", self.value)
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     def to_xml(self, element_name: str = "gts") -> str:
@@ -1059,9 +975,6 @@ class GTS:
     def from_xml(cls, xml_element: ET.Element) -> "GTS":
         """Deserialize from XML Element."""
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return cls(value=xml_element.get("value") or xml_element.text)
 
 
@@ -1096,9 +1009,6 @@ class II:
     def to_xml(self, element_name: str = "id") -> str:
         """Serialize to XML string."""
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return ET.tostring(self.to_xml_element(element_name), encoding="unicode")
     
     @classmethod
@@ -1141,9 +1051,6 @@ class INT:
     def to_xml(self, element_name: str = "int") -> str:
         """Serialize to XML string."""
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return ET.tostring(self.to_xml_element(element_name), encoding="unicode")
     
     @classmethod
@@ -1230,9 +1137,6 @@ class IVL:
         center_elem = xml_element.find("center")
         center = center_elem.get("value") or center_elem.text if center_elem is not None else None
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return cls(low=low, high=high, low_closed=low_closed, high_closed=high_closed, width=width, center=center)
 
@@ -1258,9 +1162,6 @@ class MO:
         if self.currency:
             elem.set("currency", self.currency)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return elem
     
@@ -1305,9 +1206,6 @@ class ON:
     def to_xml(self, element_name: str = "on") -> str:
         """Serialize to XML string."""
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return ET.tostring(self.to_xml_element(element_name), encoding="unicode")
     
     @classmethod
@@ -1388,9 +1286,6 @@ class PN:
         else:
             elem = ET.SubElement(parent, element_name)
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         if self.use:
             for use_code in self.use:
                 use_code.to_xml_element(element_name="use", parent=elem)
@@ -1404,9 +1299,6 @@ class PN:
         """Serialize to XML string."""
         result = ET.tostring(self.to_xml_element(element_name), encoding="unicode")
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
     
@@ -1420,9 +1312,6 @@ class PN:
         valid_time = IVL.from_xml(valid_time_elem) if valid_time_elem is not None else None
         parts = []
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         for part_elem in xml_element.findall("part"):
             parts.append(ENXP.from_xml(part_elem))
         return cls(use=uses if uses else None, valid_time=valid_time, part=parts)
@@ -1453,9 +1342,6 @@ class PQ:
             for trans in self.translation:
                 trans.to_xml_element(element_name="translation", parent=elem)
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     def to_xml(self, element_name: str = "pq") -> str:
@@ -1469,9 +1355,6 @@ class PQ:
         value = float(value_str) if value_str else None
         translations = []
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         for trans_elem in xml_element.findall("translation"):
             translations.append(PQ.from_xml(trans_elem))
         return cls(value=value, unit=xml_element.get("unit"), translation=translations if translations else None)
@@ -1500,9 +1383,6 @@ class QTY:
         """Serialize to XML string."""
         result = ET.tostring(self.to_xml_element(element_name), encoding="unicode")
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
     
@@ -1535,9 +1415,6 @@ class REAL:
         if self.value is not None:
             elem.set("value", str(self.value))
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     def to_xml(self, element_name: str = "real") -> str:
@@ -1578,9 +1455,6 @@ class RTO:
         """Serialize to XML string."""
         result = ET.tostring(self.to_xml_element(element_name), encoding="unicode")
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
     
@@ -1663,9 +1537,6 @@ class ST:
         if self.value is not None:
             elem.text = self.value
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     def to_xml(self, element_name: str = "st") -> str:
@@ -1717,9 +1588,6 @@ class TEL:
         period_elem = xml_element.find("useablePeriod")
         period = IVL.from_xml(period_elem) if period_elem is not None else None
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return cls(value=xml_element.get("value"), use=uses if uses else None, useable_period=period)
 
@@ -1891,9 +1759,6 @@ class ADXP:
             for qual in self.qualifier:
                 qual.to_xml_element(element_name="qualifier", parent=elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     def to_xml(self, element_name: str = "addrPart") -> str:
@@ -1908,9 +1773,6 @@ class ADXP:
         """
         elem = self.to_xml_element(element_name)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return ET.tostring(elem, encoding="unicode")
     
     @classmethod
@@ -2279,9 +2141,6 @@ class UVC:
         if self.distribution_type is not None:
             elem.set("distributionType", self.distribution_type)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.debug(f"Current Time at End of Operations: {current_time}")
         
         return elem
     
@@ -2297,9 +2156,6 @@ class UVC:
         """
         elem = self.to_xml_element(element_name)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.debug(f"Current Time at End of Operations: {current_time}")
         
         return ET.tostring(elem, encoding="unicode")
     
@@ -2478,9 +2334,6 @@ class IVL_INT:
             center_elem = self.center.to_xml_element("center", elem)
             elem.append(center_elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -2519,9 +2372,6 @@ class IVL_MO:
             center_elem = self.center.to_xml_element("center", elem)
             elem.append(center_elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -2560,9 +2410,6 @@ class IVL_REAL:
             center_elem = self.center.to_xml_element("center", elem)
             elem.append(center_elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -2589,9 +2436,6 @@ class LIST_INT:
                 item_elem = ET.SubElement(elem, "item")
                 item_elem.text = str(item)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -2618,9 +2462,6 @@ class LIST_MO:
                 item_elem = ET.SubElement(elem, "item")
                 item_elem.text = str(item)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -2647,9 +2488,6 @@ class LIST_PQ:
                 item_elem = ET.SubElement(elem, "item")
                 item_elem.text = str(item)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -2676,9 +2514,6 @@ class LIST_TS:
                 item_elem = ET.SubElement(elem, "item")
                 item_elem.text = str(item)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -2705,9 +2540,6 @@ class LIST_CE:
                 item_elem = ET.SubElement(elem, "item")
                 item_elem.text = str(item)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -2734,9 +2566,6 @@ class LIST_II:
                 item_elem = ET.SubElement(elem, "item")
                 item_elem.text = str(item)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -2763,9 +2592,6 @@ class QTY_QTY:
                 value_elem = ET.SubElement(elem, "value")
                 value_elem.text = str(self.value)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -2794,9 +2620,6 @@ class RTO_MO_PQ:
             den_elem = self.denominator.to_xml_element("denominator", elem)
             elem.append(den_elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -2825,9 +2648,6 @@ class RTO_PQ_PQ:
             den_elem = self.denominator.to_xml_element("denominator", elem)
             elem.append(den_elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -2867,9 +2687,6 @@ class EIVL_TS:
             offset_elem = self.offset.to_xml_element("offset", elem)
             elem.append(offset_elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -2911,9 +2728,6 @@ class GLIST:
             den_elem = ET.SubElement(elem, "denominator")
             den_elem.text = str(self.denominator)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -2950,9 +2764,6 @@ class SLIST:
             digits_elem = ET.SubElement(elem, "digits")
             digits_elem.text = str(self.digits)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -2989,9 +2800,6 @@ class SLIST_PQ:
             digits_elem = ET.SubElement(elem, "digits")
             digits_elem.text = str(self.digits)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -3028,9 +2836,6 @@ class SLIST_TS:
             digits_elem = ET.SubElement(elem, "digits")
             digits_elem.text = str(self.digits)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -3054,9 +2859,6 @@ class SXPR_TS:
             if hasattr(component, 'to_xml_element'):
                 component.to_xml_element("comp", elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -3219,9 +3021,6 @@ class TN:
         if self.use is not None:
             elem.set("use", self.use)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.debug(f"Current Time at End of Operations: {current_time}")
         
         return elem
     
@@ -3237,9 +3036,6 @@ class TN:
         """
         elem = self.to_xml_element(element_name)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.debug(f"Current Time at End of Operations: {current_time}")
         
         return ET.tostring(elem, encoding="unicode")
     
@@ -3298,9 +3094,6 @@ class UVP_TS:
         if self.distribution_type is not None:
             elem.set("distributionType", self.distribution_type)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.debug(f"Current Time at End of Operations: {current_time}")
         
         return elem
     
@@ -3316,9 +3109,6 @@ class UVP_TS:
         """
         elem = self.to_xml_element(element_name)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.debug(f"Current Time at End of Operations: {current_time}")
         
         return ET.tostring(elem, encoding="unicode")
     
@@ -3374,9 +3164,6 @@ class BIN:
             encoded = base64.b64encode(self.value).decode('utf-8')
             elem.text = encoded
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return elem
     
@@ -3384,9 +3171,6 @@ class BIN:
         """Serialize to XML string."""
         result = ET.tostring(self.to_xml_element(element_name), encoding="unicode")
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
     
@@ -3474,9 +3258,6 @@ class PPD:
         if self.distribution_type is not None:
             elem.set("distributionType", self.distribution_type)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     @classmethod
@@ -3574,9 +3355,6 @@ class NPPD:
             prob_elem = ET.SubElement(bin_elem, "probability")
             prob_elem.text = str(probability)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     @classmethod
@@ -3636,9 +3414,6 @@ class PRPA:
         if self.parameter_value is not None:
             elem.text = str(self.parameter_value)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     @classmethod
@@ -3698,9 +3473,6 @@ class IVXB:
             else:
                 elem.text = str(self.value)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     @classmethod
@@ -3802,9 +3574,6 @@ class QSC:
         if self.value is not None:
             elem.text = str(self.value)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     @classmethod
@@ -3976,9 +3745,6 @@ class SXCM:
             else:
                 elem.text = str(self.value)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     @classmethod
@@ -4037,9 +3803,6 @@ class SXPR:
             if hasattr(component, 'to_xml_element'):
                 component.to_xml_element(element_name="component", parent=elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     @classmethod
@@ -4078,9 +3841,6 @@ class SXPR_TS:
             if hasattr(component, 'to_xml_element'):
                 component.to_xml_element("comp", elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4153,9 +3913,6 @@ class IVL_PIVL_TS:
         if self.center is not None:
             self.center.to_xml_element("center", elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4187,9 +3944,6 @@ class IVL_PIVL_INT:
         if self.center is not None:
             self.center.to_xml_element("center", elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4221,9 +3975,6 @@ class IVL_PIVL_REAL:
         if self.center is not None:
             self.center.to_xml_element("center", elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4255,9 +4006,6 @@ class IVL_PIVL_PQ:
         if self.center is not None:
             self.center.to_xml_element("center", elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4289,9 +4037,6 @@ class IVL_PIVL_MO:
         if self.center is not None:
             self.center.to_xml_element("center", elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4323,9 +4068,6 @@ class IVL_EIVL_TS:
         if self.center is not None:
             self.center.to_xml_element("center", elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4356,9 +4098,6 @@ class SXCM_PIVL_TS:
         if self.value is not None:
             self.value.to_xml_element("value", elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4385,9 +4124,6 @@ class SXCM_PIVL_INT:
         if self.value is not None:
             self.value.to_xml_element("value", elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4414,9 +4150,6 @@ class SXCM_PIVL_REAL:
         if self.value is not None:
             self.value.to_xml_element("value", elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4443,9 +4176,6 @@ class SXCM_PIVL_PQ:
         if self.value is not None:
             self.value.to_xml_element("value", elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4472,9 +4202,6 @@ class SXCM_PIVL_MO:
         if self.value is not None:
             self.value.to_xml_element("value", elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4501,9 +4228,6 @@ class SXCM_EIVL_TS:
         if self.value is not None:
             self.value.to_xml_element("value", elem)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4554,9 +4278,6 @@ class EDL:
             if hasattr(item, 'to_xml_element'):
                 item.to_xml_element("item", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
     
     @classmethod
@@ -4639,9 +4360,6 @@ class PIVL_PQ:
             if hasattr(self.phase, 'to_xml_element'):
                 self.phase.to_xml_element("phase", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4680,9 +4398,6 @@ class PIVL_MO:
             if hasattr(self.phase, 'to_xml_element'):
                 self.phase.to_xml_element("phase", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4762,9 +4477,6 @@ class QSET:
                 elem_elem = ET.SubElement(elem, "element")
                 elem_elem.text = str(element)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4824,9 +4536,6 @@ class RTO_INT_INT:
             den_elem = ET.SubElement(elem, "denominator")
             den_elem.text = str(self.denominator)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4865,9 +4574,6 @@ class RTO_MO_MO:
             if hasattr(self.denominator, 'to_xml_element'):
                 self.denominator.to_xml_element("denominator", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4906,9 +4612,6 @@ class RTO_INT_PQ:
             if hasattr(self.denominator, 'to_xml_element'):
                 self.denominator.to_xml_element("denominator", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4941,9 +4644,6 @@ class SLIST_INT:
             val_elem = ET.SubElement(elem, "value")
             val_elem.text = str(value)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -4976,9 +4676,6 @@ class SLIST_MO:
             if hasattr(value, 'to_xml_element'):
                 value.to_xml_element("value", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5015,9 +4712,6 @@ class SXCM_INT:
         if self.value is not None:
             elem.text = str(self.value)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5055,9 +4749,6 @@ class SXCM_MO:
             if hasattr(self.value, 'to_xml_element'):
                 self.value.to_xml_element("value", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5094,9 +4785,6 @@ class SXCM_REAL:
         if self.value is not None:
             elem.text = str(self.value)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5129,9 +4817,6 @@ class SXPR_INT:
             if hasattr(component, 'to_xml_element'):
                 component.to_xml_element("component", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5164,9 +4849,6 @@ class SXPR_MO:
             if hasattr(component, 'to_xml_element'):
                 component.to_xml_element("component", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5199,9 +4881,6 @@ class SXPR_PQ:
             if hasattr(component, 'to_xml_element'):
                 component.to_xml_element("component", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5234,9 +4913,6 @@ class SXPR_REAL:
             if hasattr(component, 'to_xml_element'):
                 component.to_xml_element("component", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5275,9 +4951,6 @@ class HXIT_TS:
             if hasattr(self.valid_time, 'to_xml_element'):
                 self.valid_time.to_xml_element("validTime", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5316,9 +4989,6 @@ class HXIT_PQ:
             if hasattr(self.valid_time, 'to_xml_element'):
                 self.valid_time.to_xml_element("validTime", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5357,9 +5027,6 @@ class HXIT_MO:
             if hasattr(self.valid_time, 'to_xml_element'):
                 self.valid_time.to_xml_element("validTime", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5398,9 +5065,6 @@ class HXIT_INT:
             if hasattr(self.valid_time, 'to_xml_element'):
                 self.valid_time.to_xml_element("validTime", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5439,9 +5103,6 @@ class HXIT_REAL:
             if hasattr(self.valid_time, 'to_xml_element'):
                 self.valid_time.to_xml_element("validTime", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5493,9 +5154,6 @@ class GLIST:
             count_elem = ET.SubElement(elem, "count")
             count_elem.text = str(self.count)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5582,9 +5240,6 @@ class BLIST:
                 val_elem = ET.SubElement(elem, "value")
                 val_elem.text = str(value)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5652,9 +5307,6 @@ class COLL:
                 val_elem = ET.SubElement(elem, "value")
                 val_elem.text = str(value)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5722,9 +5374,6 @@ class QSP:
             else:
                 elem.text = str(self.value)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5761,9 +5410,6 @@ class QSD:
         if self.direction is not None:
             elem.set("direction", self.direction)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5801,9 +5447,6 @@ class SXCM_PQ:
             if hasattr(self.value, 'to_xml_element'):
                 self.value.to_xml_element("value", elem)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5862,7 +5505,6 @@ class PIVL_INT(PIVL):
                 phase_elem = ET.SubElement(elem, "phase")
                 phase_elem.text = str(self.phase)
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -5893,7 +5535,6 @@ class PIVL_REAL(PIVL):
                 phase_elem = ET.SubElement(elem, "phase")
                 phase_elem.text = str(self.phase)
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 

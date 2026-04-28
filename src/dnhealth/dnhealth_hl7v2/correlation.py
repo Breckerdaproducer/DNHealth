@@ -192,9 +192,6 @@ class MessageCorrelationTracker:
             Dictionary mapping conversation IDs to message lists
         """
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return self._conversations.copy()
 
 
@@ -205,9 +202,6 @@ def generate_correlation_id() -> str:
     Returns:
         Unique correlation ID string
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     """
     return f"CORR-{uuid.uuid4().hex[:16].upper()}"
 
@@ -227,9 +221,6 @@ def extract_correlation_id(message: Message) -> Optional[str]:
     """
     # Check if message has correlation ID in metadata
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     if hasattr(message, "metadata") and isinstance(message.metadata, dict):
         return message.metadata.get("correlation_id")
     

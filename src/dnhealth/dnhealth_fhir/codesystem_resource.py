@@ -145,9 +145,6 @@ class CodeSystem(FHIRResource):
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 def parse_codesystem_json(json_data: Dict[str, Any]) -> CodeSystem:
     """
     Parse a CodeSystem from JSON data.
@@ -165,8 +162,6 @@ def parse_codesystem_json(json_data: Dict[str, Any]) -> CodeSystem:
     json_str = json.dumps(json_data)
     result = parse_fhir_json(json_str, CodeSystem)
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] CodeSystem JSON parsing completed")
     
     return result
@@ -189,10 +184,7 @@ def get_codes_from_codesystem(codesystem: CodeSystem) -> Set[str]:
         _extract_codes_from_concept(concept, codes)
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] CodeSystem code extraction completed ({len(codes)} codes extracted)")
     
     return codes
@@ -204,7 +196,6 @@ def _extract_codes_from_concept(concept: CodeSystemConcept, codes: Set[str]) -> 
     
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     Args:
         concept: CodeSystemConcept object
         codes: Set to add codes to

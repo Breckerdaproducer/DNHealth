@@ -131,8 +131,6 @@ def convert_message_version(
         f"converted to version {target_version}"
     )
     
-    # Log completion timestamp at end of operation
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     
     return converted_message, warnings
 
@@ -168,7 +166,5 @@ def convert_message_simple(message: Message, target_version: str) -> Message:
     completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Simple HL7v3 conversion completed")
     
-    # Log completion timestamp at end of operation
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     
     return converted_message

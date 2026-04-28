@@ -162,7 +162,6 @@ def execute_search(
     
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.info(f"{current_time} - Search completed: {len(matching)} matches found")
-    logger.info(f"{current_time} - Current Time at End of Operations: {current_time}")
     return matching
 
 
@@ -278,7 +277,6 @@ def _get_parameter_type(param_name: str, param_type_map: Optional[Dict[str, str]
     if param_name in ["_id", "_lastUpdated"]:
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return "special"
     
     # Default to string
@@ -1466,13 +1464,9 @@ def _matches_quantity_search(field_value: Any, param: SearchParameter) -> bool:
         for item in field_value:
             if _matches_quantity_value(item, search_number, search_system, search_code, prefix):
 
-                # Log completion timestamp at end of operation
-                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                logger.info(f"Current Time at End of Operations: {current_time}")
                 return True
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return False
     
     # Handle single quantity
@@ -1908,7 +1902,6 @@ def _apply_reverse_chaining(
     
     if not reverse_chain_params:
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return resources
     
     # For each reverse chain parameter, filter resources
@@ -1966,9 +1959,6 @@ def _apply_reverse_chaining(
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.info(f"[{current_time}] Reverse chaining applied: {len(filtered)} resources match _has:{resource_type}:{parameter_name}={param.value}")
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return filtered
 
@@ -2045,7 +2035,6 @@ def sort_search_results(
     """
     if not sort_params or not resources:
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return resources
     
     def get_sort_key(resource: FHIRResource) -> tuple:
@@ -2079,12 +2068,10 @@ def sort_search_results(
     try:
         sorted_resources = sorted(resources, key=get_sort_key)
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return sorted_resources
     except Exception as e:
         logger.warning(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Error sorting results: {e}")
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return resources
 
 
@@ -2169,9 +2156,6 @@ def process_include(
             if field_value is None:
                 continue
 
-                # Log completion timestamp at end of operation
-                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                logger.info(f"Current Time at End of Operations: {current_time}")
             
             # Handle list of references
             references = field_value if isinstance(field_value, list) else [field_value]

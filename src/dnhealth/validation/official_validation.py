@@ -36,9 +36,6 @@ def get_current_time() -> str:
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 def validate_hl7v2_tables_against_official() -> Dict[str, Any]:
     """
     Compare implemented HL7v2 tables with official definitions from v2-tables.json.

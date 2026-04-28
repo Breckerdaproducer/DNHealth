@@ -67,7 +67,6 @@ def validate_code_against_valueset(
     
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return False, f"Code '{code}' is not in ValueSet '{valueset.url or 'unknown'}'"
 
 
@@ -90,7 +89,6 @@ def validate_coding_against_valueset(
     
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return validate_code_against_valueset(
         coding.code,
         valueset,
@@ -171,7 +169,6 @@ def validate_coding_against_codesystem(
     Validate a Coding against a CodeSystem resource.
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     Args:
         coding: Coding to validate
@@ -204,7 +201,6 @@ def validate_codeable_concept_against_codesystem(
         codesystem: CodeSystem resource
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
     Returns:
         Tuple of (is_valid, error_message)
@@ -255,8 +251,6 @@ def get_validation_errors(
         if not is_valid and error:
             errors.append(f"CodeSystem validation: {error}")
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Code validation completed: {len(errors)} errors found")
     
     return errors

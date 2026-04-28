@@ -431,9 +431,6 @@ def _is_code_in_descendants(concept: "CodeSystemConcept", target_code: str) -> b
             return True
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return False
 
 
@@ -512,7 +509,6 @@ def _add_nested_contains(
         default_system: Default system to use if contains item has no system
         include_designations: Whether to include designations
 
-            # Log completion timestamp at end of operation
     """
     for contains_item in contains_list:
         if contains_item.code:

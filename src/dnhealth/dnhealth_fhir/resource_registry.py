@@ -239,9 +239,15 @@ def list_resource_types(fhir_version: Optional[FHIRVersion] = None) -> list:
         List of resource type names
     """
     if fhir_version == FHIRVersion.R5:
-        # When R5 resources are available, return R5 types
-        # For now, return empty list
-        return list(_R5_RESOURCE_MAP.keys())
+        try:
+            from dnhealth.dnhealth_fhir.r5.resources import __all__ as r5_resources
+            resource_types = [
+                name for name in r5_resources
+                if name[0].isupper() and not name.startswith("_")
+            ]
+            return sorted(set(resource_types))
+        except ImportError:
+            return sorted(_R5_RESOURCE_MAP.keys())
     else:
         # Return all R4 resource types from resources module
         try:

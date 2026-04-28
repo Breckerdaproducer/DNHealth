@@ -81,9 +81,6 @@ def process_resources_batch(
 
     logger.info(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Batch processing completed: {len(results)} results")
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return results
 
 
@@ -137,9 +134,6 @@ def parse_resources_batch(
 
     logger.info(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Batch parsing completed: {len(results)} resources parsed")
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return results
 
 
@@ -188,9 +182,6 @@ def serialize_resources_batch(
 
     logger.info(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Batch serialization completed: {len(results)} JSON strings")
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return results
 
 
@@ -230,9 +221,6 @@ def create_bundle_from_resources(
 
     logger.info(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Created Bundle with {len(entries)} entries")
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return bundle
 
 

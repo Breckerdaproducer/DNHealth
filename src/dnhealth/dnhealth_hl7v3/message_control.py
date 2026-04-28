@@ -153,9 +153,6 @@ class MCCIParty:
                 country_elem.text = addr.country
         
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -208,9 +205,6 @@ class MCCIAcknowledgment:
         
         if not self.target_message or len(self.target_message) == 0:
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
             errors.append("MCCIAcknowledgment.target_message is required (at least one)")
         
         return errors
@@ -810,9 +804,6 @@ def _parse_party_from_xml(elem: ET.Element) -> Optional[MCCIParty]:
     return MCCIParty(
         type_code=type_code,
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         id=party_ids
     )
 

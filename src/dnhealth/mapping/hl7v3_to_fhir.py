@@ -472,9 +472,6 @@ def convert_porx_to_medicationdispense(
         if time() - start_time > timeout:
             raise ValueError(f"Conversion exceeded timeout of {timeout} seconds")
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     elapsed = time() - start_time
     current_time_end = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -506,9 +503,6 @@ def _convert_hl7v3_datetime_to_fhir_date(datetime_str: str) -> str:
     if len(datetime_str) < 8:
         return None
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     # Extract date components
     year = datetime_str[0:4]

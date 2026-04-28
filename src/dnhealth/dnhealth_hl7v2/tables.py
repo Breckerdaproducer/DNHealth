@@ -26765,9 +26765,6 @@ def add_table(table_id: str, codes: Dict[str, str]):
     STANDARD_TABLES[table_id] = codes
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 def list_tables() -> List[str]:
     """ List all available table IDs.  Returns: List of table identifiers """

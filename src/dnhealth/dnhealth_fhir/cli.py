@@ -193,6 +193,24 @@ def _matches_search(resource: FHIRResource, search_params: SearchParameters) -> 
     return resource_matches_search(resource, search_params)
 
 
+def _get_field_value(resource: Any, path: str) -> Any:
+    """Get a nested field value using dot-separated paths and numeric list indexes."""
+    value = resource
+    for part in path.split("."):
+        if value is None:
+            return None
+        if isinstance(value, list):
+            try:
+                value = value[int(part)]
+            except (ValueError, IndexError):
+                return None
+        elif isinstance(value, dict):
+            value = value.get(part)
+        else:
+            value = getattr(value, part, None)
+    return value
+
+
 def cmd_search(args):
     """Search command."""
     try:
@@ -500,6 +518,91 @@ def cmd_extract(args):
         sys.exit(1)
 
 
+def cmd_merge(args):
+    """Merge command."""
+    try:
+        resources = []
+        for resource_path in args.resources:
+            text = read_json_file(resource_path) if resource_path.endswith(".json") else read_xml_file(resource_path)
+            try:
+                resources.append(parse_fhir_json(text))
+            except FHIRParseError:
+                resources.append(parse_fhir_xml(text))
+
+        if args.mode == "bundle":
+            result = merge_resources_into_bundle(resources, bundle_type=args.bundle_type)
+        else:
+            result = merge_resources(
+                resources,
+                merge_strategy=args.strategy,
+                merge_lists=args.merge_lists,
+            )
+
+        output = serialize_fhir_json(result, indent=2) if args.format == "json" else serialize_fhir_xml(result)
+        if args.output:
+            Path(args.output).write_text(output, encoding="utf-8")
+        else:
+            write_stdout(output + "\n")
+    except Exception as e:
+        print(f"Unexpected error: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+def cmd_transform(args):
+    """Transform command."""
+    try:
+        text = read_stdin() if args.input in (None, "-") else (
+            read_json_file(args.input) if args.input.endswith(".json") else read_xml_file(args.input)
+        )
+        try:
+            resource = parse_fhir_json(text)
+        except FHIRParseError:
+            resource = parse_fhir_xml(text)
+
+        mappings = {}
+        if args.mapping:
+            mappings.update(json.loads(Path(args.mapping).read_text(encoding="utf-8")))
+        if args.field:
+            for mapping in args.field:
+                separator = ":" if ":" in mapping else "="
+                source, target = mapping.split(separator, 1)
+                mappings[source.strip()] = target.strip()
+
+        result = transform_resource(resource, mappings, target_resource_type=args.target_type)
+        output = serialize_fhir_json(result, indent=2) if args.format == "json" else serialize_fhir_xml(result)
+        if args.output:
+            Path(args.output).write_text(output, encoding="utf-8")
+        else:
+            write_stdout(output + "\n")
+    except Exception as e:
+        print(f"Unexpected error: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+def cmd_bundle(args):
+    """Bundle command."""
+    try:
+        if args.action == "create":
+            bundle = Bundle(type=args.bundle_type)
+            for resource_path in args.resources:
+                text = read_json_file(resource_path) if resource_path.endswith(".json") else read_xml_file(resource_path)
+                try:
+                    resource = parse_fhir_json(text)
+                except FHIRParseError:
+                    resource = parse_fhir_xml(text)
+                bundle.entry.append(BundleEntry(resource=resource))
+            output = serialize_fhir_json(bundle, indent=2) if args.format == "json" else serialize_fhir_xml(bundle)
+            if args.output:
+                Path(args.output).write_text(output, encoding="utf-8")
+            else:
+                write_stdout(output + "\n")
+        else:
+            raise ValueError(f"Unsupported bundle action: {args.action}")
+    except Exception as e:
+        print(f"Unexpected error: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
 def main():
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
@@ -652,4 +755,3 @@ if __name__ == "__main__":
         completion_timestamp = end_time.strftime("%Y-%m-%d %H:%M:%S")
         duration = (end_time - start_time).total_seconds()
         print(f"[{completion_timestamp}] FHIR CLI operation completed in {duration:.3f} seconds", file=sys.stderr)
-

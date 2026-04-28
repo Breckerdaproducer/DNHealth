@@ -280,8 +280,6 @@ def parse_hl7v3(
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{current_time}] HL7v3 XML parsing completed in {elapsed:.2f}s")
         
-        # Log completion timestamp at end of operation
-        logger.info(f"Current Time at End of Operations: {current_time}")
 
         return message
 
@@ -294,8 +292,6 @@ def parse_hl7v3(
             if hasattr(e, 'lineno'):
                 error_msg += f" (line {e.lineno})"
         logger.error(f"[{current_time}] {error_msg} (elapsed: {elapsed:.2f}s)")
-        # Log completion timestamp at end of operation
-        logger.info(f"Current Time at End of Operations: {current_time}")
         raise HL7v3ParseError(error_msg) from e
     except Exception as e:
         elapsed = time.time() - start_time
@@ -311,7 +307,9 @@ def parse_hl7v3(
             except:
                 pass
         logger.error(f"[{current_time}] {error_msg} (elapsed: {elapsed:.2f}s)")
-        # Log completion timestamp at end of operation
-        logger.info(f"Current Time at End of Operations: {current_time}")
         raise HL7v3ParseError(error_msg) from e
 
+
+def parse_message(xml_string: str, **kwargs) -> Message:
+    """Compatibility alias for parsing an HL7 v3 message."""
+    return parse_hl7v3(xml_string, **kwargs)

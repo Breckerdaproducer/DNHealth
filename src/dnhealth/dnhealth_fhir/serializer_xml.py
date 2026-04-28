@@ -180,12 +180,10 @@ def serialize_fhir_xml(
     xml_bytes = ET.tostring(root, encoding=encoding, xml_declaration=True)
     result = xml_bytes.decode(encoding)
     
-    # Log completion timestamp at end of operation
     completion_time = datetime.now()
     elapsed = (completion_time - start_time).total_seconds()
     current_time = completion_time.strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] FHIR XML serialization completed successfully in {elapsed:.3f} seconds")
-    logger.debug(f"[{current_time}] Current Time at End of Operations: {current_time}")
     
     return result
 

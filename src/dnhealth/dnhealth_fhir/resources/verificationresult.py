@@ -111,7 +111,6 @@ class VerificationResult(DomainResource):
             raise ValueError("status is required")
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.debug(f"Current Time at End of Operations: {current_time}")
 
 
 @dataclass

@@ -65,13 +65,9 @@ def merge_resources(
     for resource in resources[1:]:
         merged = _merge_resource_fields(merged, resource, merge_strategy, merge_lists)
     
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return merged
 
 
@@ -134,9 +130,6 @@ def _merge_resource_fields(
             pass
         else:
 
-                # Log completion timestamp at end of operation
-                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                logger.info(f"Current Time at End of Operations: {current_time}")
             # Default: replace
             setattr(base, field_name, deepcopy(other_value))
     
@@ -176,9 +169,6 @@ def merge_resources_into_bundle(
         total=len(entries)
     )
     
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return bundle
 

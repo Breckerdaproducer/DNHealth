@@ -795,9 +795,6 @@ def validate_field_value(segment_name: str, field_index: int, value: str, versio
     
     logger.debug(f"validate_field_value completed at {datetime.now().isoformat()}")
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -27352,15 +27349,9 @@ def get_segment_fields(segment_name: str, version: Optional[str] = None) -> Dict
                 result[field_index] = field_def
         logger.debug(f"get_segment_fields completed at {datetime.now().isoformat()}")
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return result
     
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     logger.debug(f"get_segment_fields completed at {datetime.now().isoformat()}")
     return fields
 
@@ -27417,9 +27408,6 @@ def verify_segment_completeness(segment_name: str, expected_field_count: Optiona
             issues.append(f"Field {field_index} missing field_name")
         
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         if not field_def.data_type:
             issues.append(f"Field {field_index} missing data_type")
     
@@ -27481,10 +27469,7 @@ def get_all_implemented_segments() -> List[str]:
     # Add registered Z-segments
     implemented.extend(list_registered_z_segments())
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Found {len(implemented)} implemented segments")
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     return sorted(implemented)
 
 
@@ -27518,8 +27503,6 @@ def get_segment_implementation_statistics() -> Dict[str, Any]:
     
     completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     stats = {
         "total_segments": len(segments),
@@ -27532,7 +27515,6 @@ def get_segment_implementation_statistics() -> Dict[str, Any]:
     }
     
     logger.info(f"[{completion_time}] Statistics generated: {stats['total_segments']} segments, {stats['total_fields']} total fields")
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     return stats
 
 
@@ -28602,9 +28584,7 @@ RXX_FIELD_DEFINITIONS: Dict[int, FieldDefinition] = {
 
 # Register common Z-segments (Z01-Z30) with default definitions at module load
 # These are placeholders - actual implementations should override with specific definitions
-# Log completion timestamp at end of operation
-_current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-logger.info(f"[{_current_time}] Registering common Z-segments (Z01-Z30) with default definitions")
+logger.info("Registering common Z-segments (Z01-Z30) with default definitions")
 for z_num in range(1, 31):
     z_seg_name = f"Z{z_num:02d}"
     try:
@@ -28612,5 +28592,3 @@ for z_num in range(1, 31):
     except Exception as e:
         # Segment may already be registered, which is fine
         logger.debug(f"Z-segment {z_seg_name} registration: {e}")
-
-logger.info(f"[{_current_time}] Z-segment registration completed. Current Time at End of Operations: {_current_time}")

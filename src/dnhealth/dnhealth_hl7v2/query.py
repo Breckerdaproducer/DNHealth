@@ -412,9 +412,6 @@ def create_qak_segment(
     logger.info(f"[{completion_time}] QAK segment created successfully")
     
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return segment
 
 
@@ -476,9 +473,6 @@ def create_qpd_segment(
         fields.append(Field([], is_null=True))
     
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
     return Segment("QPD", fields=fields)
 
 
@@ -854,9 +848,6 @@ def create_query_response_message(
     result = Message(
         segments=segments,
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         encoding_chars=encoding_chars,
         version=version,
     )
@@ -921,9 +912,6 @@ def parse_query_message(message: Message) -> Dict[str, Any]:
         result["query_type"] = "enhanced"
         result["qpd"] = qpd_segments[0]
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     else:
         result["query_type"] = "unknown"
     

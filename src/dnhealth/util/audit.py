@@ -145,8 +145,6 @@ class AuditLogger:
 
         logger.info(f"{timestamp.strftime('%Y-%m-%d %H:%M:%S')} - {log_msg}")
         
-        # Log completion timestamp at end of operation
-        completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{completion_time}] Audit log operation completed")
 
     def log_resource_access(
@@ -176,8 +174,6 @@ class AuditLogger:
             metadata=metadata,
         )
         
-        # Log completion timestamp at end of operation
-        completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{completion_time}] Resource access logging completed")
 
     def log_parse_operation(
@@ -212,13 +208,8 @@ class AuditLogger:
             metadata=meta,
         )
         
-        # Log completion timestamp at end of operation
-        completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{completion_time}] Parse operation logging completed")
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
 
     def log_batch_operation(
         self,
@@ -255,8 +246,6 @@ class AuditLogger:
             metadata=meta,
         )
         
-        # Log completion timestamp at end of operation
-        completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{completion_time}] Batch operation logging completed")
 
     def get_logs(
@@ -288,8 +277,6 @@ class AuditLogger:
         if limit:
             results = results[-limit:]
 
-        # Log completion timestamp at end of operation
-        completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{completion_time}] Get logs operation completed (returned {len(results)} results)")
         
         return results
@@ -326,8 +313,6 @@ class AuditLogger:
             event_counts[event_type] = event_counts.get(event_type, 0) + 1
         stats["event_type_counts"] = event_counts
         
-        # Log completion timestamp at end of operation
-        completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{completion_time}] Get stats operation completed")
         stats["completion_timestamp"] = completion_time
 
@@ -335,9 +320,6 @@ class AuditLogger:
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 # Global default audit logger instance
 _default_audit_logger: Optional[AuditLogger] = None
 

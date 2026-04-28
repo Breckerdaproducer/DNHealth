@@ -132,11 +132,8 @@ def verify_rim_class_completeness(rim_class_name: str, instance: Optional[object
     
     is_complete = len(missing_attributes) == 0
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.info(f"[{completion_time}] RIM class completeness verification completed: "
                 f"is_complete={is_complete}, missing={len(missing_attributes)}")
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     
     return is_complete, missing_attributes
 
@@ -157,10 +154,7 @@ def verify_all_rim_classes() -> Dict[str, Tuple[bool, List[str]]]:
         is_complete, missing = verify_rim_class_completeness(rim_class_name)
         results[rim_class_name] = (is_complete, missing)
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.info(f"[{completion_time}] Verification of all RIM classes completed")
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     return results
 
 

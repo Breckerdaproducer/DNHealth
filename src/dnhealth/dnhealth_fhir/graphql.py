@@ -362,7 +362,6 @@ class GraphQLSchemaGenerator:
         """
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return self.types.get(type_name)
 
 
@@ -591,7 +590,6 @@ class GraphQLQueryParser:
                 selections = self._parse_selections(selections_str)
                 
 
-            # Log completion timestamp at end of operation
                 return GraphQLQueryNode(
                     field_name=field_name,
                     alias=alias,

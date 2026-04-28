@@ -211,8 +211,6 @@ class Constraint:
                 # Result should be boolean-like
                 is_valid = bool(result)
                 
-                # Log completion timestamp at end of operation
-                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 logger.debug(
                     f"[{current_time}] Custom constraint evaluated: {self.rule} = {result}"
                 )
@@ -240,9 +238,6 @@ class Constraint:
                 f"Unknown constraint type: {self.constraint_type}"
             )
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return True, None  # Don't fail on unknown constraint types
 
@@ -376,9 +371,6 @@ class ImplementationGuide:
         Returns:
             Segment definition or None
         """
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return self.custom_segments.get(segment_name)
     
@@ -397,9 +389,6 @@ class ImplementationGuide:
         Returns:
             Field definition or None
         """
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return self.custom_fields.get(segment_name, {}).get(field_index)
     
@@ -514,9 +503,6 @@ class ImplementationGuide:
             )
         
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return is_valid, errors
     
     def to_dict(self) -> Dict[str, Any]:
@@ -615,9 +601,6 @@ class ImplementationGuide:
         
         result = cls.from_dict(data)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
     
@@ -654,9 +637,6 @@ def load_implementation_guide(file_path: str) -> ImplementationGuide:
     
     result = ImplementationGuide.from_json(json_str)
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return result
 

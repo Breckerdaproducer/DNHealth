@@ -253,7 +253,6 @@ class FHIRRestClient:
         created_data = response.json()
         created_resource = parse_resource(created_data)
 
-            # Log completion timestamp at end of operation
         
         logger.info(f"[{current_time}] Successfully created resource {resource.resourceType}/{created_resource.id}")
         return created_resource
@@ -290,7 +289,6 @@ class FHIRRestClient:
         
         data = serialize_resource(resource)
 
-            # Log completion timestamp at end of operation
         response = self._make_request("PUT", path, data=data, headers=headers)
         updated_data = response.json()
         updated_resource = parse_resource(updated_data)
@@ -402,7 +400,6 @@ class FHIRRestClient:
         
         path = f"{resource_type}?{query_string}" if query_string else resource_type
 
-            # Log completion timestamp at end of operation
         
         response = self._make_request("GET", path)
         bundle_data = response.json()
@@ -550,7 +547,6 @@ class FHIRRestClient:
             bundle: Bundle with transaction entries
             
 
-            # Log completion timestamp at end of operation
         Returns:
             Bundle with transaction response
         """

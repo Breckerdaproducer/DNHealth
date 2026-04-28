@@ -55,9 +55,6 @@ def _get_structure_definition_class():
     """Get StructureDefinition class lazily."""
     from dnhealth.dnhealth_fhir.structuredefinition import StructureDefinition
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return StructureDefinition
 
 T = TypeVar("T", bound=FHIRResource)
@@ -391,7 +388,6 @@ def _parse_dataclass(data: Dict[str, Any], cls: Type, context: str = "", version
             instance._primitive_extensions = primitive_extensions
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return instance
     except Exception as e:
         raise FHIRParseError(f"Error creating {cls.__name__}: {e}") from e
@@ -485,10 +481,17 @@ def parse_fhir_json(
     if use_cache and cache is not None:
         cache.put(json_str, resource)
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.debug(f"[{current_time}] FHIR JSON parsing completed successfully (version: {version.value})")
-    logger.debug(f"[{current_time}] Current Time at End of Operations: {current_time}")
-
     return resource
 
+
+def parse_resource(data: Any, *args: Any, **kwargs: Any) -> FHIRResource:
+    """
+    Parse a FHIR resource from a JSON string or dictionary.
+
+    This compatibility wrapper is used by REST, patch, and test helpers.
+    """
+    if isinstance(data, str):
+        return parse_fhir_json(data, *args, **kwargs)
+    if isinstance(data, dict):
+        return parse_fhir_json(json.dumps(data), *args, **kwargs)
+    raise FHIRParseError(f"FHIR resource must be a JSON string or object, got {type(data).__name__}")

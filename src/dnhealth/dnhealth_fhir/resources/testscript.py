@@ -250,8 +250,3 @@ class TestScript(MetadataResource):
     test: List[TestScriptTest] = field(default_factory=list)  # A test in this script
     # Teardown
     teardown: Optional[TestScriptTeardown] = None  # A series of required clean up steps
-
-
-# Log completion timestamp at end of operations
-current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-logger.info(f"Current Time at End of Operations: {current_time}")

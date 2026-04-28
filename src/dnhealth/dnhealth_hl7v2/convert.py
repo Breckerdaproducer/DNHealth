@@ -128,9 +128,6 @@ def convert_message_version(
     )
     
     logger.info(f"[{current_time}] Message conversion completed with {len(warnings)} warning(s)")
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     return converted_message, warnings
 
 
@@ -245,9 +242,6 @@ def _convert_segment(
 
     converted_segment = Segment(segment.name, field_repetitions=converted_fields)
     logger.debug(f"[{current_time}] Segment {segment.name} conversion completed with {len(warnings)} warning(s)")
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.debug(f"Current Time at End of Operations: {completion_time}")
     return converted_segment, warnings
 
 
@@ -302,8 +296,5 @@ def convert_message_simple(message: Message, target_version: str) -> Message:
     )
     
     logger.debug(f"[{current_time}] Simple conversion completed")
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.debug(f"Current Time at End of Operations: {completion_time}")
     return converted_message
 

@@ -109,9 +109,6 @@ class AcknowledgmentProcessor:
             result["status"] = "AE"
         
 
-                # Log completion timestamp at end of operation
-                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                logger.info(f"Current Time at End of Operations: {current_time}")
         return result
 
     def extract_ack_status(self, ack_message: Message) -> Tuple[str, Optional[str]]:
@@ -388,9 +385,6 @@ class AcknowledgmentTracker:
                 # Check timeout
                 if elapsed >= timeout:
 
-                        # Log completion timestamp at end of operation
-                        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                        logger.info(f"Current Time at End of Operations: {current_time}")
                     logger.warning(
                         f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Timeout waiting "
                         f"for ACK for message {message_id} after {timeout}s"
@@ -401,9 +395,6 @@ class AcknowledgmentTracker:
 
     def get_original_message(self, message_id: str) -> Optional[Message]:
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         """
         Get the original message for a tracked message ID.
         

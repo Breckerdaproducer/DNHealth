@@ -100,7 +100,6 @@ logger = logging.getLogger(__name__)
 def _log_module_initialization():
     """Log module initialization timestamp."""
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 # Log module initialization
 _log_module_initialization()

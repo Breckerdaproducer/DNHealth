@@ -109,9 +109,6 @@ def validate_logical_reference(reference: Reference) -> List[str]:
             errors.append(f"Invalid resource type in logical reference: '{reference.type}'")
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return errors
 
 
@@ -160,19 +157,13 @@ def resolve_logical_reference(
                         # If system is specified, it must match
                         if identifier_system:
                             if ident.system == identifier_system:
-                                # Log completion timestamp at end of operation
-                                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                                 logger.debug(f"[{current_time}] Logical reference resolution completed successfully")
                                 return resource
                         else:
                             # No system specified, match by value only
-                            # Log completion timestamp at end of operation
-                            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                             logger.debug(f"[{current_time}] Logical reference resolution completed successfully")
                             return resource
     
-    # Log completion timestamp at end of operation (even if not found)
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Logical reference resolution completed (no match found)")
     return None
 
@@ -200,8 +191,6 @@ def create_logical_reference(
         display=display
     )
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Logical reference creation completed successfully")
     
     return result

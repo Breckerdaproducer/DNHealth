@@ -55,8 +55,6 @@ def parse_reference(reference_str: str) -> tuple[Optional[str], Optional[str]]:
     # Handle just an id (assumes same resource type)
     result = (None, reference_str)
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Reference parsing completed: {result}")
     
     return result
@@ -98,8 +96,6 @@ def validate_reference_format(reference: Reference) -> List[str]:
                     f"Reference type '{reference.type}' does not match reference string type '{resource_type}'"
                 )
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Reference format validation completed: {len(errors)} errors found")
     
     return errors
@@ -138,9 +134,6 @@ def get_resources_by_id(bundle: Optional["Bundle"] = None, resources: Optional[L
                 resource_map[key] = resource
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return resource_map
 
 
@@ -215,8 +208,6 @@ def validate_reference_exists(
         # Identifier-based references are valid but we can't check existence locally
         pass
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Reference existence validation completed: {len(errors)} errors found")
     return errors
 
@@ -269,14 +260,10 @@ def resolve_relative_reference(
             if key in resource_map:
                 result = resource_map[key]
                 
-                # Log completion timestamp at end of operation
-                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 logger.debug(f"[{current_time}] Relative reference resolution completed: resolved '{reference_str}' to {result.resourceType}/{result.id if result.id else 'N/A'}")
                 
                 return result
     
-    # Log completion timestamp at end of operation (not found)
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Relative reference resolution completed: '{reference_str}' not found")
     
     return None
@@ -391,8 +378,6 @@ def resolve_reference_chain(
                             if sub_chain:
                                 chain.extend(sub_chain)
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Reference chain resolution completed: {len(chain)} resources in chain")
     
     return chain
