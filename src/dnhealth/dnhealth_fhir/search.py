@@ -81,7 +81,6 @@ class SearchParameters:
         """Check if a parameter exists."""
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return any(p.name == name for p in self.parameters)
 
 
@@ -310,7 +309,6 @@ def parse_reverse_chain_parameter(param_name: str) -> tuple[Optional[str], Optio
             return resource_type, parameter_name
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return None, None
 
 
@@ -369,7 +367,6 @@ def parse_chained_search_parameter(param: SearchParameter) -> Optional[ChainedSe
     resource_type, parameter_name = parse_chained_parameter(param.name)
     if resource_type:
 
-            # Log completion timestamp at end of operation
         return ChainedSearchParameter(
             resource_type=resource_type,
             parameter=parameter_name,
@@ -513,8 +510,6 @@ def parse_search_string(query_string: str) -> SearchParameters:
                 if param:
                     search_params.parameters.append(param)
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Search string parsing completed successfully")
     
     return search_params
@@ -573,7 +568,6 @@ def parse_search_url(url: str) -> SearchParameters:
     """
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     Parse a FHIR search URL into SearchParameters.
     
     Args:
@@ -591,8 +585,6 @@ def parse_search_url(url: str) -> SearchParameters:
     query_string = parsed.query
     result = parse_search_string(query_string)
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Search URL parsing completed successfully")
     
     return result

@@ -75,12 +75,6 @@ def pretty_print(message, output_file=None):
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
-# Log completion timestamp
-current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-logger.info(f"Current Time at End of Operations: {current_time}")
 
 def cmd_pretty(args):
     """Pretty-print command."""
@@ -100,9 +94,6 @@ def cmd_pretty(args):
         sys.exit(1)
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 def cmd_json(args):
     """JSON conversion command."""
@@ -124,9 +115,6 @@ def cmd_json(args):
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     except Exception as e:
         print(f"Unexpected error: {e}", file=sys.stderr)
         sys.exit(1)
@@ -180,9 +168,6 @@ def cmd_validate(args):
         sys.exit(1)
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 def cmd_extract(args):
     """Extract elements by XPath command."""
@@ -233,9 +218,6 @@ def cmd_extract(args):
         else:
             write_stdout(output + "\n")
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
             
     except HL7v3ParseError as e:
         print(f"Error: {e}", file=sys.stderr)
@@ -317,9 +299,6 @@ def cmd_schema(args):
         sys.exit(1)
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 def cmd_transform(args):
     """XSLT transformation command."""
@@ -381,9 +360,6 @@ def cmd_transform(args):
                 
         except ImportError:
 
-            # Log completion timestamp
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
             # lxml not available
             print("Error: lxml library required for XSLT transformation.", file=sys.stderr)
             print("Install lxml: pip install lxml", file=sys.stderr)
@@ -464,15 +440,12 @@ def main():
         sys.exit(1)
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 if __name__ == "__main__":
     from datetime import datetime
-import logging
+    import logging
 
-logger = logging.getLogger(__name__)
+    logger = logging.getLogger(__name__)
     start_time = datetime.now()
     try:
         main()
@@ -482,4 +455,3 @@ logger = logging.getLogger(__name__)
         completion_timestamp = end_time.strftime("%Y-%m-%d %H:%M:%S")
         duration = (end_time - start_time).total_seconds()
         print(f"[{completion_timestamp}] HL7v3 CLI operation completed in {duration:.3f} seconds", file=sys.stderr)
-

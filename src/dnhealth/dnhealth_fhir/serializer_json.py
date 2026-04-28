@@ -244,12 +244,19 @@ def serialize_fhir_json(
     
     json_result = json.dumps(data, indent=indent, ensure_ascii=False)
     
-    # Log completion timestamp at end of operation
     completion_time = datetime.now()
     elapsed = (completion_time - start_time).total_seconds()
     current_time = completion_time.strftime("%Y-%m-%d %H:%M:%S")
     logger.info(f"[{current_time}] FHIR JSON serialization completed in {elapsed:.3f} seconds")
-    logger.info(f"[{current_time}] Current Time at End of Operations: {current_time}")
     
     return json_result
 
+
+def serialize_resource(resource: FHIRResource) -> Dict[str, Any]:
+    """
+    Serialize a FHIR resource to a JSON-compatible dictionary.
+
+    This compatibility wrapper is used by REST and patch helpers that pass
+    dictionaries directly to HTTP clients or storage layers.
+    """
+    return json.loads(serialize_fhir_json(resource))

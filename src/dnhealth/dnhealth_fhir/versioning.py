@@ -44,9 +44,6 @@ class VersionInfo:
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 def create_version(resource: "Resource") -> str:
     """
     Create a new version ID for a FHIR resource.
@@ -78,7 +75,6 @@ def create_version(resource: "Resource") -> str:
     # Set version ID and last updated
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     resource.meta.versionId = version_id
     resource.meta.lastUpdated = datetime.now().isoformat()
     
@@ -177,9 +173,6 @@ def compare_versions(version1: str, version2: str) -> int:
                 return 1
             else:
 
-                    # Log completion timestamp at end of operation
-                    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    logger.info(f"Current Time at End of Operations: {current_time}")
                 return 0
         except ValueError:
             # Fall back to string comparison

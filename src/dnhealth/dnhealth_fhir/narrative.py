@@ -30,9 +30,6 @@ logger = get_logger(__name__)
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 def generate_narrative(resource: "DomainResource") -> Narrative:
     """
     Generate a human-readable HTML narrative from a FHIR resource.
@@ -107,8 +104,6 @@ def generate_narrative(resource: "DomainResource") -> Narrative:
     
     logger.info(f"[{current_time}] Generated narrative for resource {resource.resourceType}/{resource.id} ({len(html_content)} characters)")
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Narrative generation operation completed")
     
     return narrative
@@ -181,8 +176,6 @@ def validate_narrative(resource: "DomainResource") -> List[str]:
     else:
         logger.debug(f"[{current_time}] Narrative is valid for resource {resource.resourceType}/{resource.id}")
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Narrative validation operation completed")
     
     return errors
@@ -218,8 +211,6 @@ def render_narrative(narrative: Narrative) -> str:
     
     logger.debug(f"[{current_time}] Rendered narrative ({len(html_content)} characters)")
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Narrative rendering operation completed")
     
     return html_content

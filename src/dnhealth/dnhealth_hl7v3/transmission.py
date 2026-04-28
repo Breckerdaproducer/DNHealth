@@ -93,9 +93,6 @@ class TransmissionParty:
             name_elem.text = self.name
         
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return elem
 
 
@@ -419,9 +416,6 @@ class TransmissionWrapper:
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 # ============================================================================
 # Helper Functions
 # ============================================================================

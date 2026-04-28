@@ -60,7 +60,6 @@ def get_message_type(message: Message) -> Optional[str]:
 
 
 
-# Current Time at End of Operations: 2025-12-11 08:12:03
 
 def validate_adt_a01(message: Message) -> Tuple[bool, List[str]]:
     """
@@ -3808,7 +3807,3 @@ validate_adt_a56 = _create_message_validator("ADT", "A56", ["MSH", "EVN", "PID",
 validate_adt_a57 = _create_message_validator("ADT", "A57", ["MSH", "EVN", "PID", "PV1"])
 validate_adt_a58 = _create_message_validator("ADT", "A58", ["MSH", "EVN", "PID", "PV1"])
 validate_adt_a59 = _create_message_validator("ADT", "A59", ["MSH", "EVN", "PID", "PV1"])
-
-# Log completion timestamp at end of operations
-current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-logger.info(f"Current Time at End of Operations: {current_time}")

@@ -193,10 +193,8 @@ class EffectEvidenceSynthesis(MetadataResource):
     # Certainty
     certainty: List[EffectEvidenceSynthesisCertainty] = field(default_factory=list)  # How certain is the effect?
 
-# Log completion timestamp at end of operations
 from datetime import datetime
 import logging
 
 logger = logging.getLogger(__name__)
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-logger.info(f"Current Time at End of Operations: {current_time}")

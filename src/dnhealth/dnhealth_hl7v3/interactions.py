@@ -556,9 +556,6 @@ class RAD_IN000001UV:
             if self.patient.roles:
                 participation.role = self.patient.roles[0]
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return act
 
 
@@ -597,9 +594,6 @@ class RAD_IN000002UV:
         if self.acknowledgment:
             return self.acknowledgment
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return Act(
             class_code="ACK",
             mood_code="EVN",
@@ -704,9 +698,6 @@ class PRSC_IN000001UV:
             RIM Act instance
         """
         if self.appointment:
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
             return self.appointment
         act = Act(
             class_code="APT",
@@ -835,9 +826,6 @@ class QUQI_IN000001UV:
         if not self.id and not self.query_id:
             errors.append("QUQI_IN000001UV: Either id or query_id is required")
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return errors
     
     def to_rim(self) -> Act:
@@ -911,9 +899,6 @@ class MFMI_IN000001UV:
         if self.update_type and self.update_type not in ["Add", "Update", "Delete"]:
             errors.append(f"MFMI_IN000001UV: update_type must be 'Add', 'Update', or 'Delete', got '{self.update_type}'")
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return errors
     
     def to_rim(self) -> Act:
@@ -958,9 +943,6 @@ class MFMI_IN000002UV:
         if self.acknowledgment:
             return self.acknowledgment
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return Act(
             class_code="ACK",
             mood_code="EVN",
@@ -1332,9 +1314,6 @@ class RCMR_IN000001UV:
         if not self.id and not self.referral_id:
             errors.append("RCMR_IN000001UV: Either id or referral_id is required")
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return errors
     
     def to_rim(self) -> Act:
@@ -1804,9 +1783,6 @@ class PRSC_IN000006UV:
             id=self.appointment_id or self.id
         )
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return result
 
 
@@ -3075,9 +3051,6 @@ def verify_interaction_completeness(interaction_type: str) -> tuple[bool, List[s
     else:
         logger.warning(f"[{current_time}] Interaction {interaction_type} verification found {len(issues)} issues")
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     
     return is_complete, issues
 
@@ -3157,7 +3130,5 @@ def verify_all_interactions_completeness() -> Dict[str, Any]:
                 f"{len(complete_interactions)}/{len(expected_interactions)} interactions complete "
                 f"({result['completeness_percentage']:.1f}%) in {elapsed:.2f}s")
     
-    # Log completion timestamp at end of operation
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     
     return result

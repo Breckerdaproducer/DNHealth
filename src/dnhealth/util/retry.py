@@ -253,8 +253,6 @@ class RetryHandler:
         if last_exception:
             raise last_exception
         
-        # Log completion timestamp at end of operation
-        completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{completion_time}] Retry operation completed successfully")
         
         return last_return_value
@@ -332,8 +330,6 @@ class RetryHandler:
             "max_attempts": self.max_attempts,
         }
         
-        # Log completion timestamp at end of operation
-        completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{completion_time}] Get statistics operation completed")
         stats["completion_timestamp"] = completion_time
         
@@ -384,9 +380,6 @@ def retry(
         def fetch_data():
             # This will retry up to 3 times on ConnectionError
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
             return requests.get("https://example.com")
     """
     def decorator(func: Callable) -> Callable:

@@ -118,9 +118,6 @@ class MappingRule:
                 return None
         
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return value
     
     def _set_value_by_path(self, data: Any, path: str, value: Any) -> None:
@@ -204,9 +201,6 @@ def apply_mapping_rules(
     current_time_end = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.info(f"[{current_time_end}] Mapping rules applied in {elapsed:.2f} seconds")
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return result
 
 

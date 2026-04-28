@@ -87,7 +87,6 @@ class FHIROperation(ABC):
         self._terminology_service = terminology_service
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     @abstractmethod
     def execute(self, parameters: Parameters) -> Parameters:
@@ -134,7 +133,6 @@ class FHIROperation(ABC):
             op_def.resource = [self.resource_type]
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return op_def
 
 
@@ -175,7 +173,6 @@ def get_operation(name: str, resource_type: Optional[str] = None) -> Optional[FH
     """
     if name not in _operation_registry:
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return None
     
     # Try resource-specific first
@@ -183,7 +180,6 @@ def get_operation(name: str, resource_type: Optional[str] = None) -> Optional[FH
         operation_class = _operation_registry[name][resource_type]
         operation = operation_class()
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return operation
     
     # Try system-level (None)
@@ -191,12 +187,8 @@ def get_operation(name: str, resource_type: Optional[str] = None) -> Optional[FH
         operation_class = _operation_registry[name][None]
         operation = operation_class()
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return operation
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return None
 
 
@@ -219,9 +211,6 @@ def list_operations(resource_type: Optional[str] = None) -> List[str]:
             # Return operations available for this resource type
             operations.append(name)
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return sorted(operations)
 
 
@@ -366,7 +355,6 @@ class ValidateOperation(FHIROperation):
         elapsed = (end_time - start_time).total_seconds()
         current_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
         self.logger.info(f"$validate operation completed at {current_time} in {elapsed:.2f} seconds")
-        self.logger.info(f"Current Time at End of Operations: {current_time}")
         
         return Parameters(parameter=[result_param])
     
@@ -596,7 +584,6 @@ class ValidateCodeOperation(FHIROperation):
                 elapsed = (end_time - start_time).total_seconds()
                 completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
                 self.logger.info(f"[{completion_time}] $validate-code operation completed in {elapsed:.2f} seconds")
-                self.logger.info(f"Current Time at End of Operations: {completion_time}")
                 
                 return Parameters(parameter=result_params)
             except Exception as e:
@@ -631,7 +618,6 @@ class ValidateCodeOperation(FHIROperation):
         elapsed = (end_time - start_time).total_seconds()
         completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
         self.logger.info(f"[{completion_time}] $validate-code operation completed in {elapsed:.2f} seconds")
-        self.logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return Parameters(parameter=result_params)
     
@@ -772,7 +758,6 @@ class ExpandOperation(FHIROperation):
                     elapsed = (end_time - start_time).total_seconds()
                     completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
                     self.logger.info(f"[{completion_time}] $expand operation completed in {elapsed:.2f} seconds")
-                    self.logger.info(f"Current Time at End of Operations: {completion_time}")
                     
                     return Parameters(parameter=result_params)
                 else:
@@ -792,7 +777,6 @@ class ExpandOperation(FHIROperation):
                     elapsed = (end_time - start_time).total_seconds()
                     completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
                     self.logger.info(f"[{completion_time}] $expand operation completed in {elapsed:.2f} seconds")
-                    self.logger.info(f"Current Time at End of Operations: {completion_time}")
                     
                     return Parameters(parameter=[result_param])
             except Exception as e:
@@ -812,7 +796,6 @@ class ExpandOperation(FHIROperation):
         elapsed = (end_time - start_time).total_seconds()
         completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
         self.logger.info(f"[{completion_time}] $expand operation completed in {elapsed:.2f} seconds")
-        self.logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return Parameters(parameter=result_params)
     
@@ -981,7 +964,6 @@ class LookupOperation(FHIROperation):
                     elapsed = (end_time - start_time).total_seconds()
                     completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
                     self.logger.info(f"[{completion_time}] $lookup operation completed in {elapsed:.2f} seconds")
-                    self.logger.info(f"Current Time at End of Operations: {completion_time}")
                     
                     return Parameters(parameter=result_params)
                 else:
@@ -1001,7 +983,6 @@ class LookupOperation(FHIROperation):
                     elapsed = (end_time - start_time).total_seconds()
                     completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
                     self.logger.info(f"[{completion_time}] $lookup operation completed in {elapsed:.2f} seconds")
-                    self.logger.info(f"Current Time at End of Operations: {completion_time}")
                     
                     return Parameters(parameter=[result_param])
             except Exception as e:
@@ -1021,7 +1002,6 @@ class LookupOperation(FHIROperation):
         elapsed = (end_time - start_time).total_seconds()
         completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
         self.logger.info(f"[{completion_time}] $lookup operation completed in {elapsed:.2f} seconds")
-        self.logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return Parameters(parameter=result_params)
     
@@ -1218,7 +1198,6 @@ class TranslateOperation(FHIROperation):
                     elapsed = (end_time - start_time).total_seconds()
                     completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
                     self.logger.info(f"[{completion_time}] $translate operation completed in {elapsed:.2f} seconds - {len(translations)} translation(s) found")
-                    self.logger.info(f"Current Time at End of Operations: {completion_time}")
                     
                     return Parameters(parameter=result_params)
                 else:
@@ -1237,7 +1216,6 @@ class TranslateOperation(FHIROperation):
                     elapsed = (end_time - start_time).total_seconds()
                     completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
                     self.logger.info(f"[{completion_time}] $translate operation completed in {elapsed:.2f} seconds - no translation found")
-                    self.logger.info(f"Current Time at End of Operations: {completion_time}")
                     
                     return Parameters(parameter=result_params)
             except Exception as e:
@@ -1256,7 +1234,6 @@ class TranslateOperation(FHIROperation):
                 elapsed = (end_time - start_time).total_seconds()
                 completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
                 self.logger.info(f"[{completion_time}] $translate operation completed in {elapsed:.2f} seconds - error occurred")
-                self.logger.info(f"Current Time at End of Operations: {completion_time}")
                 return Parameters(parameter=[result_param])
         else:
             # ConceptMap not found - return informative message
@@ -1274,7 +1251,6 @@ class TranslateOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $translate operation completed in {elapsed:.2f} seconds - ConceptMap not found")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             
             return Parameters(parameter=result_params)
     
@@ -1437,7 +1413,6 @@ class SubsumesOperation(FHIROperation):
                     elapsed = (end_time - start_time).total_seconds()
                     completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
                     self.logger.info(f"[{completion_time}] $subsumes operation completed in {elapsed:.2f} seconds")
-                    self.logger.info(f"Current Time at End of Operations: {completion_time}")
                     
                     return Parameters(parameter=result_params)
                 else:
@@ -1457,7 +1432,6 @@ class SubsumesOperation(FHIROperation):
                     elapsed = (end_time - start_time).total_seconds()
                     completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
                     self.logger.info(f"[{completion_time}] $subsumes operation completed in {elapsed:.2f} seconds")
-                    self.logger.info(f"Current Time at End of Operations: {completion_time}")
                     
                     return Parameters(parameter=[result_param])
             except Exception as e:
@@ -1481,7 +1455,6 @@ class SubsumesOperation(FHIROperation):
         elapsed = (end_time - start_time).total_seconds()
         completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
         self.logger.info(f"[{completion_time}] $subsumes operation completed in {elapsed:.2f} seconds")
-        self.logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return Parameters(parameter=result_params)
     
@@ -1634,7 +1607,6 @@ class EverythingOperation(FHIROperation):
         elapsed = (end_time - start_time).total_seconds()
         completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
         self.logger.info(f"[{completion_time}] $everything operation completed in {elapsed:.2f} seconds")
-        self.logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return Parameters(parameter=result_params)
     
@@ -1713,7 +1685,6 @@ class ClosureOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $closure operation completed with error in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             return Parameters(parameter=[result_param])
         
         # Create closure ConceptMap
@@ -1778,7 +1749,6 @@ class ClosureOperation(FHIROperation):
         elapsed = (end_time - start_time).total_seconds()
         completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
         self.logger.info(f"[{completion_time}] $closure operation completed in {elapsed:.2f} seconds")
-        self.logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return Parameters(parameter=result_params)
     
@@ -1879,7 +1849,6 @@ class DocumentOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $document operation completed with error in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             return Parameters(parameter=[result_param])
         
         # Create resource loader function for DocumentGenerator
@@ -1920,8 +1889,6 @@ class DocumentOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             self.logger.info(f"[{end_time.strftime('%Y-%m-%d %H:%M:%S')}] $document operation completed successfully in {elapsed:.2f} seconds")
             
-            # Log completion timestamp at end of operation
-            self.logger.info(f"Current Time at End of Operations: {current_time}")
             
             return Parameters(parameter=result_params)
             
@@ -1941,7 +1908,6 @@ class DocumentOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $document operation completed with error in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             return Parameters(parameter=[result_param])
     
     def validate_parameters(self, parameters: Parameters) -> List[str]:
@@ -2011,7 +1977,6 @@ class ProcessMessageOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $process-message operation completed with error in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             return Parameters(parameter=[result_param])
         
         # Validate bundle type
@@ -2030,7 +1995,6 @@ class ProcessMessageOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $process-message operation completed with error in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             return Parameters(parameter=[result_param])
         
         # Validate bundle is a message bundle
@@ -2049,7 +2013,6 @@ class ProcessMessageOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $process-message operation completed with error in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             return Parameters(parameter=[result_param])
         
         # Initialize MessageProcessor
@@ -2069,7 +2032,6 @@ class ProcessMessageOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $process-message operation completed successfully in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             
             return Parameters(parameter=result_params)
             
@@ -2090,7 +2052,6 @@ class ProcessMessageOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $process-message operation completed with error in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             return Parameters(parameter=[result_param])
             
         except Exception as e:
@@ -2110,7 +2071,6 @@ class ProcessMessageOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $process-message operation completed with error in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             return Parameters(parameter=[result_param])
     
     def validate_parameters(self, parameters: Parameters) -> List[str]:
@@ -2218,7 +2178,6 @@ class StatsOperation(FHIROperation):
         elapsed = (end_time - start_time).total_seconds()
         completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
         self.logger.info(f"[{completion_time}] $stats operation completed in {elapsed:.2f} seconds")
-        self.logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return Parameters(parameter=result_params)
     
@@ -2288,7 +2247,6 @@ class MetaOperation(FHIROperation):
         elapsed = (end_time - start_time).total_seconds()
         completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
         self.logger.info(f"[{completion_time}] $meta operation completed in {elapsed:.2f} seconds")
-        self.logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return Parameters(parameter=result_params)
     
@@ -2397,7 +2355,6 @@ class MetaAddOperation(FHIROperation):
                     elapsed = (end_time - start_time).total_seconds()
                     completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
                     self.logger.info(f"[{completion_time}] $meta-add operation completed in {elapsed:.2f} seconds")
-                    self.logger.info(f"Current Time at End of Operations: {completion_time}")
                     
                     return Parameters(parameter=result_params)
                 else:
@@ -2417,7 +2374,6 @@ class MetaAddOperation(FHIROperation):
                     elapsed = (end_time - start_time).total_seconds()
                     completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
                     self.logger.info(f"[{completion_time}] $meta-add operation completed in {elapsed:.2f} seconds")
-                    self.logger.info(f"Current Time at End of Operations: {completion_time}")
                     
                     return Parameters(parameter=[result_param])
             except Exception as e:
@@ -2437,7 +2393,6 @@ class MetaAddOperation(FHIROperation):
         elapsed = (end_time - start_time).total_seconds()
         completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
         self.logger.info(f"[{completion_time}] $meta-add operation completed in {elapsed:.2f} seconds")
-        self.logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return Parameters(parameter=result_params)
     
@@ -2556,7 +2511,6 @@ class MetaDeleteOperation(FHIROperation):
                     elapsed = (end_time - start_time).total_seconds()
                     completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
                     self.logger.info(f"[{completion_time}] $meta-delete operation completed in {elapsed:.2f} seconds")
-                    self.logger.info(f"Current Time at End of Operations: {completion_time}")
                     
                     return Parameters(parameter=result_params)
                 else:
@@ -2576,7 +2530,6 @@ class MetaDeleteOperation(FHIROperation):
                     elapsed = (end_time - start_time).total_seconds()
                     completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
                     self.logger.info(f"[{completion_time}] $meta-delete operation completed in {elapsed:.2f} seconds")
-                    self.logger.info(f"Current Time at End of Operations: {completion_time}")
                     
                     return Parameters(parameter=[result_param])
             except Exception as e:
@@ -2596,7 +2549,6 @@ class MetaDeleteOperation(FHIROperation):
         elapsed = (end_time - start_time).total_seconds()
         completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
         self.logger.info(f"[{completion_time}] $meta-delete operation completed in {elapsed:.2f} seconds")
-        self.logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return Parameters(parameter=result_params)
     
@@ -2690,7 +2642,6 @@ class ApplyOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $apply operation completed in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             
             return Parameters(parameter=[result_param])
         
@@ -2713,7 +2664,6 @@ class ApplyOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $apply operation completed in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             
             return Parameters(parameter=[result_param])
         
@@ -2736,7 +2686,6 @@ class ApplyOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $apply operation completed in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             
             return Parameters(parameter=[result_param])
         
@@ -2764,7 +2713,6 @@ class ApplyOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $apply operation completed in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             
             return Parameters(parameter=result_params)
             
@@ -2785,7 +2733,6 @@ class ApplyOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $apply operation completed in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             
             return Parameters(parameter=[result_param])
     
@@ -2940,7 +2887,6 @@ class ExportOperation(FHIROperation):
         elapsed = (end_time - start_time).total_seconds()
         completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
         self.logger.info(f"[{completion_time}] $export operation completed in {elapsed:.2f} seconds")
-        self.logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return result
     
@@ -3060,7 +3006,6 @@ class PopulatelinkOperation(FHIROperation):
         result.parameter = []
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
 
@@ -3103,7 +3048,6 @@ class CareGapsOperation(FHIROperation):
         result.parameter.append(gap_param)
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
 
@@ -3137,7 +3081,6 @@ class FindOperation(FHIROperation):
         result.parameter = []
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
 
@@ -3174,7 +3117,6 @@ class PopulateOperation(FHIROperation):
         result.parameter = []
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
 
@@ -3211,7 +3153,6 @@ class PopulatehtmlOperation(FHIROperation):
         result.parameter = []
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
 
@@ -3245,7 +3186,6 @@ class SubmitDataOperation(FHIROperation):
         result.parameter = []
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
 
@@ -3279,7 +3219,6 @@ class CollectDataOperation(FHIROperation):
         result.parameter = []
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
 
@@ -3313,7 +3252,6 @@ class QuestionnaireOperation(FHIROperation):
         result.parameter = []
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
 
@@ -3362,7 +3300,6 @@ class FindMatchesOperation(FHIROperation):
             result.parameter.append(match_param)
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
 
@@ -3427,7 +3364,6 @@ class MemberOfOperation(FHIROperation):
         result.parameter.append(result_param)
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
 
@@ -3488,7 +3424,6 @@ class EvaluateMeasureOperation(FHIROperation):
         result.parameter.append(report_param)
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         logger.info(f"Evaluate-measure operation executed for measure: {measure_ref}")
         
         return result
@@ -3601,7 +3536,6 @@ class DataRequirementsOperation(FHIROperation):
         elapsed = (end_time - start_time).total_seconds()
         completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
         self.logger.info(f"[{completion_time}] $data-requirements operation completed in {elapsed:.2f} seconds")
-        self.logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return Parameters(parameter=result_params)
     
@@ -3695,7 +3629,6 @@ class ImplementsOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $implements operation completed in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             
             return Parameters(parameter=[result_param])
         
@@ -3716,7 +3649,6 @@ class ImplementsOperation(FHIROperation):
         elapsed = (end_time - start_time).total_seconds()
         completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
         self.logger.info(f"[{completion_time}] $implements operation completed in {elapsed:.2f} seconds")
-        self.logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return Parameters(parameter=result_params)
     
@@ -3850,7 +3782,6 @@ class SnapshotOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $snapshot operation completed in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             
             return Parameters(parameter=[result_param])
         
@@ -3876,7 +3807,6 @@ class SnapshotOperation(FHIROperation):
         elapsed = (end_time - start_time).total_seconds()
         completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
         self.logger.info(f"[{completion_time}] $snapshot operation completed in {elapsed:.2f} seconds")
-        self.logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return Parameters(parameter=result_params)
     
@@ -4014,7 +3944,6 @@ class TransformOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $transform operation completed in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             
             return Parameters(parameter=[result_param])
         
@@ -4034,7 +3963,6 @@ class TransformOperation(FHIROperation):
             elapsed = (end_time - start_time).total_seconds()
             completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
             self.logger.info(f"[{completion_time}] $transform operation completed in {elapsed:.2f} seconds")
-            self.logger.info(f"Current Time at End of Operations: {completion_time}")
             
             return Parameters(parameter=[result_param])
         
@@ -4061,7 +3989,6 @@ class TransformOperation(FHIROperation):
         elapsed = (end_time - start_time).total_seconds()
         completion_time = end_time.strftime("%Y-%m-%d %H:%M:%S")
         self.logger.info(f"[{completion_time}] $transform operation completed in {elapsed:.2f} seconds")
-        self.logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return Parameters(parameter=result_params)
     
@@ -4282,7 +4209,6 @@ class ConvertOperation(FHIROperation):
                 result.parameter.append(error_param)
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
     
@@ -4412,7 +4338,6 @@ class MatchOperation(FHIROperation):
             result.parameter.append(match_param)
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
     
@@ -4499,7 +4424,6 @@ class ComposeOperation(FHIROperation):
             result_param = ParametersParameter(name="return", resource=composed_valueset)
             result.parameter = [result_param]
             
-            # Log completion timestamp
             
         except Exception as e:
             self.logger.error(f"Error executing $compose: {e}")
@@ -4524,7 +4448,6 @@ class ComposeOperation(FHIROperation):
         ]
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return op_def
 
@@ -4577,7 +4500,6 @@ class SubsetOperation(FHIROperation):
             result_param = ParametersParameter(name="return", resource=subset_valueset)
             result.parameter = [result_param]
             
-            # Log completion timestamp
             
         except Exception as e:
             self.logger.error(f"Error executing $subset: {e}")
@@ -4603,7 +4525,6 @@ class SubsetOperation(FHIROperation):
         ]
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return op_def
 
@@ -4640,7 +4561,6 @@ class TestOperation(FHIROperation):
             result_param = ParametersParameter(name="return", valueString=str(test_result))
             result.parameter = [result_param]
             
-            # Log completion timestamp
             
         except Exception as e:
             self.logger.error(f"Error executing $test: {e}")
@@ -4662,7 +4582,6 @@ class TestOperation(FHIROperation):
         op_def.description = "Test system connectivity and functionality"
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return op_def
 
@@ -4731,7 +4650,6 @@ class ValidateResourceOperation(FHIROperation):
             result_param = ParametersParameter(name="return", resource=outcome)
             result.parameter = [result_param]
             
-            # Log completion timestamp
             
         except Exception as e:
             self.logger.error(f"Error executing $validate-resource: {e}")
@@ -4757,7 +4675,6 @@ class ValidateResourceOperation(FHIROperation):
         ]
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return op_def
 
@@ -4947,8 +4864,6 @@ def verify_operations_specification_compliance() -> Dict[str, Any]:
     non_compliant_count = len(non_compliant_operations)
     compliance_percentage = (compliant_count / total_operations * 100) if total_operations > 0 else 0
     
-    # Log completion timestamp
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     elapsed_time = (datetime.now() - start_time).total_seconds()
     logger.info(f"[{completion_time}] FHIR operations specification compliance verification completed in {elapsed_time:.2f} seconds")
     logger.info(f"[{completion_time}] Total operations: {total_operations}, Compliant: {compliant_count}, Non-compliant: {non_compliant_count}, Compliance: {compliance_percentage:.1f}%")

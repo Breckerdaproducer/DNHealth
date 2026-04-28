@@ -123,9 +123,6 @@ def profile_operation(operation_name: str = "operation", track_memory: bool = Fa
             print(f"{operation_name}: {results['elapsed_time']:.4f}s")
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 def time_function(func):
     """
@@ -173,9 +170,6 @@ class Benchmark:
         self.results: List[Dict[str, Any]] = []
     
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     def run(self, func: Callable, *args, iterations: int = 10, track_memory: bool = False, **kwargs) -> Dict[str, Any]:
         """
         Run benchmark on a function.

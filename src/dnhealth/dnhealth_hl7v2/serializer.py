@@ -43,9 +43,6 @@ def serialize_subcomponents(    subcomponents: List, subcomponent_separator: str
         parts.append(escaped)
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return subcomponent_separator.join(parts)
 
 
@@ -81,9 +78,6 @@ def serialize_components(
     
     result = component_separator.join(parts)
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return result
 
@@ -121,9 +115,6 @@ def serialize_field(
         field.components, component_separator, subcomponent_separator, escape_char, encoding_chars
     )
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return comp_text
 
@@ -273,8 +264,6 @@ def serialize_hl7v2(message: Message, max_line_length: int = 32767, normalize: b
     # Join with \r (HL7 v2 standard line ending)
     result = "\r".join(lines) + "\r"
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] HL7v2 message serialization completed successfully")
     
     return result

@@ -328,7 +328,6 @@ def parse_fhir_xml(
         elapsed = time.time() - start_time
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{current_time}] FHIR XML parsing completed successfully in {elapsed:.2f}s (version: {version.value})")
-        logger.debug(f"[{current_time}] Current Time at End of Operations: {current_time}")
         return result
     except Exception as e:
         elapsed = time.time() - start_time

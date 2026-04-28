@@ -128,7 +128,6 @@ class ClinicalReasoningEngine:
             f"[{completion_time}] Guidance evaluation "
             f"completed in {elapsed:.3f}s ({len(recommendations)} recommendations)"
         )
-        logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return guidance_response
 
@@ -171,7 +170,6 @@ class ClinicalReasoningEngine:
             f"[{completion_time}] PlanDefinition application "
             f"completed in {elapsed:.3f}s"
         )
-        logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return guidance_response
 
@@ -201,14 +199,11 @@ class ClinicalReasoningEngine:
                     f"[{completion_time}] CQL evaluation "
                     f"completed in {elapsed:.3f}s"
                 )
-                # Log completion timestamp at end of operation
-                logger.info(f"Current Time at End of Operations: {completion_time}")
                 return result
             except Exception as e:
                 elapsed = time.time() - start_time
                 completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 logger.error(f"[{completion_time}] CQL evaluation error: {e}")
-                logger.info(f"Current Time at End of Operations: {completion_time}")
                 raise
         else:
             logger.warning(
@@ -227,8 +222,6 @@ class ClinicalReasoningEngine:
                         f"[{completion_time}] CQL expression "
                         f"evaluated as FHIRPath in {elapsed:.3f}s"
                     )
-                    # Log completion timestamp at end of operation
-                    logger.info(f"Current Time at End of Operations: {completion_time}")
                     return result
                 except Exception as e:
                     elapsed = time.time() - start_time
@@ -236,7 +229,6 @@ class ClinicalReasoningEngine:
                     logger.warning(
                         f"[{completion_time}] Failed to evaluate as FHIRPath: {e}"
                     )
-                    logger.info(f"Current Time at End of Operations: {completion_time}")
             
             elapsed = time.time() - start_time
             completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -289,7 +281,6 @@ class ClinicalReasoningEngine:
             f"[{completion_time}] GuidanceResponse generation "
             f"completed in {elapsed:.3f}s"
         )
-        logger.info(f"Current Time at End of Operations: {completion_time}")
         
         return guidance_response
 
@@ -336,14 +327,12 @@ def evaluate_cql(cql_expression: str, context: Dict[str, Any]) -> Any:
     # For now, this function serves as a placeholder that demonstrates
     # the expected interface and provides clear error messaging.
     
-    # Log completion timestamp at end of operation before raising error
     elapsed = time.time() - start_time
     completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.warning(
         f"[{completion_time}] CQL evaluation operation completed in {elapsed:.3f}s - "
         f"CQL evaluator not available (requires external library)"
     )
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     
     raise NotImplementedError(
         "CQL evaluation requires external library (e.g., cql-execution). "

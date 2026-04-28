@@ -127,9 +127,6 @@ class ElementNode:
         """
         result = self.attributes.get(name, default)
         
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return result
 
@@ -149,9 +146,6 @@ class ElementNode:
         if name is None:
             return element_children
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return [child for child in element_children if child.name == name]
     
     def get_mixed_content(self) -> List[Union[str, "ElementNode", Comment, ProcessingInstruction]]:
@@ -162,9 +156,6 @@ class ElementNode:
             List of mixed content items in order
         """
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return self.mixed_content if self.mixed_content else self.children
     
     def get_comments(self) -> List[Comment]:
@@ -184,9 +175,6 @@ class ElementNode:
             List of ProcessingInstruction objects
         """
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return self.processing_instructions
 
     def get_first_child(self, name: str) -> Optional["ElementNode"]:
@@ -218,9 +206,6 @@ class ElementNode:
         if not isinstance(other, ElementNode):
             return False
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return (
             self.name == other.name
             and self.namespace == other.namespace
@@ -238,9 +223,6 @@ class Message:
     Represents a complete HL7 v3 XML message.
 
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     Contains root element and provides convenience accessors for common constructs.
     """
 
@@ -257,9 +239,6 @@ class Message:
     def root_name(self) -> str:
         """Get root element name."""
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return self.root.name
 
     def get_control_act_process(self) -> Optional[ElementNode]:
@@ -282,9 +261,6 @@ class Message:
         if control_act:
             return control_act.get_first_child("subject")
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return None
     
@@ -308,14 +284,8 @@ class Message:
             id_elem = control_act.get_first_child("id")
             if id_elem:
                 result = id_elem.get_attribute("root") or id_elem.text
-                # Log completion timestamp at end of operation
-                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                logger.info(f"Current Time at End of Operations: {current_time}")
                 return result
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return None
     
     def get_creation_time(self) -> Optional[str]:
@@ -332,9 +302,6 @@ class Message:
         
         # Try in controlActProcess
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         control_act = self.get_control_act_process()
         if control_act:
             creation_time_elem = control_act.get_first_child("effectiveTime")
@@ -342,9 +309,6 @@ class Message:
                 return creation_time_elem.get_attribute("value") or creation_time_elem.text
         
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return None
     
     def get_interaction_id(self) -> Optional[str]:
@@ -358,9 +322,6 @@ class Message:
         if interaction_elem:
             return interaction_elem.get_attribute("root") or interaction_elem.text
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return None
     
     def get_version_code(self) -> Optional[str]:
@@ -373,14 +334,8 @@ class Message:
         version_elem = self.root.get_first_child("versionCode")
         if version_elem:
             result = version_elem.get_attribute("code") or version_elem.text
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
             return result
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return None
     
     def get_sender(self) -> Optional[ElementNode]:
@@ -391,9 +346,6 @@ class Message:
             Sender element or None
         """
         result = self.root.get_first_child("sender")
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return result
     
     def get_receiver(self) -> Optional[ElementNode]:

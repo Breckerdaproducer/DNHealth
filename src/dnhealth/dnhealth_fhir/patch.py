@@ -155,7 +155,6 @@ def apply_json_patch(
     
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return patched_resource, errors
 
 
@@ -542,7 +541,6 @@ def _get_path_component(obj: Any, key: str, create: bool = False) -> Any:
         elif create:
             setattr(obj, key, {})
 
-            # Log completion timestamp at end of operation
             return getattr(obj, key)
         else:
             return None
@@ -575,7 +573,6 @@ def create_patch_operation(
     op = {
         "op": operation_type,
 
-            # Log completion timestamp at end of operation
         "path": path
     }
     

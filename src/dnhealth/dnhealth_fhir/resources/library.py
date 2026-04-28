@@ -94,10 +94,8 @@ class Library(MetadataResource):
     # Content
     content: List[Attachment] = field(default_factory=list)  # Contents of the library
 
-# Log completion timestamp at end of operations
 from datetime import datetime
 import logging
 
 logger = logging.getLogger(__name__)
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-logger.info(f"Current Time at End of Operations: {current_time}")

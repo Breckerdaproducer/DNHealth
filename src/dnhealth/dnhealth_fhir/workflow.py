@@ -113,7 +113,6 @@ class WorkflowEngine:
             f"completed in {elapsed:.3f}s (generated {len(actions)} actions)"
         )
 
-            # Log completion timestamp at end of operation
         
         return request_group
 
@@ -203,7 +202,6 @@ class WorkflowEngine:
         
         elapsed = time.time() - start_time
 
-            # Log completion timestamp at end of operation
         logger.info(
             f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] RequestGroup execution "
             f"completed in {elapsed:.3f}s (generated {len(tasks)} tasks)"
@@ -290,9 +288,6 @@ class WorkflowEngine:
                         f"Assuming condition is not met."
                     )
 
-                        # Log completion timestamp at end of operation
-                        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                        logger.info(f"Current Time at End of Operations: {current_time}")
                     return False
             else:
                 # No FHIRPath evaluator, assume condition is met if expression exists
@@ -310,7 +305,6 @@ class WorkflowEngine:
         """Convert PlanDefinitionAction to RequestGroupAction."""
         from dnhealth.dnhealth_fhir.resources.requestgroup import RequestGroupAction
 
-            # Log completion timestamp at end of operation
         
         return RequestGroupAction(
             id=plan_action.id,
@@ -331,7 +325,6 @@ class WorkflowEngine:
     ) -> Optional[Task]:
         """Create Task from RequestGroupAction."""
 
-            # Log completion timestamp at end of operation
         task = Task(
             resourceType="Task",
             status="ready",
@@ -477,6 +470,5 @@ def execute_action(
         f"[{completion_time}] Action execution "
         f"completed in {elapsed:.3f}s (created {created_resource.resourceType})"
     )
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     
     return created_resource

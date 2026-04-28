@@ -278,7 +278,6 @@ class SubscriptionEngine:
             
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return subscriptions
     
     def evaluate_resource_change(
@@ -458,7 +457,7 @@ class SubscriptionEngine:
         bundle = self._create_notification_bundle(notification)
         
         # Serialize bundle
-        from dnhealth.dnhealth_fhir.serialization import serialize_resource
+        from dnhealth.dnhealth_fhir.serializer_json import serialize_resource
         bundle_data = serialize_resource(bundle)
         
         # Prepare headers
@@ -515,7 +514,7 @@ class SubscriptionEngine:
         bundle = self._create_notification_bundle(notification)
         
         # Serialize bundle
-        from dnhealth.dnhealth_fhir.serialization import serialize_resource
+        from dnhealth.dnhealth_fhir.serializer_json import serialize_resource
         bundle_data = serialize_resource(bundle)
         
         # Try to use websocket-client if available
@@ -580,7 +579,7 @@ class SubscriptionEngine:
         bundle = self._create_notification_bundle(notification)
         
         # Serialize bundle
-        from dnhealth.dnhealth_fhir.serialization import serialize_resource
+        from dnhealth.dnhealth_fhir.serializer_json import serialize_resource
         bundle_data = serialize_resource(bundle)
         
         # Try to send email via SMTP
@@ -669,7 +668,7 @@ Bundle data is attached as JSON.
         bundle = self._create_notification_bundle(notification)
         
         # Serialize bundle
-        from dnhealth.dnhealth_fhir.serialization import serialize_resource
+        from dnhealth.dnhealth_fhir.serializer_json import serialize_resource
         bundle_data = serialize_resource(bundle)
         
         # Create SMS message text (summary of notification)
@@ -801,7 +800,7 @@ Bundle data is attached as JSON.
         notification_bundle = self._create_notification_bundle(notification)
         
         # Create message Bundle with MessageHeader as first entry
-        from dnhealth.dnhealth_fhir.resources.bundle import Bundle, BundleEntry, BundleType
+        from dnhealth.dnhealth_fhir.resources.bundle import Bundle, BundleEntry
         
         # Add MessageHeader as first entry
         header_entry = BundleEntry(
@@ -830,7 +829,7 @@ Bundle data is attached as JSON.
         message_bundle.meta.lastUpdated = datetime.now().isoformat()
         
         # Serialize message bundle
-        from dnhealth.dnhealth_fhir.serialization import serialize_resource
+        from dnhealth.dnhealth_fhir.serializer_json import serialize_resource
         bundle_data = serialize_resource(message_bundle)
         
         # Log message notification details
@@ -842,7 +841,6 @@ Bundle data is attached as JSON.
             f"Resource: {notification.resource.resourceType}/{notification.resource.id}. "
             f"Elapsed time: {elapsed:.3f}s"
         )
-        logger.info(f"Current Time at End of Operations: {completion_time}")
         
         # Note: Actual transmission would require:
         # 1. HTTP client to POST message Bundle to endpoint

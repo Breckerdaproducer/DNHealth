@@ -106,9 +106,6 @@ def get_compartments_for_resource(resource_type: str) -> List[str]:
         if resource_type in resources:
             compartments.append(compartment_name)
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return compartments
 
 
@@ -143,8 +140,6 @@ def validate_compartment_search(
             f"Resource type '{resource_type}' is not in compartment '{compartment_name}'"
         )
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Compartment validation completed with {len(errors)} error(s)")
     
     return errors
@@ -183,7 +178,6 @@ def parse_compartment_url(url: str) -> tuple[Optional[str], Optional[str], Optio
     
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return compartment_name, compartment_id, resource_type
 
 

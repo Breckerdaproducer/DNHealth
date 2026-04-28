@@ -96,7 +96,6 @@ def _get_field_value_by_path(resource: FHIRResource, path: str) -> Any:
     
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return current
 
 
@@ -144,7 +143,6 @@ def apply_field_mapping(
     Returns:
         Transformed resource
 
-            # Log completion timestamp at end of operation
     """
     return transform_resource(resource, field_mapping)
 
@@ -274,8 +272,6 @@ def map_resources(
     
     transformed_resources = []
 
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     for resource in resources:
         try:
             transformed = apply_resource_mapping(resource, mapping_config)
@@ -298,7 +294,6 @@ def get_jsonpath_for_field(resource: FHIRResource, field_path: str) -> str:
         
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     Returns:
         JSONPath expression (e.g., "$.name[0].family")
     """
@@ -350,4 +345,3 @@ def validate_mapping_config(mapping_config: Dict[str, Any]) -> tuple[bool, List[
                     errors.append(f"transformation_rules[{key}] must be callable")
     
     return len(errors) == 0, errors
-

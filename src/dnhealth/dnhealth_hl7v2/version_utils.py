@@ -290,9 +290,6 @@ def get_version_differences(version1: str, version2: str) -> Dict[str, List[str]
     
     logger.debug(f"[{current_time}] Found {len(differences['segments_added'])} segments added, {len(differences['segments_removed'])} segments removed")
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return differences
 
@@ -379,9 +376,6 @@ def get_all_version_specific_differences(
         field_def = get_version_specific_field_definition(segment_name, field_index, version)
         if field_def:
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
             version_definitions[version] = field_def
     
     logger.debug(f"[{current_time}] Found version-specific definitions for {len(version_definitions)} versions")
@@ -479,9 +473,6 @@ def get_data_type_version_differences(
             result["differences"].append("Component structure changed")
         
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         if def1.get("format") != def2.get("format"):
             result["differences"].append(
                 f"Format changed from {def1.get('format')} to {def2.get('format')}"
@@ -632,9 +623,6 @@ def get_table_version_differences(
         result["codes_added"] = sorted(list(codes2 - codes1))
         result["codes_removed"] = sorted(list(codes1 - codes2))
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         # Find codes with changed descriptions
         common_codes = codes1 & codes2
@@ -695,9 +683,6 @@ def get_version_specific_segment_definition(
         # Add each field definition
         for field_index, field_def in fields.items():
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
             segment_def["fields"][field_index] = {
                 "field_index": field_def.field_index,
                 "field_name": field_def.field_name,

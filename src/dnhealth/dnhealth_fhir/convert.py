@@ -106,8 +106,6 @@ def convert_resource_version(
         f"converted to version {target_version}"
     )
     
-    # Log completion timestamp at end of operation
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     
     return converted_resource, warnings
 
@@ -143,7 +141,5 @@ def convert_resource_simple(resource: "Resource", target_version: str) -> "Resou
     completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Simple FHIR conversion completed")
     
-    # Log completion timestamp at end of operation
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     
     return converted_resource

@@ -998,9 +998,6 @@ class RoleLink:
 # RIM relationship helper functions
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 def create_entity_role_relationship(entity: Entity, role: Role) -> None:
     """
     Create a relationship between an entity and a role.
@@ -1009,9 +1006,6 @@ def create_entity_role_relationship(entity: Entity, role: Role) -> None:
         entity: Entity instance
         role: Role instance
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     """
     entity.add_role(role)
 
@@ -1027,9 +1021,6 @@ def create_role_act_participation(role: Role, act: Act, type_code: str) -> Parti
         
     Returns:
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         Created Participation instance
     """
     participation = Participation(type_code=type_code)
@@ -1045,9 +1036,6 @@ def create_act_relationship(source: Act, target: Act, type_code: str) -> ActRela
     Args:
         source: Source Act instance
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         target: Target Act instance
         type_code: Relationship type code
         

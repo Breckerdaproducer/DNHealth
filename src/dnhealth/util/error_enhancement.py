@@ -105,9 +105,6 @@ def get_error_code_description(error_code: str) -> Optional[str]:
         Error code description or None if not found
     """
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return ERROR_CODES.get(error_code)
 
 
@@ -149,9 +146,6 @@ def generate_jsonpath_for_fhir_field(
         jsonpath_parts.append(f"[{field_index}]")
     
 
-                    # Log completion timestamp at end of operation
-                    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    logger.info(f"Current Time at End of Operations: {current_time}")
     return ".".join(jsonpath_parts)
 
 
@@ -188,9 +182,6 @@ def generate_xpath_for_hl7v3_element(
             xpath += f"[{element_index}]"
     
 
-                # Log completion timestamp at end of operation
-                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                logger.info(f"Current Time at End of Operations: {current_time}")
     if attribute_name:
         xpath += f"/@{attribute_name}"
     
@@ -287,9 +278,6 @@ def enhance_error_message(
         for key, value in additional_context.items():
             parts.append(f"{key}: {value}")
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     # Add timestamp
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -368,9 +356,6 @@ def create_enhanced_fhir_error(
     
     if is_validation:
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         return FHIRValidationError(
             message=enhanced_message,
             resource_type=resource_type,
@@ -436,9 +421,6 @@ def create_enhanced_hl7v3_error(
     
     # Create enhanced error message
 
-                # Log completion timestamp at end of operation
-                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                logger.info(f"Current Time at End of Operations: {current_time}")
     enhanced_message = enhance_error_message(
         Exception(message),
         xpath=xpath,

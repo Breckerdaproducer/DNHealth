@@ -266,8 +266,6 @@ def parse_conceptmap_json(json_data: Dict[str, Any]) -> ConceptMap:
             text=jur_data.get("text")
         ))
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] ConceptMap parsing completed successfully")
     
     return concept_map
@@ -322,17 +320,12 @@ def translate_code(
                     "unmapped"
                 ))
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Code translation completed: {len(translations)} translations found")
     
     return translations
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 def get_concept_map_by_url(url: str, concept_maps: List[ConceptMap]) -> Optional[ConceptMap]:
     """
     Find a ConceptMap by URL.

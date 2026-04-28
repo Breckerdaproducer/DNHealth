@@ -28,9 +28,6 @@ logger = get_logger(__name__)
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 def add_tag(resource: "Resource", tag: Coding) -> None:
     """
     Add a tag to a FHIR resource.
@@ -78,8 +75,6 @@ def add_tag(resource: "Resource", tag: Coding) -> None:
     resource.meta.tag.append(tag)
     logger.info(f"[{current_time}] Added tag {tag.system}|{tag.code} to resource {resource.resourceType}/{resource.id}")
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Add tag operation completed")
 
 
@@ -123,8 +118,6 @@ def remove_tag(resource: "Resource", tag_system: str, tag_code: str) -> None:
     else:
         logger.debug(f"[{current_time}] Tag {tag_system}|{tag_code} not found in resource")
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Remove tag operation completed")
 
 
@@ -159,8 +152,6 @@ def get_tags(resource: "Resource") -> List[Coding]:
     tags = list(resource.meta.tag)  # Return a copy
     logger.debug(f"[{current_time}] Found {len(tags)} tag(s) on resource {resource.resourceType}/{resource.id}")
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Get tags operation completed")
     
     return tags
@@ -197,8 +188,6 @@ def filter_by_tag(resources: List["Resource"], tag_system: str, tag_code: str) -
     
     logger.info(f"[{current_time}] Filtered {len(resources)} resource(s) to {len(filtered)} resource(s) with tag {tag_system}|{tag_code}")
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Filter by tag operation completed")
     
     return filtered
@@ -226,12 +215,8 @@ def has_tag(resource: "Resource", tag_system: str, tag_code: str) -> bool:
     tags = get_tags(resource)
     for tag in tags:
         if tag.system == tag_system and tag.code == tag_code:
-            # Log completion timestamp at end of operation
-            completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             logger.debug(f"[{completion_time}] Has tag operation completed (found)")
             return True
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Has tag operation completed (not found)")
     return False

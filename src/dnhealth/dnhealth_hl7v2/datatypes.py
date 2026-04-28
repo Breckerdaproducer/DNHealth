@@ -477,9 +477,6 @@ def validate_ft(value: str, max_length: Optional[int] = None) -> Tuple[bool, Opt
     # This validation focuses on basic structure and length
     
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -525,9 +522,6 @@ def validate_id(value: str, table_id: Optional[str] = None, valid_codes: Optiona
             return False, f"ID value '{value}' is not a valid code{table_info}"
     
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -574,9 +568,6 @@ def validate_is(value: str, table_id: Optional[str] = None, valid_codes: Optiona
             return False, f"IS value '{value}' is not a valid code{table_info}"
     
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -629,9 +620,6 @@ def validate_ad(value: str, component_separator: str = "^") -> Tuple[bool, Optio
     # Individual component validation can be added later if needed
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -773,9 +761,6 @@ def validate_dr(value: str, component_separator: str = "^") -> Tuple[bool, Optio
             return False, f"DR end date/time invalid: {error}"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -836,9 +821,6 @@ def validate_dln(value: str, component_separator: str = "^") -> Tuple[bool, Opti
             return False, f"DLN-3 (Expiration Date) validation failed: {error}"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -1039,9 +1021,6 @@ def validate_ei(value: str, component_separator: str = "^") -> Tuple[bool, Optio
     if len(components) > 4:
         return False, f"EI has too many components (max 4, got {len(components)})"
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return True, None
 
@@ -1143,9 +1122,6 @@ def validate_cns(value: str, component_separator: str = "^") -> Tuple[bool, Opti
     if len(components) > 11:
         return False, f"CNS has too many components (max 11, got {len(components)})"
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return True, None
 
@@ -1183,9 +1159,6 @@ def validate_ms(value: str) -> Tuple[bool, Optional[str]]:
     if len(value) > 20:
         return False, f"MS value too long (max 20 characters, got {len(value)})"
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return True, None
 
@@ -1293,9 +1266,6 @@ def validate_cp(value: str, component_separator: str = "^") -> Tuple[bool, Optio
             return False, f"CP price '{price_str}' is not a valid number"
     
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -1344,9 +1314,6 @@ def validate_xcn(value: str, component_separator: str = "^") -> Tuple[bool, Opti
         return False, f"XCN has too many components (max 25, got {len(components)})"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -1395,9 +1362,6 @@ def validate_xon(value: str, component_separator: str = "^") -> Tuple[bool, Opti
         return False, f"XON has too many components (max 10, got {len(components)})"
     
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -1564,9 +1528,6 @@ def validate_cx(value: str, component_separator: str = "^") -> Tuple[bool, Optio
             return False, f"CX expiration date invalid: {error}"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -1656,9 +1617,6 @@ def validate_cf(value: str, component_separator: str = "^") -> Tuple[bool, Optio
         return False, f"CF has too many components (max 6, got {len(components)})"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -1767,9 +1725,6 @@ def validate_jcc(value: str, component_separator: str = "^") -> Tuple[bool, Opti
         return False, f"JCC has too many components (max 3, got {len(components)})"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -2443,9 +2398,6 @@ def validate_qsc(value: str, component_separator: str = "^") -> Tuple[bool, Opti
     # We'll allow any ID value but validate structure
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -2495,9 +2447,6 @@ def validate_rdf(value: str, component_separator: str = "^") -> Tuple[bool, Opti
             return False, f"RDF number of columns per row '{components[0]}' is not a valid integer"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -2563,9 +2512,6 @@ def validate_rcd(value: str, component_separator: str = "^") -> Tuple[bool, Opti
             return False, f"RCD-4 (Column Description) validation failed: {error}"
     
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -2712,13 +2658,7 @@ def validate_rgs(value: str, component_separator: str = "^") -> Tuple[bool, Opti
     # RGS-3 is Resource Group ID (CE), no specific validation needed
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -3271,9 +3211,6 @@ def validate_sch(value: str, component_separator: str = "^") -> Tuple[bool, Opti
                 return False, f"SCH {name.lower()} invalid: {error}"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -3345,9 +3282,6 @@ def validate_scp(value: str, component_separator: str = "^") -> Tuple[bool, Opti
                 return False, f"SCP {name.lower()} invalid: {error}"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -3642,9 +3576,6 @@ def validate_spm(value: str, component_separator: str = "^") -> Tuple[bool, Opti
                 return False, f"SPM {name.lower()} invalid: {error}"
     
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -3717,9 +3648,6 @@ def validate_spr(value: str, component_separator: str = "^") -> Tuple[bool, Opti
                 return False, f"SPR {name.lower()} invalid: {error}"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -3796,9 +3724,6 @@ def validate_stf(value: str, component_separator: str = "^") -> Tuple[bool, Opti
                 return False, f"STF {name.lower()} invalid: {error}"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -3872,9 +3797,6 @@ def validate_tcc(value: str, component_separator: str = "^") -> Tuple[bool, Opti
             return False, f"TCC universal service interval invalid: {error}"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -3954,9 +3876,6 @@ def validate_tcd(value: str, component_separator: str = "^") -> Tuple[bool, Opti
             return False, f"TCD order frequency interval count invalid: {error}"
     
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -4066,9 +3985,6 @@ def validate_var(value: str, component_separator: str = "^") -> Tuple[bool, Opti
                 return False, f"VAR {name.lower()} invalid: {error}"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -4182,9 +4098,6 @@ def validate_prl(value: str, component_separator: str = "^") -> Tuple[bool, Opti
             return False, f"PRL-3 (Parent Observation Value Type) validation failed: {error}"
     
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -4375,9 +4288,6 @@ def validate_scv(value: str, component_separator: str = "^") -> Tuple[bool, Opti
         return False, f"SCV has too many components (max 2, got {len(components)})"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -4433,9 +4343,6 @@ def validate_sn(value: str, component_separator: str = "^") -> Tuple[bool, Optio
             return False, f"SN Num2 '{components[3]}' is not a valid number"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -4520,7 +4427,6 @@ def validate_cnn(value: str, component_separator: str = "^") -> Tuple[bool, Opti
         return False, f"CNN has too many components (max 11, got {len(components)})"
     
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -4559,7 +4465,6 @@ def validate_ddi(value: str, component_separator: str = "^") -> Tuple[bool, Opti
             return False, f"DDI delay days '{components[0]}' is not a valid number"
     
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -4591,7 +4496,6 @@ def validate_din(value: str, component_separator: str = "^") -> Tuple[bool, Opti
         return False, f"DIN has too many components (max 2, got {len(components)})"
     
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -4623,7 +4527,6 @@ def validate_dld(value: str, component_separator: str = "^") -> Tuple[bool, Opti
         return False, f"DLD has too many components (max 2, got {len(components)})"
     
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -4669,7 +4572,6 @@ def validate_eld(value: str, component_separator: str = "^") -> Tuple[bool, Opti
                 return False, f"ELD component {idx+1} '{components[idx]}' is not a valid number"
     
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -4702,7 +4604,6 @@ def validate_rmc(value: str, component_separator: str = "^") -> Tuple[bool, Opti
         return False, f"RMC has too many components (max 3, got {len(components)})"
     
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -4845,9 +4746,6 @@ def validate_vh(value: str, component_separator: str = "^") -> Tuple[bool, Optio
             return False, f"VH end hour range invalid: {error}"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -4891,9 +4789,6 @@ def validate_wvs(value: str, component_separator: str = "^") -> Tuple[bool, Opti
     # No additional validation needed beyond component count
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -4941,9 +4836,6 @@ def validate_wvi(value: str, component_separator: str = "^") -> Tuple[bool, Opti
             return False, f"WVI channel number '{components[0]}' is not a valid number"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -4998,9 +4890,6 @@ def validate_vid(value: str, component_separator: str = "^") -> Tuple[bool, Opti
             return False, f"VID version ID '{version_id}' does not appear to be a valid version identifier"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -5089,9 +4978,6 @@ def validate_spd(value: str, component_separator: str = "^") -> Tuple[bool, Opti
             return False, f"SPD phone number invalid: {error}"
     
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -5298,9 +5184,6 @@ def validate_prc(value: str, component_separator: str = "^") -> Tuple[bool, Opti
                 return False, f"PRC numeric value '{components[idx]}' is not a valid number"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -5390,9 +5273,6 @@ def validate_prb(value: str, component_separator: str = "^") -> Tuple[bool, Opti
                 return False, f"PRB {component_name} '{components[idx]}' is not a valid number"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -5451,9 +5331,6 @@ def validate_prd(value: str, component_separator: str = "^") -> Tuple[bool, Opti
             return False, f"PRD effective end date invalid: {error}"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -5526,9 +5403,6 @@ def validate_pip(value: str, component_separator: str = "^") -> Tuple[bool, Opti
             return False, f"PIP-5 (Facility) validation failed: {error}"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -5701,9 +5575,6 @@ def validate_ppn(value: str, component_separator: str = "^") -> Tuple[bool, Opti
                 return False, f"PPN Performing Person Time Stamp (at position 4) validation failed: {error}"
     
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -5914,9 +5785,6 @@ def validate_ocd(value: str, component_separator: str = "^") -> Tuple[bool, Opti
             return False, f"OCD occurrence date invalid: {error}"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -5989,9 +5857,6 @@ def validate_osd(value: str, component_separator: str = "^") -> Tuple[bool, Opti
             return False, f"OSD-5 (Sequence/Condition Time Code) validation failed: {error}"
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -6615,9 +6480,6 @@ def validate_tn(value: str, component_separator: str = "^") -> Tuple[bool, Optio
         return False, f"TN has invalid length (phone number should have 7-15 digits, got {len(digits_only)})"
     
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return True, None
 
 
@@ -6828,10 +6690,8 @@ def validate_ccd(value: str, component_separator: str = "^") -> Tuple[bool, Opti
         if not is_valid:
             return False, f"CCD component 2 (Date/Time) invalid: {error}"
     
-    # Log completion timestamp at end of operation
     from datetime import datetime
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return True, None
 

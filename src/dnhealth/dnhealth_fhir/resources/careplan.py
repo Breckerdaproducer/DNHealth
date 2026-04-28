@@ -108,4 +108,3 @@ class CarePlan(DomainResource):
             raise ValueError("subject is required for CarePlan")
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")

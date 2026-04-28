@@ -55,9 +55,6 @@ def get_xpath(node: ElementNode, root: Optional[ElementNode] = None) -> str:
         path_parts.insert(0, name)
         current = parent
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return "/" + "/".join(path_parts)
 
@@ -90,9 +87,6 @@ def _get_parent(node: ElementNode, root: Optional[ElementNode]) -> Optional[Elem
     
     result = find_parent(root, node)
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return result
 
@@ -134,9 +128,6 @@ def find_by_xpath(root: ElementNode, xpath: str) -> List[ElementNode]:
     
     if not parts:
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return [root]
     
     # Handle absolute path (starts with /)

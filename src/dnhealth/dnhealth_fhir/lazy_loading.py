@@ -144,7 +144,6 @@ class LazyResource:
         """Get time taken to load resource (in seconds)."""
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return self._load_time
 
 
@@ -182,7 +181,6 @@ def parse_resource_lazy(
         resource_id=resource_id
     )
 
-            # Log completion timestamp at end of operation
 
 
 def parse_resources_lazy_stream(
@@ -233,7 +231,6 @@ def parse_resources_lazy_stream(
         logger.debug(f"[{elapsed_time}] Lazy resource stream parsing completed: {count} resources in {elapsed:.3f}s")
         
 
-            # Log completion timestamp at end of operation
     except Exception as e:
         elapsed_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.error(f"[{elapsed_time}] Error in lazy resource stream parsing: {e}")

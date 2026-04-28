@@ -150,8 +150,6 @@ def message_to_json(message: Message, indent: int = 2, pretty: bool = True) -> s
     else:
         result = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Message to JSON conversion completed")
     
     return result
@@ -170,8 +168,6 @@ def json_to_message(json_str: str) -> Message:
     data = json.loads(json_str)
     result = dict_to_message(data)
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] JSON to message conversion completed")
     
     return result
@@ -305,9 +301,6 @@ def get_default_json_schema() -> Dict[str, Any]:
         }
     }
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return result
 
@@ -414,15 +407,11 @@ def validate_message_json(json_str: str, schema: Optional[Dict[str, Any]] = None
         data = json.loads(json_str)
         result = validate_json_schema(data, schema)
         
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         is_valid = result[0]
         logger.debug(f"[{current_time}] Message JSON validation completed (valid={is_valid})")
         
         return result
     except json.JSONDecodeError as e:
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{current_time}] Message JSON validation completed (invalid JSON)")
         return False, f"Invalid JSON: {e}", None
 

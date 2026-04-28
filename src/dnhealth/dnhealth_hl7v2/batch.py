@@ -114,9 +114,6 @@ def create_bhs_segment(
             fields.append(Field([], is_null=True))
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return Segment("BHS", fields=fields)
 
 
@@ -161,9 +158,6 @@ def create_bts_segment(
             fields.append(total_field)
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return Segment("BTS", fields=fields)
 
 
@@ -228,9 +222,6 @@ def create_batch_message(
     )
     
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return batch_message
 
 
@@ -283,9 +274,6 @@ def extract_messages_from_batch(batch_message: Message) -> List[Message]:
             )
         )
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return messages
 
@@ -334,9 +322,6 @@ def validate_batch_message(batch_message: Message) -> Tuple[bool, List[str]]:
             # Count actual messages (MSH segments between BHS and BTS)
             actual_count = 0
 
-            # Log completion timestamp
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
             in_batch = False
             for segment in batch_message.segments:
                 if segment.name == "BHS":
@@ -352,9 +337,6 @@ def validate_batch_message(batch_message: Message) -> Tuple[bool, List[str]]:
                 )
     
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return len(errors) == 0, errors
 
 

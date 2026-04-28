@@ -90,9 +90,6 @@ def format_search_results(
         timestamp=datetime.now().isoformat()
     )
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return bundle
 
@@ -544,9 +541,6 @@ def create_continuation_token(
     token_bytes = json_str.encode('utf-8')
     token = base64.urlsafe_b64encode(token_bytes).decode('ascii')
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return token
 
@@ -603,7 +597,6 @@ def parse_continuation_token(token: str) -> Tuple[SearchParameters, int, Optiona
         )
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return search_params, offset, total, resource_type
         

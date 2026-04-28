@@ -47,7 +47,6 @@ class ResourceStorage:
         """Get storage key for resource."""
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         return f"{resource_type}/{resource_id}"
     
     def read(
@@ -250,7 +249,6 @@ class ResourceStorage:
                 return False
             
 
-            # Log completion timestamp at end of operation
             return resource_id in self._deleted[resource_type]
     
     def get_history(
@@ -395,9 +393,6 @@ class ResourceStorage:
                                 break
                     if resource_type and resource_id:
 
-                                    # Log completion timestamp at end of operation
-                                    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                                    logger.info(f"Current Time at End of Operations: {current_time}")
                         return self.read(resource_type, resource_id)
                 else:
                     # Handle simple format: Patient/123
@@ -501,7 +496,6 @@ class ResourceStorage:
                 ref = resource.encounter.reference
                 if ref == f"{owner_type}/{owner_id}":
 
-            # Log completion timestamp at end of operation
                     return True
         
         # Check context reference

@@ -153,10 +153,8 @@ class ObservationComponent:
 
 # Note: Range, Ratio, SampledData, and Timing types are imported from dnhealth.dnhealth_fhir.types
 
-# Log completion timestamp at end of operations
 from datetime import datetime
 import logging
 
 logger = logging.getLogger(__name__)
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-logger.info(f"Current Time at End of Operations: {current_time}")

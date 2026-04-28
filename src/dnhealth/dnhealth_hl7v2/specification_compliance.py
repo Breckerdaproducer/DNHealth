@@ -123,8 +123,6 @@ def verify_segment_field_specification_compliance(
     completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.warning(f"[{completion_time}] Specification compliance verification failed for {segment_name}: no fields")
     
-    # Log completion timestamp at end of operation
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     
     return {
         "is_compliant": False,
@@ -291,8 +289,6 @@ def verify_segment_field_specification_compliance(
     else:
         logger.warning(f"[{completion_time}] Specification compliance verification found {len(error_issues)} errors for {segment_name}")
     
-    # Log completion timestamp at end of operation
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     
     return {
         "is_compliant": is_compliant,
@@ -374,8 +370,6 @@ def verify_all_segments_specification_compliance(
         f"{compliant_count} compliant, {non_compliant_count} non-compliant out of {len(segments)} segments"
     )
     
-    # Log completion timestamp at end of operation
-    logger.info(f"Current Time at End of Operations: {completion_time}")
     
     return {
         "total_segments": len(segments),
@@ -461,7 +455,5 @@ def generate_specification_compliance_report(
             f.write(report)
         logger.info(f"Compliance report written to: {output_file}")
     
-    # Log completion timestamp at end of operation
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     return report

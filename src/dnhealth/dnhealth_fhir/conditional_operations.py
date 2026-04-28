@@ -92,7 +92,6 @@ def check_if_match(request: "Request", resource_version: str) -> Tuple[bool, Opt
             logger.error(f"[{current_time}] Operation exceeded timeout of {OPERATION_TIMEOUT} seconds")
         completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{completion_time}] If-Match check completed (elapsed: {elapsed:.3f}s)")
-        logger.info(f"Current Time at End of Operations: {completion_time}")
 
 
 def check_if_none_match(
@@ -171,7 +170,6 @@ def check_if_none_match(
             logger.error(f"[{current_time}] Operation exceeded timeout of {OPERATION_TIMEOUT} seconds")
         completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{completion_time}] If-None-Match check completed (elapsed: {elapsed:.3f}s)")
-        logger.info(f"Current Time at End of Operations: {completion_time}")
 
 
 def check_if_modified_since(
@@ -246,7 +244,6 @@ def check_if_modified_since(
             logger.error(f"[{current_time}] Operation exceeded timeout of {OPERATION_TIMEOUT} seconds")
         completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{completion_time}] If-Modified-Since check completed (elapsed: {elapsed:.3f}s)")
-        logger.info(f"Current Time at End of Operations: {completion_time}")
 
 
 def conditional_delete(
@@ -330,4 +327,3 @@ def conditional_delete(
             logger.error(f"[{current_time}] Operation exceeded timeout of {OPERATION_TIMEOUT} seconds")
         completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{completion_time}] Conditional delete completed (elapsed: {elapsed:.3f}s)")
-        logger.info(f"Current Time at End of Operations: {completion_time}")

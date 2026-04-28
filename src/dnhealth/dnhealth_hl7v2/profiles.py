@@ -47,9 +47,6 @@ class VersionProfile:
         """
         self.segment_definitions[segment_name] = definition
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
 
     def add_field_definition(self, segment_name: str, field_index: int, definition: Dict):
         """
@@ -64,9 +61,6 @@ class VersionProfile:
             self.field_definitions[segment_name] = {}
         self.field_definitions[segment_name][field_index] = definition
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
 
     def get_segment_definition(self, segment_name: str) -> Optional[Dict]:
         """
@@ -106,9 +100,6 @@ class VersionProfile:
             self.table_definitions[table_id] = {}
         self.table_definitions[table_id][code] = description
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
 
     def get_table_definition(self, table_id: str) -> Optional[Dict[str, str]]:
         """
@@ -197,9 +188,6 @@ class VersionProfile:
         """
         self.data_type_definitions[data_type] = definition
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
 
     def get_data_type_definition(self, data_type: str) -> Optional[Dict]:
         """
@@ -212,9 +200,6 @@ class VersionProfile:
             Data type definition or None
         """
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         
         return self.data_type_definitions.get(data_type)
 

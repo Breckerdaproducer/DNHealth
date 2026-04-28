@@ -245,7 +245,6 @@ def convert_adt_to_patient(
     
     current_time_end = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.info(f"[{current_time_end}] ADT to Patient conversion completed in {elapsed:.2f} seconds")
-    logger.info(f"Current Time at End of Operations: {current_time_end}")
     
     return patient
 

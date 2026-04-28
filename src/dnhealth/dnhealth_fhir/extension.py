@@ -252,9 +252,6 @@ def get_modifier_extensions(resource: "FHIRResource", extension_definitions: Dic
                 modifier_extensions.append(ext)
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return modifier_extensions
 
 

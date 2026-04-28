@@ -50,9 +50,6 @@ def _parse_message_wrapper(message_text: str, tolerant: bool = False) -> Message
         HL7v2ParseError: If message cannot be parsed
     """
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return parse_hl7v2(message_text, tolerant=tolerant)
 
 
@@ -180,9 +177,6 @@ def parse_messages_parallel(
     logger.info(f"[{current_time}] Parallel parsing completed: {len(messages)} messages in {elapsed:.2f}s")
     
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return ordered_results
 
 

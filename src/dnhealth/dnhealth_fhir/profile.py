@@ -280,7 +280,6 @@ def _has_fixed_value(element: ElementDefinition) -> bool:
             return True
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return False
 
 
@@ -329,9 +328,6 @@ def validate_against_profile(
         return [f"Profile '{profile_url}' not found"]
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return check_profile_conformance(resource, profile)
 
 

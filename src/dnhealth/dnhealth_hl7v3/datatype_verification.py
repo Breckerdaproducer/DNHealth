@@ -98,9 +98,6 @@ DATATYPE_ADDITIONAL_ATTRIBUTES = {
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 def verify_datatype_completeness(datatype_name: str, instance: Optional[object] = None) -> Tuple[bool, List[str]]:
     """
     Verify that a data type has all required attributes per HL7 v3 specification.
@@ -136,9 +133,6 @@ def verify_datatype_completeness(datatype_name: str, instance: Optional[object] 
     logger.info(f"[{current_time}] Data type completeness verification completed: "
                 f"is_complete={is_complete}, missing={len(missing_attributes)}")
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     return is_complete, missing_attributes
 
@@ -156,9 +150,6 @@ def verify_all_datatypes() -> Dict[str, Tuple[bool, List[str]]]:
     results = {}
     
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     for datatype_name in DATATYPE_REQUIRED_ATTRIBUTES.keys():
         is_complete, missing = verify_datatype_completeness(datatype_name)
         results[datatype_name] = (is_complete, missing)
@@ -169,9 +160,6 @@ def verify_all_datatypes() -> Dict[str, Tuple[bool, List[str]]]:
 
 def get_missing_datatype_attributes(datatype_name: str) -> List[str]:
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     """
     Get list of additional attributes that should be supported but may be missing.
     

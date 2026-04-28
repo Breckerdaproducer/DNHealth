@@ -103,10 +103,8 @@ class ChargeItemDefinition(MetadataResource):
     # Property Group
     propertyGroup: List[ChargeItemDefinitionPropertyGroup] = field(default_factory=list)  # Group of properties which are applicable under the same conditions
 
-# Log completion timestamp at end of operations
 from datetime import datetime
 import logging
 
 logger = logging.getLogger(__name__)
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-logger.info(f"Current Time at End of Operations: {current_time}")

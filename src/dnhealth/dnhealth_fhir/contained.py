@@ -63,7 +63,6 @@ def resolve_contained_reference(
     
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     return None
 
 
@@ -265,7 +264,6 @@ def validate_contained_resources(resource: DomainResource) -> List[str]:
     
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     # Validate top-level contained resources (recursively)
     validate_contained_recursive(resource.contained)
     
@@ -277,8 +275,6 @@ def validate_contained_resources(resource: DomainResource) -> List[str]:
             _collect_all_contained_ids(contained, all_contained_ids)
     errors.extend(_traverse_fields_for_references(resource, all_contained_ids))
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{current_time}] Contained resources validation completed with {len(errors)} error(s)")
     
     return errors
@@ -303,9 +299,6 @@ def get_contained_resource_by_id(
     
     for contained in resource.contained:
         if isinstance(contained, FHIRResource) and hasattr(contained, "id"):
-
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
             if contained.id == resource_id:
                 return contained
     
@@ -335,7 +328,6 @@ def add_contained_resource(
         raise FHIRParseError("Contained resource must have an id")
     
 
-            # Log completion timestamp at end of operation
     if not hasattr(resource, "contained"):
         resource.contained = []
     
@@ -361,7 +353,6 @@ def remove_contained_resource(
         True if resource was removed, False if not found
     """
 
-            # Log completion timestamp at end of operation
     if not hasattr(resource, "contained") or not resource.contained:
         return False
     

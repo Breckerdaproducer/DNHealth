@@ -330,9 +330,6 @@ class APIDocumentationGenerator:
                 signature += f" -> {ast.unparse(node.returns)}"
             
 
-                    # Log completion timestamp at end of operation
-                    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    logger.info(f"Current Time at End of Operations: {current_time}")
             return signature
         except Exception:
             # Fallback if unparse fails

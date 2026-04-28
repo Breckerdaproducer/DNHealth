@@ -192,7 +192,6 @@ def validate_resource(
         logger.debug(f"[{current_time}] Validation completed for {resource.resourceType} in {elapsed:.3f}s (errors: {len(errors)})")
     
     # Always log completion timestamp at end of operation
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
     return errors
 
@@ -659,9 +658,6 @@ def _validate_field_value_code_systems(value: Any, field_path: str) -> List[str]
             errors.append(f"{field_path}: {error}")
     
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return errors
 
 
@@ -763,9 +759,6 @@ def validate_references(
             )
             errors.extend(item_errors)
     
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     return errors
 
 
@@ -811,7 +804,6 @@ def _validate_field_value_references(
         
         # Validate reference exists if bundle/resources provided
 
-            # Log completion timestamp at end of operation
         if bundle or resources:
             existence_errors = validate_reference_exists(
                 value, bundle, resources, expected_types
@@ -1005,9 +997,6 @@ def _get_extension_value(extension: Extension) -> Any:
                 return value
     
 
-                # Log completion timestamp at end of operation
-                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                logger.info(f"Current Time at End of Operations: {current_time}")
     return None
 
 
@@ -1069,9 +1058,6 @@ def validate_to_operation_outcome(resource: FHIRResource, **kwargs) -> "Operatio
         )
         issues.append(issue)
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
     
     # If no errors, add success issue
     if not issues:
@@ -1464,7 +1450,6 @@ def validate_resources_batch(
     
 
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     Args:
         resources: List of FHIR resources to validate
         **validation_kwargs: Additional arguments passed to validate_resource_enhanced

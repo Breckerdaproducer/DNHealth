@@ -99,7 +99,6 @@ def read_version(
             logger.error(f"[{current_time}] Operation exceeded timeout of {OPERATION_TIMEOUT} seconds")
         completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{completion_time}] Version read completed (elapsed: {elapsed:.3f}s)")
-        logger.info(f"Current Time at End of Operations: {completion_time}")
 
 
 def get_resource_history(
@@ -203,7 +202,6 @@ def get_resource_history(
             logger.error(f"[{current_time}] Operation exceeded timeout of {OPERATION_TIMEOUT} seconds")
         completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{completion_time}] Resource history retrieval completed (elapsed: {elapsed:.3f}s)")
-        logger.info(f"Current Time at End of Operations: {completion_time}")
 
 
 def get_type_history(
@@ -287,7 +285,6 @@ def get_type_history(
             logger.error(f"[{current_time}] Operation exceeded timeout of {OPERATION_TIMEOUT} seconds")
         completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{completion_time}] Type history retrieval completed (elapsed: {elapsed:.3f}s)")
-        logger.info(f"Current Time at End of Operations: {completion_time}")
 
 
 def get_all_history(
@@ -377,4 +374,3 @@ def get_all_history(
             logger.error(f"[{current_time}] Operation exceeded timeout of {OPERATION_TIMEOUT} seconds")
         completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         logger.debug(f"[{completion_time}] System-wide history retrieval completed (elapsed: {elapsed:.3f}s)")
-        logger.info(f"Current Time at End of Operations: {completion_time}")

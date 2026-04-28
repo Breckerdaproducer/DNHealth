@@ -112,9 +112,6 @@ async def parse_messages_async(    messages: List[str],
     # Create semaphore to limit concurrency if specified
     semaphore = asyncio.Semaphore(max_concurrent) if max_concurrent else None
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     async def parse_with_semaphore(index: int, message_text: str) -> tuple[int, Union[Message, Exception]]:
         """Parse a single message with semaphore control."""
@@ -146,9 +143,6 @@ async def parse_messages_async(    messages: List[str],
     sorted_results = sorted(results, key=lambda x: x[0] if isinstance(x, tuple) else -1)
     parsed_results = [result[1] if isinstance(result, tuple) else result for result in sorted_results]
 
-        # Log completion timestamp at end of operation
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     
     elapsed = time.time() - start_time
     elapsed_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -172,9 +166,6 @@ async def _parse_single_async(
                 if asyncio.iscoroutinefunction(callback):
                     await callback(message, index)
 
-            # Log completion timestamp at end of operation
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
                 else:
                     callback(message, index)
             except Exception as e:
@@ -280,9 +271,6 @@ async def parse_messages_async_stream(
                         yield result[1]
                     else:
 
-                        # Log completion timestamp at end of operation
-                        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                        logger.info(f"Current Time at End of Operations: {current_time}")
                         yield result
                 except Exception as e:
                     idx = pending_tasks.get(task, -1)
@@ -346,9 +334,6 @@ async def validate_messages_async(
             'message': message,
             'is_valid': is_valid,
 
-                # Log completion timestamp at end of operation
-                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                logger.info(f"Current Time at End of Operations: {current_time}")
             'errors': errors,
             'warnings': warnings
         }

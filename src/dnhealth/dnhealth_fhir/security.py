@@ -28,9 +28,6 @@ logger = get_logger(__name__)
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 def add_security_label(resource: "Resource", label: Coding) -> None:
     """
     Add a security label to a FHIR resource.
@@ -83,8 +80,6 @@ def add_security_label(resource: "Resource", label: Coding) -> None:
     resource.meta.security.append(label)
     logger.info(f"[{current_time}] Added security label {label.system}|{label.code} to resource {resource.resourceType}/{resource.id}")
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Add security label operation completed")
 
 
@@ -128,8 +123,6 @@ def remove_security_label(resource: "Resource", label_system: str, label_code: s
     else:
         logger.debug(f"[{current_time}] Security label {label_system}|{label_code} not found in resource")
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Remove security label operation completed")
 
 
@@ -164,8 +157,6 @@ def get_security_labels(resource: "Resource") -> List[Coding]:
     labels = list(resource.meta.security)  # Return a copy
     logger.debug(f"[{current_time}] Found {len(labels)} security label(s) on resource {resource.resourceType}/{resource.id}")
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Get security labels operation completed")
     
     return labels
@@ -207,8 +198,6 @@ def validate_security_labels(resource: "Resource") -> List[str]:
     else:
         logger.debug(f"[{current_time}] All security labels are valid for resource {resource.resourceType}/{resource.id}")
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Validate security labels operation completed")
     
     return errors
@@ -249,8 +238,6 @@ def filter_by_security_label(resources: List["Resource"], label_system: str, lab
     
     logger.info(f"[{current_time}] Filtered {len(resources)} resource(s) to {len(filtered)} resource(s) with security label {label_system}|{label_code}")
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Filter by security label operation completed")
     
     return filtered
@@ -278,12 +265,8 @@ def has_security_label(resource: "Resource", label_system: str, label_code: str)
     labels = get_security_labels(resource)
     for label in labels:
         if label.system == label_system and label.code == label_code:
-            # Log completion timestamp at end of operation
-            completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             logger.debug(f"[{completion_time}] Has security label operation completed (found)")
             return True
     
-    # Log completion timestamp at end of operation
-    completion_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.debug(f"[{completion_time}] Has security label operation completed (not found)")
     return False

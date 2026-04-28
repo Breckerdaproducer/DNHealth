@@ -63,9 +63,6 @@ def pretty_print(message, output_file=None):
 
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 def cmd_pretty(args):
     """Pretty-print command."""
@@ -85,9 +82,6 @@ def cmd_pretty(args):
         sys.exit(1)
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 def cmd_json(args):
     """JSON conversion command."""
@@ -109,9 +103,6 @@ def cmd_json(args):
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
     except Exception as e:
         print(f"Unexpected error: {e}", file=sys.stderr)
         sys.exit(1)
@@ -176,9 +167,6 @@ def cmd_validate(args):
         sys.exit(1)
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 def cmd_roundtrip(args):
     """Round-trip test command."""
@@ -212,9 +200,6 @@ def cmd_roundtrip(args):
             print(roundtripped_normalized[:200] + ("..." if len(roundtripped_normalized) > 200 else ""), file=sys.stderr)
             sys.exit(1)
 
-    # Log completion timestamp
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
     except HL7v2ParseError as e:
         print(f"Error: {e}", file=sys.stderr)
@@ -308,9 +293,6 @@ def cmd_extract(args):
         sys.exit(1)
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 def cmd_stats(args):
     """Display message statistics command."""
@@ -373,9 +355,6 @@ def cmd_stats(args):
         output_text = "\n".join(output_lines) + "\n"
         
 
-            # Log completion timestamp
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"Current Time at End of Operations: {current_time}")
         if args.output:
             Path(args.output).write_text(output_text, encoding="utf-8")
         else:
@@ -427,9 +406,6 @@ def cmd_ack(args):
         sys.exit(1)
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 def cmd_diff(args):
     """Compare two messages command."""
@@ -458,9 +434,6 @@ def cmd_diff(args):
         output_text = format_diff(diff, show_identical=args.show_identical)
 
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
         if args.output:
             Path(args.output).write_text(output_text, encoding="utf-8")
         else:
@@ -537,9 +510,6 @@ def cmd_merge(args):
         sys.exit(1)
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 def cmd_query(args):
     """Query/search command for finding values in HL7 v2 messages."""
@@ -602,9 +572,6 @@ def cmd_query(args):
                 output_lines.append("No matches found.")
             else:
 
-        # Log completion timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Current Time at End of Operations: {current_time}")
                 output_lines.append(f"Found {len(results)} match(es):\n")
                 for result in results:
                     seg_field = f"{result['segment']}-{result['field']}"
@@ -672,9 +639,6 @@ def cmd_convert(args):
         sys.exit(1)
 
 
-    # Log completion timestamp at end of operation
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.info(f"Current Time at End of Operations: {current_time}")
 
 def main():
     """Main CLI entry point."""
@@ -794,9 +758,6 @@ def main():
     if args.command == "pretty":
         cmd_pretty(args)
 
-                # Log completion timestamp
-                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                logger.info(f"Current Time at End of Operations: {current_time}")
     elif args.command == "json":
         cmd_json(args)
     elif args.command == "validate":
@@ -824,9 +785,9 @@ def main():
 
 if __name__ == "__main__":
     from datetime import datetime
-import logging
+    import logging
 
-logger = logging.getLogger(__name__)
+    logger = logging.getLogger(__name__)
     start_time = datetime.now()
     try:
         main()
@@ -836,4 +797,3 @@ logger = logging.getLogger(__name__)
         completion_timestamp = end_time.strftime("%Y-%m-%d %H:%M:%S")
         duration = (end_time - start_time).total_seconds()
         print(f"[{completion_timestamp}] HL7v2 CLI operation completed in {duration:.3f} seconds", file=sys.stderr)
-
