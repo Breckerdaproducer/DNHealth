@@ -34,12 +34,19 @@ classifiers = [
 ]
 
 dependencies = [
-    # Minimal runtime dependencies - standard library preferred
-    # lxml is optional but recommended for robust XML handling
+    "requests>=2.31.0",
 ]
 
 [project.optional-dependencies]
 xml = ["lxml>=4.9.0"]
+server = ["flask>=2.3.0"]
+dev = [
+    "build>=1.0.0",
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-timeout>=2.2.0",
+    "twine>=4.0.0",
+]
 
 [project.scripts]
 hl7v2tool = "dnhealth.dnhealth_hl7v2.cli:main"
@@ -89,4 +96,3 @@ directory = "htmlcov"
 
 [tool.coverage.xml]
 output = "coverage.xml"
-

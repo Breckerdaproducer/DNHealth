@@ -37,9 +37,6 @@ ENV/
 *~
 .DS_Store
 
-# GitHub
-.github/
-
 # Testing
 .pytest_cache/
 .coverage
@@ -50,8 +47,6 @@ coverage.xml
 .hypothesis/
 *.cover
 *.log
-
-# Tests folder
 tests/
 .test/
 
@@ -62,7 +57,7 @@ tests/
 .cache/
 .dnai/
 
-# Documentation
+# Documentation payloads
 docs/
 wiki/
 
@@ -70,4 +65,3 @@ wiki/
 *.tmp
 *.bak
 *.swp
-
