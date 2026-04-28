@@ -309,3 +309,7 @@ def parse_hl7v3(
         logger.error(f"[{current_time}] {error_msg} (elapsed: {elapsed:.2f}s)")
         raise HL7v3ParseError(error_msg) from e
 
+
+def parse_message(xml_string: str, **kwargs) -> Message:
+    """Compatibility alias for parsing an HL7 v3 message."""
+    return parse_hl7v3(xml_string, **kwargs)

@@ -123,8 +123,8 @@ class TransmissionWrapper:
     creation_time: TS  # Required
     interaction_id: II  # Required
     sender: TransmissionParty  # Required
-    receiver: List[TransmissionParty] = field(default_factory=list)  # Required, at least one
     control_act_wrapper: ControlActWrapper  # Required
+    receiver: List[TransmissionParty] = field(default_factory=list)  # Required, at least one
     version_code: Optional[CS] = None  # Optional
     processing_mode_code: Optional[CS] = None  # Optional
     processing_code: Optional[CS] = None  # Optional
